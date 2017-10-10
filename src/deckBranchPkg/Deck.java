@@ -5,6 +5,7 @@ import java.util.Collections;
 
 public class Deck {
 	ArrayList<String> deckList;
+	//Player player; Do this in Main class
 	
 	//Non-descripts
 	int rainbowRalphingCatNum = 4;
@@ -24,6 +25,7 @@ public class Deck {
 	int nopeNum = 5;
 	
 	public Deck (int explodingKittenNumber) {
+		//player = new Player(); Do this in main class
 		explodingKittenNum=explodingKittenNumber;
 		deckList = new ArrayList<String>();
 		//Action Cards
@@ -74,5 +76,10 @@ public class Deck {
 	}
 	public void shuffle() {
 		Collections.shuffle(deckList);
+	}
+	public void draw() {
+		String topCard = deckList.get(0);
+		deckList.remove(topCard);
+		Main.player.hand.add(topCard); //For when Player player is constructed in Main
 	}
 }
