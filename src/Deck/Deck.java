@@ -3,8 +3,6 @@ package Deck;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import javax.smartcardio.Card;
-
 import card.*;
 import cardPackage.*;
 
