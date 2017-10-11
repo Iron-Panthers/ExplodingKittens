@@ -59,9 +59,6 @@ public class Player {
 	public void playerNope() {
 		
 	}
-	public void loseCard() {
-		hand.remove(card);
-	}
 	public void explodes() {
 		numPlayers.remove(numPlayers.get(playerNum));
 	}
