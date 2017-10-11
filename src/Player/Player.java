@@ -41,6 +41,7 @@ public class Player {
 		}
 	}
 	public Card choseCard() {
+		//boolean hasCard = false;
 		while(!isCardInHand(chosenCard)) {
 			System.out.println("What card would you like to chose?");
 			Card chosenCard = convertToCardType(input.nextLine());
@@ -48,6 +49,7 @@ public class Player {
 				System.out.println("Playing "+chosenCard+" .");
 				hand.remove(chosenCard);
 				Main.deck.discard(chosenCard);
+				//hasCard = true;
 			} else {
 				System.out.println("You do not have "+chosenCard+" in your hand.");
 			}
