@@ -3,9 +3,6 @@ package Player;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-/*
- *  Is card in hand method
- */
 public class Player {
 	
 	public Scanner input = new Scanner(System.in);
@@ -43,21 +40,18 @@ public class Player {
 			System.out.println(hand.get(i));
 		}
 	}
-	public void useCard() {
-		System.out.println("What card would you like to use?");
-		Card chosenCard = input.nextLine();
-		if (hand.contains(chosenCard)) {
-			System.out.println("Playing "+chosenCard+" .");
-			hand.remove(chosenCard);
-			Main.deck.discard(chosenCard);
-		} else {
-			System.out.println("You do not have "+playedCard+" in your hand.");
-		}	
-	}
 	public Card choseCard() {
-		System.out.println("What card would you like to chose?");
-		Card chosenCard = convertToCardType(input.nextLine());
-		if 
+		while(!isCardInHand(chosenCard)) {
+			System.out.println("What card would you like to chose?");
+			Card chosenCard = convertToCardType(input.nextLine());
+			if (isCardInHand(chosenCard)) {
+				System.out.println("Playing "+chosenCard+" .");
+				hand.remove(chosenCard);
+				Main.deck.discard(chosenCard);
+			} else {
+				System.out.println("You do not have "+chosenCard+" in your hand.");
+			}
+		}
 	}
 //	public void favor() {
 //		System.out.println("What card would you like to give? Type the card name to give or nope to counter the favor.");
