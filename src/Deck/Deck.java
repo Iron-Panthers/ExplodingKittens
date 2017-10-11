@@ -3,6 +3,8 @@ package Deck;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import javax.smartcardio.Card;
+
 import card.*;
 
 public class Deck {
@@ -103,5 +105,10 @@ public class Deck {
 	}
 	public boolean checkDiscard(Card card) {
 		return discardPile.contains(card);
+	}
+	public void showDiscard() {
+		for (int i = 0; i<discardPile.size(); i++) {
+			System.out.println(discardPile.get(i));
+		}
 	}
 }
