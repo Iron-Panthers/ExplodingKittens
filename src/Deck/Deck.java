@@ -58,7 +58,7 @@ public class Deck {
 		NOPE
 	}
 	public void fill(cardType type, int count) {
-		for (int i; i<count; i++) {
+		for (int i=0; i<count; i++) {
 			deckList.add(type);
 		}
 	}
