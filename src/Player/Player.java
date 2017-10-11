@@ -3,11 +3,14 @@ package Player;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-//make each plaer's hand separate. Construct 4 separate hands. Distinguish between the player who is currently playing.
+/*make each plaer's hand separate. 
+ * Construct 4 separate hands. 
+ * Distinguish between the player who is currently playing.
+ *  Is card in hand method
+ */
 public class Player {
 	
 	public Scanner input = new Scanner(System.in);
-	public ArrayList<String> players;
 	public int playerNum = 1;
 	public int turns = 1;
 	public ArrayList<Card> hand;
@@ -81,8 +84,5 @@ public class Player {
 			}
 			
 		}
-	}
-	public void explodes() {
-		players.remove(players.get(playerNum));
 	}
 }
