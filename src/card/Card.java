@@ -6,6 +6,17 @@ public class Card {
 	public Card(CardType type) {
 		this.type = type;
 	}
+	
+	public CardType convertToString(String str) {
+		// ex: NOPe
+		
+		for (int i = 0; i < CardType.values().length; i++) {
+			if (CardType.valueOf(str.toUpperCase()) == CardType.values()[i]) {
+				return CardType.values()[i];
+			}
+		}
+		return null;
+	}
 	/*
 	boolean turnOver;
 	
