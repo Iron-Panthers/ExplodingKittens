@@ -6,6 +6,7 @@ import java.util.Collections;
 import javax.smartcardio.Card;
 
 import card.*;
+import cardPackage.*;
 
 public class Deck {
 	public ArrayList<Card> deckList;
