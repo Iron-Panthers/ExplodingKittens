@@ -101,4 +101,7 @@ public class Deck {
 	public void discard(CardTypes card) {
 		discardPile.add(card);
 	}
+	public boolean checkDiscard(Card card) {
+		return discardPile.contains(card);
+	}
 }
