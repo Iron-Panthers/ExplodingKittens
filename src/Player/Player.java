@@ -17,32 +17,27 @@ public class Player {
 	public boolean hasCard;
 	public Player() {
 		hand = new ArrayList<Card>();
-		players = new ArrayList<String>();
 	}
 	
 	public void turn() {
-		turns = 1;
-		for (int i = 0; i < turns; i++) {
-			System.out.println("What would you like to do, Player "+playerNum+"? Type usecard to use a card, showhand to see your hand, and endturn to draw and end your turn.");
-			if(input.nextLine().equalsIgnoreCase("usecard")) {
-				Main.player.useCard();
-			}
-			if(input.nextLine().equalsIgnoreCase("showhand")) {
-				Main.player.showHand();
-			}
-			if(input.nextLine().equalsIgnoreCase("endturn")) {
-				Main.player.endTurn();
+		while (turns > 0) {
+			for (int i = 0; i < turns; i++) {
+				System.out.println("What would you like to do, Player "+playerNum+"? Type usecard to use a card, showhand to see your hand, and endturn to draw and end your turn.");
+				if(input.nextLine().equalsIgnoreCase("usecard")) {
+					Main.player.useCard();
+				}
+				if(input.nextLine().equalsIgnoreCase("showhand")) {
+					Main.player.showHand();
+				}
+				if(input.nextLine().equalsIgnoreCase("endturn")) {
+					Main.player.endTurn();
+				}
 			}
 		}
 	}
 	public void endTurn() {
 		hand.add(Main.deck.topCard());
-		if (playerNum < players.size()) {
-			playerNum++;
-		} else {
-			playerNum = 1;
-		}
-	
+		turns--;
 	}
 	public void showHand() {
 		for (int i = 0; i < hand.size(); i++) {
