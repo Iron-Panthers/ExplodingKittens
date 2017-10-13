@@ -66,8 +66,6 @@ public class Main{
 	}
 	public void nope(Player noper, Player victim) {
 		//Targets a card that targets the noper
-		//the victim in some cases is the current player's turn -1
-		//need to make array containing noped cards, nopes, and players who played nopes
 	}
 	public void defuse(Player defuser) {
 		Card drawnCard;
