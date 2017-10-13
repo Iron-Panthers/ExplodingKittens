@@ -21,8 +21,8 @@ public class Main{
 				.showHand;
 			}
 		}
-		if(1==1/* checks player alive in array of players */) {
-			lastPlayerAlive = 0 /* the only player alive */;
+		if(Players.length==1) {
+			System.out.println(Players[0]+" Won!!!");
 		}
 	}
 	
