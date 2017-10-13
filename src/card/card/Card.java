@@ -10,11 +10,12 @@ public class Card {
 	}
 	
 	public CardType convert(String card) {
-		for (int = 0; i < CardType.values().length; i++) {
-			if (CardType.valueof(card.toUpperCase()) == CardType.values()[i]) {
+		for (int i = 0; i < CardType.values().length; i++) {
+			if (CardType.valueOf(card.toUpperCase()) == CardType.values()[i]) {
 				return CardType.values()[i];
 			}
 		}
+		
 	}
 	
 }
