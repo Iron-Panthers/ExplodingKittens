@@ -3,6 +3,8 @@ package Main;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import javax.smartcardio.Card;
+
 import CardPackage.*;
 import Deck.Deck;
 import Player.*;
@@ -101,7 +103,17 @@ public class Main{
 		}
 	}
 	public void seeTheFuture(Player cardViewer) {
-		
+		ArrayList<Card> tempView = new ArrayList<Card>();
+		int tempViewReturn = 3;
+		for (int i = 0; i<3; i++) {
+			tempView.add(deck.topCard());
+			System.out.println(tempView.get(i));
+		}
+		while(tempView.size()>0) {
+			tempViewReturn--;
+			deck.deckList.add(tempView.get(tempViewReturn));
+		}
+		System.out.println("See the future is now over");
 	}
 	public void draw(Player drawer) {
 		Card drawnCard = deck.topCard();
