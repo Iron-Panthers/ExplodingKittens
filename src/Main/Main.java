@@ -75,9 +75,24 @@ public class Main{
 		if (usrInput.equalsIgnoreCase("defuse")) {
 			if (exploder.hand.contains(Card defuse)) {
 				System.out.println("Where would you like to place the exploding kitten?");
-				//System.out.println("You can place the exploding kitten anywhere in the deck from the top, 0, to "+deck.deckList.size()-1);
+				int deckSizeMinusOne = deck.deckList.size()-1;
+				System.out.println("You can place the exploding kitten anywhere in the deck from the top, 0, to "+deckSizeMinusOne);
+				while(!input.hasNextInt()) {
+					System.out.println("Please enter an integer from 0 to"+deckSizeMinusOne);
+				}
+				int deckLocation = input.nextInt();
+				deck.deckList.add(deckLocation, Card explodingKitten);
+				exploder.hand.remove(Card defuse);
+				deck.discard(Card defuse);
 			}
 		}
+		else {
+			System.out.println("You die");
+			players.remove(exploder);
+		}
+	}
+	public void seeTheFuture(Player cardViewer) {
+		
 	}
 	public void draw(Player drawer) {
 		drawer.hand.add(deck.topCard());
