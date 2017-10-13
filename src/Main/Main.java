@@ -25,10 +25,10 @@ public class Main{
 			players.add(playerName);
 		}
 		while (playersAlive > 1) {
-			for (i = 4; i < ) {
-				.showHand;
-				.turn
+			for (int i = 0; i < players.size(); i++) {
+				players.get(i).turn();
 			}
+			
 		}
 		if(Players.length==1) {
 			System.out.println(Players[0]+" Won!!!");
