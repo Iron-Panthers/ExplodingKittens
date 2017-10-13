@@ -1,6 +1,8 @@
 package Main;
 
 import Deck.Deck;
+import CardPackage.*;
+import Player.*;
 
 public class Main{
 	static int numPlayers = 4;
@@ -8,5 +10,23 @@ public class Main{
 	static Deck deck;
 	public static void main(String[] args) {
 		deck = new Deck(explodingKittenNum);
+		for (int i = 0; i<numPlayers; i++) {
+			String playerName = "player"+i;
+			static Player playerName = new Player();
+		}
 	}
+	public void shuffle() {
+		deck.shuffle();
+	}
+	public void skip() {
+		//Does Stuff
+		//Ends turn, no draw
+	}
+	public void attack() {
+		//Ends turn, next player must take two turns
+	}
+	public void favor() {
+		
+	}
+	
 }
