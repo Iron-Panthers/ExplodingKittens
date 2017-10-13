@@ -16,6 +16,7 @@ public class Player {
 	}
 	
 	public void turn() {
+		turns = +1;
 		while (turns > 0) {
 			System.out.println("What would you like to do, Player "+playerNum+"? Type usecard to use a card, showhand to see your hand, and endturn to draw and end your turn.");
 			if(input.nextLine().equalsIgnoreCase("usecard")) {
