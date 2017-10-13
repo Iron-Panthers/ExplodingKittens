@@ -16,9 +16,10 @@ public class Main{
 			static Player playerName = new Player();
 		}
 		while (playersAlive > 1) {
-			
+			for (i = ) {
+				.showHand;
+			}
 		}
-		
 	}
 	public void favor() {
 		System.out.println("What card would you like to give? Type the card name to give or nope to counter the favor.");
