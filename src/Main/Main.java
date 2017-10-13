@@ -9,8 +9,9 @@ public class Main{
 	static int explodingKittenNum = numPlayers-1;
 	static Deck deck;
 	static int playersAlive = numPlayers;
+	static int lastPlayerAlive;
 	public static void main(String[] args) {
-		deck = new Deck(explodingKittenNum);
+		deck = new Deck(explodingKittenNum);4
 		for (int i = 0; i<numPlayers; i++) {
 			String playerName = "player"+i;
 			static Player playerName = new Player();
@@ -18,8 +19,11 @@ public class Main{
 		while (playersAlive > 1) {
 			
 		}
-		
+		if(1==1/* checks player alive in array of players */) {
+			lastPlayerAlive = 0 /* the only player alive */;
+		}
 	}
+	
 	public void favor() {
 		System.out.println("What card would you like to give? Type the card name to give or nope to counter the favor.");
 		Card chosenCard = input.nextLine();
