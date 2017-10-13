@@ -1,5 +1,6 @@
 package Main;
-
+//Main.attack;
+//Main.attack();
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -10,7 +11,7 @@ import Deck.Deck;
 import Player.*;
 
 public class Main{
-	public static boolean attack = false;
+	public static boolean attack;
 	static int numPlayers = 4;
 	static int explodingKittenNum = numPlayers-1;
 	static Deck deck;
@@ -19,6 +20,7 @@ public class Main{
 	static ArrayList<Player> players;
 	static Scanner input;
 	public static void main(String[] args) {
+		attack = false;
 		input = new Scanner(System.in);
 		deck = new Deck(explodingKittenNum);
 		players = new ArrayList<Player>();
