@@ -28,10 +28,9 @@ public class Main{
 			for (int i = 0; i < players.size(); i++) {
 				players.get(i).turn();
 			}
-			
 		}
-		if(Players.length==1) {
-			System.out.println(Players[0]+" Won!!!");
+		if(players.length==1) {
+			System.out.println(Player[0]+" Won!!!");
 		}
 	}
 	
