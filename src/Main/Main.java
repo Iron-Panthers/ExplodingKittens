@@ -69,6 +69,7 @@ public class Main{
 		defuser.endTurn();
 		defuser.remove();
 		deck.discard(cardTypes.defuse);
+		System.out.println("You have been saved.");
 	}
 	public void explode(Player exploder) { //NOT FINISHED
 		System.out.println("You have drawn an exploding kitten. Type 'defuse' to defuse, type 'ok' to die");
