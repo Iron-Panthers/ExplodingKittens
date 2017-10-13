@@ -17,8 +17,9 @@ public class Card {
 		}
 		return null;
 	}
-	/*
-	boolean turnOver;
+
+	/**
+	  boolean turnOver;
 	
 	public void playCard(int cardNumber) {
 		
@@ -43,7 +44,7 @@ public class Card {
 
 	public void skip() {
 		turnOver = true;
-	}*/
+	}**/
 }
 
 // Card bomb = new Card(CardType.EXPLODING_KITTEN);
