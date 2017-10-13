@@ -52,6 +52,7 @@ public class Main{
 	}
 	public void shuffle() {
 		deck.shuffle();
+		System.out.println("You have succesfuly randomly shuffled the deck");
 	}
 	public void skip(Player skipper) {
 		skipper.endTurn();
