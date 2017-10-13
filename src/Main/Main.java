@@ -28,10 +28,9 @@ public class Main{
 			for (int i = 0; i < players.size(); i++) {
 				players.get(i).turn();
 			}
-			
 		}
-		if(Players.length==1) {
-			System.out.println(Players[0]+" Won!!!");
+		if(players.length==1) {
+			System.out.println(Player[0]+" Won!!!");
 		}
 	}
 	
@@ -68,6 +67,24 @@ public class Main{
 		//Targets a card that targets the noper
 	}
 	public void defuse(Player defuser) {
+		Card drawnCard;
+		int drawnCardIndex = 0;
+		for (int i = 0; i<defuser.hand.size(); i++) {
+			drawnCardIndex++;
+		}
+		drawnCard = defuser.hand.get(drawnCardIndex);
+		if (defuser.hand.contains(Card defuse)) {
+			System.out.println("Where would you like to place the card");
+			int deckSizeMinusOne = deck.deckList.size()-1;
+			System.out.println("You can place the card anywhere in the deck from the top, 0, to "+deckSizeMinusOne);
+			while(!input.hasNextInt()) {
+				System.out.println("Please enter an integer from 0 to"+deckSizeMinusOne);
+			}
+			int deckLocation = input.nextInt();
+			deck.deckList.add(deckLocation, Card drawnCard);
+			exploder.hand.remove(Card defuse);
+			deck.discard(Card defuse);
+		}
 		defuser.endTurn();
 		defuser.remove();
 		deck.discard(cardTypes.defuse);
@@ -77,18 +94,7 @@ public class Main{
 		System.out.println("You have drawn an exploding kitten. Type 'defuse' to defuse, type 'ok' to die");
 		String usrInput = input.nextLine();
 		if (usrInput.equalsIgnoreCase("defuse")) {
-			if (exploder.hand.contains(Card defuse)) {
-				System.out.println("Where would you like to place the exploding kitten?");
-				int deckSizeMinusOne = deck.deckList.size()-1;
-				System.out.println("You can place the exploding kitten anywhere in the deck from the top, 0, to "+deckSizeMinusOne);
-				while(!input.hasNextInt()) {
-					System.out.println("Please enter an integer from 0 to"+deckSizeMinusOne);
-				}
-				int deckLocation = input.nextInt();
-				deck.deckList.add(deckLocation, Card explodingKitten);
-				exploder.hand.remove(Card defuse);
-				deck.discard(Card defuse);
-			}
+			defuse(exploder);
 		}
 		else {
 			System.out.println("You die");
@@ -99,6 +105,13 @@ public class Main{
 		
 	}
 	public void draw(Player drawer) {
-		drawer.hand.add(deck.topCard());
+		Card drawnCard = deck.topCard();
+		drawer.hand.add(drawnCard);
+		if (drawnCard = explodingKitten) {
+			explode(drawer);
+		}
+		else {
+			//Does Nothing
+		}
 	}
 }
