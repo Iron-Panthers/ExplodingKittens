@@ -18,6 +18,10 @@ public class Main{
 		while (playersAlive > 1) {
 			
 		}
+=======
+		
+		//command to figue out who won goes inside a while loop
+>>>>>>> Stashed changes
 	}
 	public void shuffle() {
 		deck.shuffle();
