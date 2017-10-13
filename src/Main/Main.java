@@ -19,7 +19,7 @@ public class Main{
 		input = new Scanner(System.in);
 		deck = new Deck(explodingKittenNum);
 		players = new ArrayList<Player>();
-		for (int i = 0; i<numPlayers; i++) {
+		for (int i = 0; i < numPlayers; i++) {
 			String playerName = "player"+i;
 			static Player playerName = new Player();
 			players.add(playerName);
