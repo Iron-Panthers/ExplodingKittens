@@ -10,6 +10,7 @@ import Deck.Deck;
 import Player.*;
 
 public class Main{
+	public static boolean attack = false;
 	static int numPlayers = 4;
 	static int explodingKittenNum = numPlayers-1;
 	static Deck deck;
@@ -29,6 +30,10 @@ public class Main{
 		while (playersAlive > 1) {
 			for (int i = 0; i < players.size(); i++) {
 				players.get(i).turn();
+				if (attack) {
+					i++;
+					attack = false;
+				}
 			}
 		}
 		if(players.length==1) {
@@ -58,7 +63,9 @@ public class Main{
 	public void skip(Player skipper) {
 		skipper.endTurn();
 	}
-	public void attack(Player attacker) {
+	public boolean attack(Player attacker) {
+		attack = true;
+		return attack;
 		//Ends turn, next player must take two turns
 	}
 	public void favor(Player targeter, Player victim) {
