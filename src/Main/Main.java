@@ -19,7 +19,7 @@ public class Main{
 		input = new Scanner(System.in);
 		deck = new Deck(explodingKittenNum);
 		players = new ArrayList<Player>();
-		for (int i = 0; i<numPlayers; i++) {
+		for (int i = 0; i < numPlayers; i++) {
 			String playerName = "player"+i;
 			static Player playerName = new Player();
 			players.add(playerName);
@@ -52,6 +52,7 @@ public class Main{
 	}
 	public void shuffle() {
 		deck.shuffle();
+		System.out.println("You have succesfuly randomly shuffled the deck");
 	}
 	public void skip(Player skipper) {
 		skipper.endTurn();
