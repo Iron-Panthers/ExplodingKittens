@@ -12,6 +12,7 @@ public class Main{
 	static int explodingKittenNum = numPlayers-1;
 	static Deck deck;
 	static int playersAlive = numPlayers;
+	static int lastPlayerAlive;
 	static ArrayList<Player> players;
 	static Scanner input;
 	public static void main(String[] args) {
@@ -24,7 +25,29 @@ public class Main{
 			players.add(playerName);
 		}
 		while (playersAlive > 1) {
-			
+			for (i = 4; i < ) {
+				.showHand;
+				.turn
+			}
+		}
+		if(Players.length==1) {
+			System.out.println(Players[0]+" Won!!!");
+		}
+	}
+	
+	public void favor() {
+		System.out.println("What card would you like to give? Type the card name to give or nope to counter the favor.");
+		Card chosenCard = input.nextLine();
+		if (input.nextLine().equalsIgnoreCase("nope") && isCardInHand(chosenCard)) {
+			System.out.println("Favor countered");
+			hand.remove(chosenCard);
+			Main.deck.discard(chosenCard);
+		} else if (hand.contains(chosenCard)) {
+			System.out.println("Giving "+chosenCard+" .");
+			hand.remove(chosenCard);
+			Main.deck.discard(chosenCard);
+		} else {
+			System.out.println("You do not have "+chosenCard+" in your hand.");
 		}
 	}
 	public void shuffle() {
