@@ -18,6 +18,22 @@ public class Main{
 		while (playersAlive > 1) {
 			
 		}
+		
+	}
+	public void favor() {
+		System.out.println("What card would you like to give? Type the card name to give or nope to counter the favor.");
+		Card chosenCard = input.nextLine();
+		if (input.nextLine().equalsIgnoreCase("nope") && isCardInHand(chosenCard)) {
+			System.out.println("Favor countered");
+			hand.remove(chosenCard);
+			Main.deck.discard(chosenCard);
+		} else if (hand.contains(chosenCard)) {
+			System.out.println("Giving "+chosenCard+" .");
+			hand.remove(chosenCard);
+			Main.deck.discard(chosenCard);
+		} else {
+			System.out.println("You do not have "+chosenCard+" in your hand.");
+		}
 	}
 	public void shuffle() {
 		deck.shuffle();
