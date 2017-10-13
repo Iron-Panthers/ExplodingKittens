@@ -11,14 +11,15 @@ public class Main{
 	static int playersAlive = numPlayers;
 	static int lastPlayerAlive;
 	public static void main(String[] args) {
-		deck = new Deck(explodingKittenNum);4
-		for (int i = 0; i<numPlayers; i++) {
+		deck = new Deck(explodingKittenNum);
+		for (int i = 0; i < numPlayers; i++) {
 			String playerName = "player"+i;
 			static Player playerName = new Player();
 		}
 		while (playersAlive > 1) {
-			for (i = ) {
+			for (i = 4; i < ) {
 				.showHand;
+				.turn
 			}
 		}
 		if(Players.length==1) {
