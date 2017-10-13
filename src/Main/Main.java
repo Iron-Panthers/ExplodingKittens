@@ -25,10 +25,10 @@ public class Main{
 			players.add(playerName);
 		}
 		while (playersAlive > 1) {
-			for (i = 4; i < ) {
-				.showHand;
-				.turn
+			for (int i = 0; i < players.size(); i++) {
+				players.get(i).turn();
 			}
+			
 		}
 		if(Players.length==1) {
 			System.out.println(Players[0]+" Won!!!");
@@ -54,8 +54,7 @@ public class Main{
 		deck.shuffle();
 	}
 	public void skip(Player skipper) {
-		//Does Stuff
-		//Ends turn, no draw
+		skipper.endTurn();
 	}
 	public void attack(Player attacker) {
 		//Ends turn, next player must take two turns
@@ -67,7 +66,10 @@ public class Main{
 		//Targets a card that targets the noper
 	}
 	public void defuse(Player defuser) {
-		
+		defuser.endTurn();
+		defuser.remove();
+		deck.discard(cardTypes.defuse);
+		System.out.println("You have been saved.");
 	}
 	public void explode(Player exploder) { //NOT FINISHED
 		System.out.println("You have drawn an exploding kitten. Type 'defuse' to defuse, type 'ok' to die");
