@@ -58,6 +58,7 @@ public class Main{
 	}
 	public void attack(Player attacker) {
 		//Ends turn, next player must take two turns
+		attacker.endTurn();
 	}
 	public void favor(Player targeter, Player victim) {
 		//Targets a player, who chooses a card and gives it back to the targeter
