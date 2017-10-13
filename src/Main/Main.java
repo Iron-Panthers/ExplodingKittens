@@ -17,7 +17,9 @@ public class Main{
 			static Player playerName = new Player();
 		}
 		while (playersAlive > 1) {
-			
+			for (i = ) {
+				.showHand;
+			}
 		}
 		if(1==1/* checks player alive in array of players */) {
 			lastPlayerAlive = 0 /* the only player alive */;
