@@ -51,8 +51,6 @@ public class Main{
 	public void attack() {
 		//Ends turn, next player must take two turns
 	}
-	public void favor() {
-		
-	}
+	
 	
 }
