@@ -58,7 +58,7 @@ public class Main{
 			} else if (victim.hand.contains(chosenCard)) {
 				System.out.println("Giving "+chosenCard+" .");
 				victim.hand.remove(chosenCard);
-				deck.discard(chosenCard);
+				targeter.hand.add(chosenCard);
 				targeter.hand.remove(deck.favor);
 				deck.discard(deck.favor);
 				choosing = false;
@@ -79,9 +79,6 @@ public class Main{
 		return attack;
 		//Ends turn, next player must take two turns
 		attacker.endTurn();
-	}
-	public void favor(Player targeter, Player victim) {
-		//Targets a player, who chooses a card and gives it back to the targeter
 	}
 	public void nope(Player noper, Player victim) {
 		//Targets a card that targets the noper
