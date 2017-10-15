@@ -37,14 +37,14 @@ public class Deck {
 	Card catterMelon;
 	
 	//Action Card Instance Variables
-	Card explodingKitten;
-	Card seeTheFuture;
-	Card shuffle;
-	Card defuse;
-	Card attack;
-	Card skip;
-	Card favor;
-	Card nope;
+	public Card explodingKitten;
+	public Card seeTheFuture;
+	public Card shuffle;
+	public Card defuse;
+	public Card attack;
+	public Card skip;
+	public Card favor;
+	public Card nope;
 	
 	public Deck (int explodingKittenNumber) {
 		//player = new Player(); Do this in main class
@@ -100,8 +100,8 @@ public class Deck {
 			deckList.add(type);
 		}
 	}
-	public void discard(CardTypes card) {
-		discardPile.add(card);
+	public void discard(Card type) {
+		discardPile.add(type);
 	}
 	public boolean checkDiscard(Card card) {
 		return discardPile.contains(card);
