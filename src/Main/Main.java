@@ -125,14 +125,14 @@ public class Main{
 		}
 		while(tempView.size()>0) {
 			tempViewReturn--;
-			deck.deckList.add(tempView.get(tempViewReturn));
+			deck.deckList.add(0,tempView.get(tempViewReturn));
 		}
 		System.out.println("See the future is now over");
 	}
 	public void draw(Player drawer) {
 		Card drawnCard = deck.topCard();
 		drawer.hand.add(drawnCard);
-		if (drawnCard = explodingKitten) {
+		if (drawnCard.equals(deck.explodingKitten)) {
 			explode(drawer);
 		}
 		else {
@@ -148,7 +148,7 @@ public class Main{
 	}
 	public void endTurnNoDraw(Player skipper) { //Ends turn but places back card player would have drawn normally in the endTurn method. Possibly needs to be added in the 0 location in the deck
 		skipper.endTurn();
-		deck.deckList.add(getDrawnCard(skipper));  
+		deck.deckList.add(0,getDrawnCard(skipper));  
 		skipper.hand.remove(getDrawnCard(skipper));
 	}
 }
