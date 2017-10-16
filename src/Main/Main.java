@@ -3,9 +3,6 @@ package Main;
 //Main.attack();
 import java.util.ArrayList;
 import java.util.Scanner;
-
-import javax.smartcardio.Card;
-
 import CardPackage.*;
 import Deck.Deck;
 import Player.*;
@@ -14,15 +11,14 @@ public class Main{
 	public static boolean attack;
 	static int numPlayers = 4;
 	static int explodingKittenNum = numPlayers-1;
-	
-	//Constructors
-	static Deck deck;
-	
-	
 	static int playersAlive = numPlayers;
 	static int lastPlayerAlive;
 	static ArrayList<Player> players;
+
+	//Constructors
+	static Deck deck;
 	static Scanner input;
+	
 	public static void main(String[] args) {
 		attack = false;
 		input = new Scanner(System.in);
