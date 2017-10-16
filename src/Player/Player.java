@@ -21,11 +21,11 @@ public class Player {
 	
 	public void turn() {
 		turns = 1;
+		if (Main.attack) {
+			turns += 2;
+			Main.attack = false;
+		}
 		while (turns > 0) {
-			if (Main.attack) {
-				turns += 2;
-				Main.attack = false;
-			}
 			System.out.println("What would you like to do? Type usecard to use a card, showhand to see your hand, and endturn to draw and end your turn.");
 			if(input.nextLine().equalsIgnoreCase("usecard")) {
 				choseCard();
