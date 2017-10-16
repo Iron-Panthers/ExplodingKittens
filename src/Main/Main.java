@@ -32,11 +32,13 @@ public class Main{
 		}
 		while (playersAlive > 1) {
 			for (int i = 0; i < players.size(); i++) {
-				players.get(i).turn();
-				if (attack) {  //This will not work because attack is always true so it will always skip that players turn
-					i++;
+				while (players.get(i).turns > 0) {
+					players.get(i).turn();
+					if (attack) {  
+						i++;
+					}
+					player.get(i).endTurn();
 				}
-				player.get(i).endTurn();
 			}
 		}
 		if(players.size()==1) {
@@ -79,8 +81,8 @@ public class Main{
 		attack = true;
 		//Ends turn, next player must take two turns
 	}
-	public void nope(Player noper, Player victim) {
-		//Targets a card that targets the noper
+	public void nope(Player noper, Player victim) { //Targets a card that targets the noper
+		
 	}
 	public void defuse(Player defuser) { //Works for any card, not just exploding kittens
 		Card drawnCard;
@@ -149,5 +151,8 @@ public class Main{
 		skipper.endTurn();
 		deck.deckList.add(0,getDrawnCard(skipper));  
 		skipper.hand.remove(getDrawnCard(skipper));
+	}
+	public void pair(Player player, Card nonDescript) {
+		
 	}
 }
