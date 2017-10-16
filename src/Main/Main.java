@@ -3,9 +3,9 @@ package Main;
 //Main.attack();
 import java.util.ArrayList;
 import java.util.Scanner;
-import CardPackage.*;
 import Deck.Deck;
 import Player.*;
+import card.Card;
 
 public class Main{
 	public static boolean attack;

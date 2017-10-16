@@ -2,7 +2,9 @@ package Deck;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import card.*;
+
+import card.Card;
+import card.CardType;
 
 public class Deck {
 	public ArrayList<Card> deckList;
@@ -46,21 +48,21 @@ public class Deck {
 	public Deck (int explodingKittenNumber) {
 		//player = new Player(); Do this in main class
 		//Non-descript Constructs
-		rainbowRalphingCat = new Card(CardTypes.RAINBOWRALPHINGCAT);
-		hairyPotatoCat = new Card(CardTypes.HAIRYPOTATOCAT);
-		beardCat = new Card(CardTypes.BEARDCAT);
-		tacoCat = new Card(CardTypes.TACOCAT);
-		catterMelon = new Card(CardTypes.CATTERMELON);
+		rainbowRalphingCat = new Card(CardType.RAINBOW_RALPHING_CAT);
+		hairyPotatoCat = new Card(CardType.HAIRY_POTATO_CAT);
+		beardCat = new Card(CardType.BEARD_CAT);
+		tacoCat = new Card(CardType.TACOCAT);
+		catterMelon = new Card(CardType.CATTERMELON);
 		
 		//Action Card Constructs
-		explodingKitten = new Card(CardTypes.EXPLODINGKITTEN);
-		seeTheFuture = new Card(CardTypes.SEETHEFUTURE);
-		shuffle = new Card(CardTypes.SHUFFLE);
-		defuse = new Card(CardTypes.DEFUSE);
-		attack = new Card(CardTypes.ATTACK);
-		skip = new Card(CardTypes.SKIP);
-		favor = new Card(CardTypes.FAVOR);
-		nope = new Card(CardTypes.NOPE);
+		explodingKitten = new Card(CardType.EXPLODING_KITTEN);
+		seeTheFuture = new Card(CardType.SEE_THE_FUTURE);
+		shuffle = new Card(CardType.SHUFFLE);
+		defuse = new Card(CardType.DEFUSE);
+		attack = new Card(CardType.ATTACK);
+		skip = new Card(CardType.SKIP);
+		favor = new Card(CardType.FAVOR);
+		nope = new Card(CardType.NOPE);
 		
 		explodingKittenNum=explodingKittenNumber;
 		deckList = new ArrayList<Card>();
