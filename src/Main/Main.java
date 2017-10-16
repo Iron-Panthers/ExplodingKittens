@@ -7,6 +7,7 @@ import java.util.Scanner;
 import Deck.Deck;
 import Player.Player;
 import card.Card;
+import card.CardType;
 
 public class Main{
 	public static boolean attack;
@@ -53,7 +54,7 @@ public class Main{
 		System.out.println("What card would you like to give? Type the card name to give or nope to counter the favor.");
 		boolean choosing = true;
 		while(choosing) {	
-			Card chosenCard = Card.convertToCardType.input.nextLine();
+			CardType chosenCard = Card.convertToCardType(input.nextLine());
 			if (input.nextLine().equalsIgnoreCase("nope") && victim.hand.contains(chosenCard)) {
 				System.out.println("Favor countered");
 				victim.hand.remove(chosenCard);
