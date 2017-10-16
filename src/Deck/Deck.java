@@ -2,9 +2,6 @@ package Deck;
 
 import java.util.ArrayList;
 import java.util.Collections;
-
-import javax.smartcardio.Card;
-
 import card.*;
 
 public class Deck {

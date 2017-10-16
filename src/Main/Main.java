@@ -14,7 +14,11 @@ public class Main{
 	public static boolean attack;
 	static int numPlayers = 4;
 	static int explodingKittenNum = numPlayers-1;
+	
+	//Constructors
 	static Deck deck;
+	
+	
 	static int playersAlive = numPlayers;
 	static int lastPlayerAlive;
 	static ArrayList<Player> players;
@@ -25,8 +29,9 @@ public class Main{
 		deck = new Deck(explodingKittenNum);
 		players = new ArrayList<Player>();
 		for (int i = 0; i < numPlayers; i++) {
+			//Make variable temp? Set it to player+num
 			//String playerName = "player"+i; //Does not work, cannot make a string used as the player constructer.
-			Player i = new Player(); //Trying to make 
+			Player temp = new Player(); //Trying to make 
 			players.add(i);
 		}
 		while (playersAlive > 1) {
@@ -34,8 +39,8 @@ public class Main{
 				players.get(i).turn();
 				if (attack) {  //This will not work because attack is always true so it will always skip that players turn
 					i++;
-					attack = false;
 				}
+				player.get(i).endTurn();
 			}
 		}
 		if(players.size()==1) {
@@ -47,7 +52,7 @@ public class Main{
 		System.out.println("What card would you like to give? Type the card name to give or nope to counter the favor.");
 		boolean choosing = true;
 		while(choosing) {	
-			Card chosenCard = input.nextLine();
+			Card chosenCard = card.input.nextLine();
 			if (input.nextLine().equalsIgnoreCase("nope") && victim.hand.contains(chosenCard)) {
 				System.out.println("Favor countered");
 				victim.hand.remove(chosenCard);
@@ -74,10 +79,9 @@ public class Main{
 	public void skip(Player skipper) {
 		endTurnNoDraw(skipper);
 	}
-	public void attack(Player attacker) {
+	public void attack() {
 		attack = true;
 		//Ends turn, next player must take two turns
-		attacker.endTurn();
 	}
 	public void nope(Player noper, Player victim) {
 		//Targets a card that targets the noper
