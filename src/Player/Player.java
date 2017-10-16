@@ -63,25 +63,25 @@ public class Player {
 			}
 		}
 	}
-	public void playCard(Card cardToPlay) {
-		switch(cardToPlay.type) {
-			case attack:
-				Main.attack();
-				break;
-			case "skip":
-				Main.skip();
-				break;
-			case "seeTheFuture":
-				Main.seeTheFuture();
-				break;
-			case "shuffle":
-				Main.shuffle();
-				break;
-			case "favor":
-				Main.favor();
-				break;
-		}
-	}
+//	public void playCard(Card cardToPlay) {
+//		switch(cardToPlay.type) {
+//			case attack:
+//				Main.attack();
+//				break;
+//			case "skip":
+//				Main.skip();
+//				break;
+//			case "seeTheFuture":
+//				Main.seeTheFuture();
+//				break;
+//			case "shuffle":
+//				Main.shuffle();
+//				break;
+//			case "favor":
+//				Main.favor();
+//				break;
+//		}
+//	}
 //	public void favor() {
 //		System.out.println("What card would you like to give? Type the card name to give or nope to counter the favor.");
 //		Card chosenCard = input.nextLine();
