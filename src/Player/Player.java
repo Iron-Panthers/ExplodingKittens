@@ -5,9 +5,6 @@ import java.util.Scanner;
 
 import card.Card;
 
-
-
-
 public class Player {
 	
 	public String playerName;
@@ -21,11 +18,6 @@ public class Player {
 	}
 	
 	public void turn() {
-		turns = 1;
-		if (Main.attack) {
-			turns += 2;
-			Main.attack = false;
-		}
 		while (turns > 0) {
 			System.out.println("What would you like to do? Type usecard to use a card, showhand to see your hand, and endturn to draw and end your turn.");
 			if(input.nextLine().equalsIgnoreCase("usecard")) {
@@ -55,7 +47,6 @@ public class Player {
 			Card chosenCard = Main.card.convertToCardType(input.nextLine());
 			if (isCardInHand(chosenCard)) {
 				System.out.println("Playing " + chosenCard + " .");
-				playCard(chosenCard);
 				hand.remove(chosenCard);
 				Main.deck.discard(chosenCard);
 				hasCard = true;
