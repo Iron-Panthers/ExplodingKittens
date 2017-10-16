@@ -53,7 +53,6 @@ public class Player {
 			Card chosenCard = Main.card.convertToCardType(input.nextLine());
 			if (isCardInHand(chosenCard)) {
 				System.out.println("Playing " + chosenCard + " .");
-				playCard(chosenCard);
 				hand.remove(chosenCard);
 				Main.deck.discard(chosenCard);
 				hasCard = true;
