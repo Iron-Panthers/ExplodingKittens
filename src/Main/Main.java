@@ -74,9 +74,8 @@ public class Main{
 	public void skip(Player skipper) {
 		endTurnNoDraw(skipper);
 	}
-	public boolean attack(Player attacker) {
+	public void attack(Player attacker) {
 		attack = true;
-		return attack;
 		//Ends turn, next player must take two turns
 		attacker.endTurn();
 	}
