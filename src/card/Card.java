@@ -7,9 +7,10 @@ public class Card {
 		this.type = type;
 	}
 	
-	public static CardType convertToString(String str) {
+	public static CardType convertToCardType(String str) {
 		// ex: NOPe
 		str = str.replaceAll("\\s+", "_");
+		str = str.replaceAll("-", "_");
 		for (int i = 0; i < CardType.values().length; i++) {
 			if (CardType.valueOf(str.toUpperCase()) == CardType.values()[i]) {
 				return CardType.values()[i];
