@@ -3,6 +3,8 @@ package Player;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import com.sun.org.apache.bcel.internal.generic.CALOAD;
+
 
 
 
@@ -10,8 +12,7 @@ public class Player {
 	
 	
 	public Scanner input = new Scanner(System.in);
-	public int playerNum = 1;
-	public int turns = 1;
+	public int turns;
 	public ArrayList<Card> hand;
 	
 	public Player() {
@@ -25,7 +26,7 @@ public class Player {
 				turns += 2;
 				Main.attack = false;
 			}
-			System.out.println("What would you like to do, Player "+playerNum+"? Type usecard to use a card, showhand to see your hand, and endturn to draw and end your turn.");
+			System.out.println("What would you like to do? Type usecard to use a card, showhand to see your hand, and endturn to draw and end your turn.");
 			if(input.nextLine().equalsIgnoreCase("usecard")) {
 				choseCard();
 			}
@@ -64,7 +65,7 @@ public class Player {
 	}
 	public void playCard(Card cardToPlay) {
 		switch(cardToPlay.type) {
-			case "attack":
+			case attack:
 				Main.attack();
 				break;
 			case "skip":
