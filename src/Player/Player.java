@@ -15,7 +15,6 @@ public class Player {
 	public int playerNum = 1;
 	public int turns = 1;
 	public ArrayList<Card> hand;
-	public boolean hasCard;
 	
 	public Player() {
 		hand = new ArrayList<Card>();
@@ -50,15 +49,15 @@ public class Player {
 		}
 	}
 	public Card choseCard() {
-		//boolean hasCard = false;
-		while(!isCardInHand(chosenCard)) {
+		boolean hasCard = false;
+		while(!hasCard) {
 			System.out.println("What card would you like to chose?");
-			Card chosenCard = convertToCardType(input.nextLine());
+			Card chosenCard = Main.card.convertToCardType(input.nextLine());
 			if (isCardInHand(chosenCard)) {
 				System.out.println("Playing "+chosenCard+" .");
 				hand.remove(chosenCard);
 				Main.deck.discard(chosenCard);
-				//hasCard = true;
+				hasCard = true;
 			} else {
 				System.out.println("You do not have "+chosenCard+" in your hand.");
 			}
