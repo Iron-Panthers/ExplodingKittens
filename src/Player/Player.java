@@ -53,12 +53,32 @@ public class Player {
 			Card chosenCard = Main.card.convertToCardType(input.nextLine());
 			if (isCardInHand(chosenCard)) {
 				System.out.println("Playing " + chosenCard + " .");
+				playCard(chosenCard);
 				hand.remove(chosenCard);
 				Main.deck.discard(chosenCard);
 				hasCard = true;
 			} else {
 				System.out.println("You do not have "+chosenCard+" in your hand.");
 			}
+		}
+	}
+	public void playCard(Card cardToPlay) {
+		switch(cardToPlay.type) {
+			case "attack":
+				Main.attack();
+				break;
+			case "skip":
+				Main.skip();
+				break;
+			case "seeTheFuture":
+				Main.seeTheFuture();
+				break;
+			case "shuffle":
+				Main.shuffle();
+				break;
+			case "favor":
+				Main.favor();
+				break;
 		}
 	}
 //	public void favor() {
