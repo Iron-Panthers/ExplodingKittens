@@ -3,8 +3,6 @@ package Player;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import com.sun.org.apache.bcel.internal.generic.CALOAD;
-
 import card.Card;
 
 public class Player {
@@ -19,11 +17,6 @@ public class Player {
 	}
 	
 	public void turn() {
-		turns = 1;
-		if (Main.attack) {
-			turns += 2;
-			Main.attack = false;
-		}
 		while (turns > 0) {
 			System.out.println("What would you like to do? Type usecard to use a card, showhand to see your hand, and endturn to draw and end your turn.");
 			if(input.nextLine().equalsIgnoreCase("usecard")) {

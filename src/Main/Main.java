@@ -34,6 +34,10 @@ public class Main{
 			for (int i = 0; i < players.size(); i++) {
 				while (players.get(i).turns > 0) {
 					players.get(i).turn();
+					if (attack()) {
+						turns += 2;
+						Main.attack = false;
+					}
 					if (attack) {  
 						i++;
 					}
