@@ -7,7 +7,7 @@ public class Card {
 		this.type = type;
 	}
 	
-	public static CardType convertToString(String str) {
+	public static CardType convertToCardType(String str) {
 		// ex: NOPe
 		str = str.replaceAll("\\s+", "_");
 		str = str.replaceAll("-", "_");
