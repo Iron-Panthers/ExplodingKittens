@@ -3,8 +3,9 @@ package Main;
 //Main.attack();
 import java.util.ArrayList;
 import java.util.Scanner;
+
 import Deck.Deck;
-import Player.*;
+import Player.Player;
 import card.Card;
 
 public class Main{
@@ -25,10 +26,11 @@ public class Main{
 		deck = new Deck(explodingKittenNum);
 		players = new ArrayList<Player>();
 		for (int i = 0; i < numPlayers; i++) {
+			String temp = "player"+i;
 			//Make variable temp? Set it to player+num
 			//String playerName = "player"+i; //Does not work, cannot make a string used as the player constructer.
-			Player temp = new Player(); //Trying to make 
-			players.add(i);
+			Player player = new Player(temp); //Trying to make 
+			players.add(player);
 		}
 		while (playersAlive > 1) {
 			for (int i = 0; i < players.size(); i++) {
@@ -50,7 +52,7 @@ public class Main{
 		System.out.println("What card would you like to give? Type the card name to give or nope to counter the favor.");
 		boolean choosing = true;
 		while(choosing) {	
-			Card chosenCard = card.input.nextLine();
+			Card chosenCard = Card.convertToCardType.input.nextLine();
 			if (input.nextLine().equalsIgnoreCase("nope") && victim.hand.contains(chosenCard)) {
 				System.out.println("Favor countered");
 				victim.hand.remove(chosenCard);

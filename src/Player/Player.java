@@ -3,20 +3,21 @@ package Player;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import com.sun.org.apache.bcel.internal.generic.CALOAD;
+import card.Card;
 
 
 
 
 public class Player {
 	
-	
+	public String playerName;
 	public Scanner input = new Scanner(System.in);
 	public int turns;
 	public ArrayList<Card> hand;
 	
-	public Player() {
+	public Player(String name) {
 		hand = new ArrayList<Card>();
+		playerName = name;
 	}
 	
 	public void turn() {
