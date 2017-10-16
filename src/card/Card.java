@@ -9,7 +9,7 @@ public class Card {
 	
 	public CardType convertToString(String str) {
 		// ex: NOPe
-		
+		str = str.replaceAll("\\s+", "_");
 		for (int i = 0; i < CardType.values().length; i++) {
 			if (CardType.valueOf(str.toUpperCase()) == CardType.values()[i]) {
 				return CardType.values()[i];
