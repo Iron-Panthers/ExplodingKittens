@@ -3,13 +3,11 @@ package Player;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import javax.smartcardio.Card;
 
-import sun.applet.Main;
+
 
 public class Player {
 	
-	boolean attack = false;
 	
 	public Scanner input = new Scanner(System.in);
 	public int playerNum = 1;
@@ -22,11 +20,11 @@ public class Player {
 	}
 	
 	public void turn() {
-		turns = +1;
+		turns = 1;
 		while (turns > 0) {
-			attack = Main.attack();
-			if (attack) {
-				turns = +2;
+			if (Main.attack) {
+				turns += 2;
+				Main.attack = false;
 			}
 			System.out.println("What would you like to do, Player "+playerNum+"? Type usecard to use a card, showhand to see your hand, and endturn to draw and end your turn.");
 			if(input.nextLine().equalsIgnoreCase("usecard")) {
@@ -55,11 +53,12 @@ public class Player {
 			System.out.println("What card would you like to chose?");
 			Card chosenCard = convertToCardType(input.nextLine());
 			if (isCardInHand(chosenCard)) {
-				System.out.println("Playing "+chosenCard+" .");
+				System.out.println("Playing " + chosenCard + " .");
 				hand.remove(chosenCard);
 				Main.deck.discard(chosenCard);
 				//hasCard = true;
-			} else {
+			} 
+			else {
 				System.out.println("You do not have "+chosenCard+" in your hand.");
 			}
 		}
