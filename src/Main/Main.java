@@ -169,6 +169,13 @@ public class Main{
 			//Does Nothing
 		}
 	}
+	public void threeOfAKindSteal(Player stealer, Player victim) {
+		System.out.println("Player " + victim +" has:");
+		for (int i = 0; i<victim.hand.size(); i++) //prints out the cards in the player's hand
+			System.out.println(victim.hand.get(i));
+		//not finished
+	}
+	
 	public Card getDrawnCard(Player drawer) {
 		int drawnCardIndex = 0;
 		for (int i = 0; i<drawer.hand.size(); i++) { //Gets the last card in the player's hand, which is the card they last drew
