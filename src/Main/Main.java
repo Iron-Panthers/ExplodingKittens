@@ -33,34 +33,46 @@ public class Main{
 			Player player = new Player(temp); //Trying to make 
 			players.add(player);
 		}
-		/**
-		 * IDEA:
-		 * How about we make the condition i % players.size() < players.size()?
-		 * Also, do players.get(i % players.size()) instead 
-		 * The loop will keep running until players.size() == 1
-		 */
 		while (playersAlive > 1) {
-			for (int i = 0; i < players.size() +1; i++) {
-				int nextPlayer = i++;
+			for (int i = 0; i % players.size() < players.size() +1; i = (i + 1) % players.size()) {
+				/**
+				 * int nextPlayer = i++; 
+				 * This will update i; we don't want the update to occur here.
+				 */
+				int nextPlayer = (i + 1) % players.size();
+				/**
 				if(nextPlayer> numPlayers) {
 					nextPlayer = 0;
 				}
 				if (i> numPlayers) {
 					i = 0;
 				}
+				 * This block of code is unnecessary. 
+				 */
 				while (players.get(i).turns > 0) {
 					players.get(i).turn();
 					if (attack) {
 						players.get(i).endTurn();
 						players.get(nextPlayer).turns += 2;
-						Main.attack = false;
+						/**
+						 * Main.attack = false;
+						 * no need to do Main. if calling from main
+						 */ 
+						attack = false;
 					}
 				}
 			}
 		}
+		/**
 		if(players.size()==1) {
 			System.out.println(players.get(0)+" Won!!!");
 		}
+		* We don't need to write this if statement.
+		* This statement isn't reached until the while loop is done.
+		* The while loop exits when playersAlive <= 1.
+		* If playersAlive == 1, then players.size() == 1.
+		*/
+		System.out.println(players.get(0) + " won!");
 	}
 	
 	public void favor(Player targeter, Player victim) {
