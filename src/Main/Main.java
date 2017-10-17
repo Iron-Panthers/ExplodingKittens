@@ -33,6 +33,12 @@ public class Main{
 			Player player = new Player(temp); //Trying to make 
 			players.add(player);
 		}
+		/**
+		 * IDEA:
+		 * How about we make the condition i % players.size() < players.size()?
+		 * Also, do players.get(i % players.size()) instead 
+		 * The loop will keep running until players.size() == 1
+		 */
 		while (playersAlive > 1) {
 			for (int i = 0; i < players.size() +1; i++) {
 				int nextPlayer = i++;
