@@ -18,7 +18,7 @@ public class Main{
 	static ArrayList<Player> players;
 
 	//Constructors
-	static Deck deck;
+	public static Deck deck;
 	static Scanner input;
 	
 	public static void main(String[] args) {
@@ -30,11 +30,11 @@ public class Main{
 			String temp = "player"+i;
 			//Make variable temp? Set it to player+num
 			//String playerName = "player"+i; //Does not work, cannot make a string used as the player constructer.
-			Player player = new Player(temp); //Trying to make 
+			Player player = new Player(temp);
 			players.add(player);
 		}
 		while (playersAlive > 1) {
-			for (int i = 0; i % players.size() < players.size(); i++) {
+			for (int i = 0; i % players.size() < players.size(); i = (i + 1) % players.size()) {
 				/**
 				 * int nextPlayer = i++; 
 				 * This will update i; we don't want the update to occur here.
@@ -53,11 +53,7 @@ public class Main{
 					players.get(i%players.size()).turn();
 					if (attack) {
 						players.get(i%players.size()).endTurn();
-						players.get(nextPlayer).turns += 2;
-						/**
-						 * Main.attack = false;
-						 * no need to do Main. if calling from main
-						 */ 
+						players.get(nextPlayer).turns += 2; 
 						attack = false;
 					}
 				}

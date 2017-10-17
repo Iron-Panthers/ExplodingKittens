@@ -3,6 +3,7 @@ package Player;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import Main.Main;
 import card.Card;
 
 public class Player {
