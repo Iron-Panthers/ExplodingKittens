@@ -168,8 +168,11 @@ public class Main{
 	public void threeOfAKindSteal(Player stealer, Player victim) {
 		System.out.println("Player " + victim +" has:");
 		for (int i = 0; i<victim.hand.size(); i++) { //prints out the cards in the player's hand
-			System.out.println(victim.hand.get(i));
+			System.out.println(i+1 + ": " + victim.hand.get(i));
 		}
+		System.out.println("Which card would you like? (Say a number listed)");
+		//add card to stealer's hand
+		//remove card from victim's hand
 		//not finished
 	}
 	
