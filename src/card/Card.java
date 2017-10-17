@@ -18,7 +18,6 @@ public class Card {
 		}
 		return null;
 	}
-
 	/**
 	  boolean turnOver;
 	

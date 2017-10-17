@@ -45,7 +45,7 @@ public class Player {
 		boolean hasCard = false;
 		while(!hasCard) {
 			System.out.println("What card would you like to chose?");
-			Card chosenCard = Main.card.convertToCardType(input.nextLine());
+			Card chosenCard = Card.convertToCardType(input.nextLine());
 			if (isCardInHand(chosenCard)) {
 				System.out.println("Playing " + chosenCard + " .");
 				hand.remove(chosenCard);
