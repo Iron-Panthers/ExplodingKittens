@@ -13,9 +13,9 @@ public class Main{
 	public static boolean attack;
 	static int numPlayers = 4;
 	static int explodingKittenNum = numPlayers-1;
-	static int playersAlive = numPlayers;
 	static int lastPlayerAlive;
 	static ArrayList<Player> players;
+	static ArrayList<Card> nonDescripts;
 
 	//Constructors
 	static Deck deck;
@@ -26,6 +26,12 @@ public class Main{
 		input = new Scanner(System.in);
 		deck = new Deck(explodingKittenNum);
 		players = new ArrayList<Player>();
+		nonDescripts = new ArrayList<Card>();
+		nonDescripts.add(deck.catterMelon);
+		nonDescripts.add(deck.beardCat);
+		nonDescripts.add(deck.hairyPotatoCat);
+		nonDescripts.add(deck.rainbowRalphingCat);
+		nonDescripts.add(deck.tacoCat);
 		for (int i = 0; i < numPlayers; i++) {
 			String temp = "player"+i;
 			//Make variable temp? Set it to player+num
@@ -33,26 +39,16 @@ public class Main{
 			Player player = new Player(temp); //Trying to make 
 			players.add(player);
 		}
-		while (playersAlive > 1) {
-			for (int i = 0; i % players.size() < players.size(); i++) {
-				/**
-				 * int nextPlayer = i++; 
-				 * This will update i; we don't want the update to occur here.
-				 */
-				int nextPlayer = (i + 1) % players.size();
-				/**
-				if(nextPlayer> numPlayers) {
-					nextPlayer = 0;
+		while (players.size() > 1) {
+			for (int i = 0; i % players.size() < players.size(); i=(i++)%players.size()) {
+				if (players.size()==1) {
+					break;
 				}
-				if (i> numPlayers) {
-					i = 0;
-				}
-				 * This block of code is unnecessary. 
-				 */
-				while (players.get(i%players.size()).turns > 0) {
-					players.get(i%players.size()).turn();
+				int nextPlayer = (i++) % players.size();
+				while (players.get(i).turns > 0) {
+					players.get(i).turn();
 					if (attack) {
-						players.get(i%players.size()).endTurn();
+						players.get(i).endTurn();
 						players.get(nextPlayer).turns += 2;
 						/**
 						 * Main.attack = false;
@@ -79,7 +75,7 @@ public class Main{
 		System.out.println("What card would you like to give? Type the card name to give or nope to counter the favor.");
 		boolean choosing = true;
 		while(choosing) {	
-			CardType chosenCard = Card.convertToCardType(input.nextLine());
+			Card chosenCard = new Card(Card.convertToCardType(input.nextLine()));
 			if (input.nextLine().equalsIgnoreCase("nope") && victim.hand.contains(chosenCard)) {
 				System.out.println("Favor countered");
 				victim.hand.remove(chosenCard);
@@ -181,7 +177,40 @@ public class Main{
 		deck.deckList.add(0,getDrawnCard(skipper));  
 		skipper.hand.remove(getDrawnCard(skipper));
 	}
-	public void pair(Player player, Card nonDescript) {
-		
+	public void twoOfAKindSteal(Player targeter,Player victim, Card nonDescript) {
+		ArrayList<Card> tempHand = new ArrayList<Card>();
+		tempHand = targeter.hand;
+		if (nonDescripts.contains(nonDescript)) {
+			if (tempHand.contains(nonDescript)) {
+				tempHand.remove(nonDescript);
+				if (tempHand.contains(nonDescript)) {
+					tempHand.remove(nonDescript);
+					System.out.println("You have both cards");
+					targeter.hand.remove(nonDescript);
+					targeter.hand.remove(nonDescript);
+					deck.discard(nonDescript);
+					deck.discard(nonDescript);
+					System.out.println(victim.playerName+", would you like to nope? Say 'yes' to nope, 'no' to not nope");
+					String isNoping = input.nextLine();
+					if (isNoping.equalsIgnoreCase("yes")) {
+						if (victim.hand.contains(deck.nope)) {
+							victim.hand.remove(deck.nope);
+							deck.discard(deck.nope);
+							System.out.println("Two of a kind has been countered.");
+						}
+						
+					}
+				}
+				else {
+					System.out.println("You do not have those two cards");
+				}
+			}
+			else {
+				System.out.println("You do not have those two cards.");
+			}
+		}
+		else {
+			System.out.println("You must choose two non descripts");
+		}
 	}
 }

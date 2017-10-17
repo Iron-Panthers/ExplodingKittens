@@ -29,11 +29,11 @@ public class Deck {
 	int nopeNum = 5;
 	
 	//Non-Descript Instance Variables
-	Card rainbowRalphingCat;
-	Card hairyPotatoCat;
-	Card beardCat;
-	Card tacoCat;
-	Card catterMelon;
+	public Card rainbowRalphingCat;
+	public Card hairyPotatoCat;
+	public Card beardCat;
+	public Card tacoCat;
+	public Card catterMelon;
 	
 	//Action Card Instance Variables
 	public Card explodingKitten;
