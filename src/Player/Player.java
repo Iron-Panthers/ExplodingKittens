@@ -43,14 +43,16 @@ public class Player {
 	}
 	public Card choseCard() {
 		boolean hasCard = false;
+		//ArrayList<Card> chosenCards = new ArrayList<Card>();
 		while(!hasCard) {
 			System.out.println("What card would you like to chose?");
-			Card chosenCard = Main.card.convertToCardType(input.nextLine());
+			Card chosenCard = new Card(Card.convertToCardType(input.nextLine()));
 			if (isCardInHand(chosenCard)) {
 				System.out.println("Playing " + chosenCard + " .");
 				hand.remove(chosenCard);
 				Main.deck.discard(chosenCard);
-				hasCard = true;
+				//chosenCards.add(chosenCard);
+				
 			} else {
 				System.out.println("You do not have "+chosenCard+" in your hand.");
 			}
