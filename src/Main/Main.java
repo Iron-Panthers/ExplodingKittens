@@ -38,7 +38,7 @@ public class Main{
 				while (players.get(i).turns > 0) {
 					players.get(i).turn();
 					if (attack) {
-						turns += 2;
+						players.get(i).turns += 2;
 						Main.attack = false;
 					}
 					players.get(i).endTurn();
