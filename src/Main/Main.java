@@ -34,7 +34,7 @@ public class Main{
 			players.add(player);
 		}
 		while (playersAlive > 1) {
-			for (int i = 0; i % players.size() < players.size() +1; i = (i + 1) % players.size()) {
+			for (int i = 0; i % players.size() < players.size(); i++) {
 				/**
 				 * int nextPlayer = i++; 
 				 * This will update i; we don't want the update to occur here.
