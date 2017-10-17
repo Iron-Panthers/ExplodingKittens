@@ -49,10 +49,10 @@ public class Main{
 				}
 				 * This block of code is unnecessary. 
 				 */
-				while (players.get(i).turns > 0) {
-					players.get(i).turn();
+				while (players.get(i%players.size()).turns > 0) {
+					players.get(i%players.size()).turn();
 					if (attack) {
-						players.get(i).endTurn();
+						players.get(i%players.size()).endTurn();
 						players.get(nextPlayer).turns += 2;
 						/**
 						 * Main.attack = false;
