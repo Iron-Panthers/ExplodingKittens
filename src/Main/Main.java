@@ -18,7 +18,7 @@ public class Main{
 	static ArrayList<Player> players;
 
 	//Constructors
-	static Deck deck;
+	public static Deck deck;
 	static Scanner input;
 	
 	public static void main(String[] args) {
@@ -30,7 +30,7 @@ public class Main{
 			String temp = "player"+i;
 			//Make variable temp? Set it to player+num
 			//String playerName = "player"+i; //Does not work, cannot make a string used as the player constructer.
-			Player player = new Player(temp); //Trying to make 
+			Player player = new Player(temp);
 			players.add(player);
 		}
 		while (playersAlive > 1) {
@@ -154,10 +154,6 @@ public class Main{
 			deck.deckList.add(0,tempView.get(tempViewReturn));
 		}
 		System.out.println("See the future is now over");
-	}
-	public void endTurn() {
-		hand.add(Main.deck.topCard());
-		turns--;
 	}
 	public void draw(Player drawer) {
 		Card drawnCard = deck.topCard();

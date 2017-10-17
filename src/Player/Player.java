@@ -3,6 +3,7 @@ package Player;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import Main.Main;
 import card.Card;
 
 public class Player {
@@ -30,6 +31,10 @@ public class Player {
 				endTurn();
 			}
 		}
+	}
+	public void endTurn() {
+		hand.add(Main.deck.topCard());
+		turns--;
 	}
 	public void showHand() {
 		for (int i = 0; i < hand.size(); i++) {
