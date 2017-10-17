@@ -155,6 +155,10 @@ public class Main{
 		}
 		System.out.println("See the future is now over");
 	}
+	public void endTurn() {
+		hand.add(Main.deck.topCard());
+		turns--;
+	}
 	public void draw(Player drawer) {
 		Card drawnCard = deck.topCard();
 		drawer.hand.add(drawnCard);
