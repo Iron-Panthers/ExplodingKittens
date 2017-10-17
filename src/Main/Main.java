@@ -34,14 +34,21 @@ public class Main{
 			players.add(player);
 		}
 		while (playersAlive > 1) {
-			for (int i = 0; i < players.size(); i++) {
+			for (int i = 0; i < players.size() +1; i++) {
+				int nextPlayer = i++;
+				if(nextPlayer> numPlayers) {
+					nextPlayer = 0;
+				}
+				if (i> numPlayers) {
+					i = 0;
+				}
 				while (players.get(i).turns > 0) {
 					players.get(i).turn();
 					if (attack) {
-						players.get(i).turns += 2;
+						players.get(i).endTurn();
+						players.get(nextPlayer).turns += 2;
 						Main.attack = false;
 					}
-					players.get(i).endTurn();
 				}
 			}
 		}
