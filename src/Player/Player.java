@@ -34,7 +34,6 @@ public class Player {
 	}
 	public void endTurn() {
 		hand.add(Main.deck.topCard());
-		turns--;
 	}
 	public void showHand() {
 		for (int i = 0; i < hand.size(); i++) {
