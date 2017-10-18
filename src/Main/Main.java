@@ -49,6 +49,7 @@ public class Main{
 					break;
 				}
 				int nextPlayer = (i+1) % players.size();
+				players.get(i).turns=1;
 				while (players.get(i).turns > 0) {
 					players.get(i).turn();
 					if (attack) {
