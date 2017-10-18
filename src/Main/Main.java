@@ -60,6 +60,7 @@ public class Main{
 						 */ 
 						attack = false;
 					}
+					players.get(i).turns --;
 				}
 			}
 		}
