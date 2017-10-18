@@ -44,11 +44,11 @@ public class Main{
 		}
 		//Game loop
 		while (players.size() > 1) {
-			for (int i = 0; i % players.size() < players.size(); i=(i++)%players.size()) {
+			for (int i = 0; i % players.size() < players.size(); i=(i+1)%players.size()) {
 				if (players.size()==1) {
 					break;
 				}
-				int nextPlayer = (i++) % players.size();
+				int nextPlayer = (i+1) % players.size();
 				while (players.get(i).turns > 0) {
 					players.get(i).turn();
 					if (attack) {
@@ -174,7 +174,6 @@ public class Main{
 		}
 		//not finished
 	}
-	
 	public Card getDrawnCard(Player drawer) {
 		int drawnCardIndex = 0;
 		for (int i = 0; i<drawer.hand.size(); i++) { //Gets the last card in the player's hand, which is the card they last drew
