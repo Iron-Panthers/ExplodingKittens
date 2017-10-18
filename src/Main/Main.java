@@ -2,12 +2,12 @@ package Main;
 //Main.attack;
 //Main.attack();
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;
 
 import Deck.Deck;
 import Player.Player;
 import card.Card;
-import card.CardType;
 
 public class Main{
 	public static boolean attack;
@@ -19,12 +19,14 @@ public class Main{
 
 	//Constructors
 	public static Deck deck;
-	static Scanner input;
+	public static Scanner input;
+	public static Random randomCard;
 	
 	public static void main(String[] args) {
 		attack = false;
 		input = new Scanner(System.in);
 		deck = new Deck(explodingKittenNum);
+		randomCard = new Random();
 		players = new ArrayList<Player>();
 		nonDescripts = new ArrayList<Card>();
 		nonDescripts.add(deck.catterMelon);
@@ -32,6 +34,7 @@ public class Main{
 		nonDescripts.add(deck.hairyPotatoCat);
 		nonDescripts.add(deck.rainbowRalphingCat);
 		nonDescripts.add(deck.tacoCat);
+		//Adds players to the arrayList players
 		for (int i = 0; i < numPlayers; i++) {
 			String temp = "player"+i;
 			//Make variable temp? Set it to player+num
@@ -39,6 +42,7 @@ public class Main{
 			Player player = new Player(temp);
 			players.add(player);
 		}
+		//Game loop
 		while (players.size() > 1) {
 			for (int i = 0; i % players.size() < players.size(); i=(i++)%players.size()) {
 				if (players.size()==1) {
@@ -76,14 +80,14 @@ public class Main{
 		boolean choosing = true;
 		while(choosing) {	
 			Card chosenCard = new Card(Card.convertToCardType(input.nextLine()));
-			if (input.nextLine().equalsIgnoreCase("nope") && victim.hand.contains(chosenCard)) {
+			if (input.nextLine().equalsIgnoreCase("nope") && victim.hand.contains(chosenCard)) { //Removes card, discards card if nope
 				System.out.println("Favor countered");
-				victim.hand.remove(chosenCard);
+				victim.hand.remove(chosenCard);   
 				deck.discard(chosenCard);
 				targeter.hand.remove(deck.favor);
 				deck.discard(deck.favor);
 				choosing = false;
-			} else if (victim.hand.contains(chosenCard)) {
+			} else if (victim.hand.contains(chosenCard)) { //Removes cards, discards card if given
 				System.out.println("Giving "+chosenCard+" .");
 				victim.hand.remove(chosenCard);
 				targeter.hand.add(chosenCard);
@@ -105,9 +109,6 @@ public class Main{
 	public void attack() {
 		attack = true;
 		//Ends turn, next player must take two turns
-	}
-	public void nope(Player noper, Player victim) { //Targets a card that targets the noper
-		
 	}
 	public void defuse(Player defuser) { //Works for any card, not just exploding kittens
 		Card drawnCard;
@@ -188,6 +189,7 @@ public class Main{
 	public void twoOfAKindSteal(Player targeter,Player victim, Card nonDescript) {
 		ArrayList<Card> tempHand = new ArrayList<Card>();
 		tempHand = targeter.hand;
+		//Checks if hand has two of the nonDescripts
 		if (nonDescripts.contains(nonDescript)) {
 			if (tempHand.contains(nonDescript)) {
 				tempHand.remove(nonDescript);
@@ -200,13 +202,27 @@ public class Main{
 					deck.discard(nonDescript);
 					System.out.println(victim.playerName+", would you like to nope? Say 'yes' to nope, 'no' to not nope");
 					String isNoping = input.nextLine();
-					if (isNoping.equalsIgnoreCase("yes")) {
-						if (victim.hand.contains(deck.nope)) {
-							victim.hand.remove(deck.nope);
-							deck.discard(deck.nope);
-							System.out.println("Two of a kind has been countered.");
+					boolean choosingNope = true;
+					while (choosingNope) {
+						if (isNoping.equalsIgnoreCase("yes")) {
+							if (victim.hand.contains(deck.nope)) {
+								victim.hand.remove(deck.nope);
+								deck.discard(deck.nope);
+								System.out.println("Two of a kind has been countered.");
+								choosingNope = false;
+							}
+							
 						}
-						
+						if (isNoping.equalsIgnoreCase("no")) {
+							int randCard = randomCard.nextInt(victim.hand.size());
+							Card givenCard = victim.hand.get(randCard);
+							victim.hand.remove(givenCard);
+							targeter.hand.add(givenCard);
+							choosingNope = false;
+						}
+						else {
+							System.out.println("Please choose again.");
+						}
 					}
 				}
 				else {
