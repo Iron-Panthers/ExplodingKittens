@@ -1,6 +1,4 @@
 package Main;
-//Main.attack;
-//Main.attack();
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
@@ -44,8 +42,8 @@ public class Main{
 		}
 		//Game loop
 		while (players.size() > 1) {
-			for (int i = 0; i % players.size() < players.size(); i=(i+1)%players.size()) {
-				if (players.size()==1) {
+			for (int i = 0; i % players.size() < players.size(); i=(i + 1) % players.size()) {
+				if (players.size() == 1) {
 					break;
 				}
 				int nextPlayer = (i+1) % players.size();
@@ -55,10 +53,6 @@ public class Main{
 					if (attack) {
 						players.get(i).endTurn();
 						players.get(nextPlayer).turns += 2;
-						/**
-						 * Main.attack = false;
-						 * no need to do Main. if calling from main
-						 */ 
 						attack = false;
 					}
 					players.get(i).turns --;
@@ -78,7 +72,7 @@ public class Main{
 	}
 	
 	public void favor(Player targeter, Player victim) {
-		System.out.println("What card would you like to give? Type the card name to give or nope to counter the favor.");
+		System.out.println("What card would you like to give? Type the card name to give or \"nope\" to counter the favor.");
 		boolean choosing = true;
 		while(choosing) {	
 			Card chosenCard = new Card(Card.convertToCardType(input.nextLine()));
@@ -103,7 +97,7 @@ public class Main{
 	}
 	public void shuffle() {
 		deck.shuffle();
-		System.out.println("You have succesfuly randomly shuffled the deck");
+		System.out.println("You have succesfully randomly shuffled the deck");
 	}
 	public void skip(Player skipper) {
 		endTurnNoDraw(skipper);
