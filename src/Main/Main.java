@@ -36,7 +36,7 @@ public class Main{
 		nonDescripts.add(deck.rainbowRalphingCat);
 		nonDescripts.add(deck.tacoCat);
 		//Adds players to the arrayList players
-		for (int i = 0; i < numPlayers; i++) {
+		for (int i = 1; i < numPlayers; i++) {
 			//Make variable temp? Set it to player+num
 			//String playerName = "player"+i; //Does not work, cannot make a string used as the player constructer.
 			Player player = new Player(i);
