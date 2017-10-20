@@ -12,7 +12,7 @@ public class Main{
 	static int numPlayers = 4;
 	static int explodingKittenNum = numPlayers-1;
 	static int lastPlayerAlive;
-	static ArrayList<Player> players;
+	public static ArrayList<Player> players;
 	static ArrayList<Card> nonDescripts;
 	public static int currentPlayer;
 
@@ -74,7 +74,7 @@ public class Main{
 		*/
 		System.out.println(players.get(0).playerName + " won!");
 	}
-	public Player askForVictim() {
+	public static Player askForVictim() {
 		System.out.println("Who would you like to target?");
 		System.out.println("Would you like to target: ");
 		//Cycles through array and prints
@@ -104,11 +104,7 @@ public class Main{
 		Player victim = players.get(playerLocation);
 		return victim;
 	}
-	
-	public void favor(Player targeter, Player victim) {
-		System.out.println("What card would you like to give? Type the card name to give or \"nope\" to counter the favor.");
-	}
-	public void favor() {
+	public static void favor() {
 		Player targeter = players.get(currentPlayer);
 		Player victim = askForVictim();
 		System.out.println("What card would you like to give? Type the card name to give or nope to counter the favor.");
@@ -134,18 +130,18 @@ public class Main{
 			}
 		}
 	}
-	public void shuffle() {
+	public static void shuffle() {
 		deck.shuffle();
 		System.out.println("You have succesfully randomly shuffled the deck");
 	}
-	public void skip() {
+	public static void skip() {
 		endTurnNoDraw();
 	}
-	public void attack() {
+	public static void attack() {
 		attack = true;
 		//Ends turn, next player must take two turns
 	}
-	public void defuse() { //Works for any card, not just exploding kittens
+	public static void defuse() { //Works for any card, not just exploding kittens
 		Player defuser = players.get(currentPlayer);
 		Card drawnCard;
 		drawnCard = getDrawnCard();
@@ -168,7 +164,7 @@ public class Main{
 			System.out.println("You do not have a defuse in hand.");
 		}
 	}
-	public void explode() {
+	public static void explode() {
 		Player exploder = players.get(currentPlayer);
 		System.out.println("You have drawn an exploding kitten. Type 'defuse' to defuse, type 'ok' to die");
 		String usrInput = input.nextLine();
@@ -180,7 +176,7 @@ public class Main{
 			players.remove(exploder);
 		}
 	}
-	public void seeTheFuture() {
+	public static void seeTheFuture() {
 		Player cardViewer = players.get(currentPlayer);
 		ArrayList<Card> tempView = new ArrayList<Card>();
 		int tempViewReturn = 3;
@@ -199,7 +195,7 @@ public class Main{
 		}
 		System.out.println("See the future is now over");
 	}
-	public void draw() {
+	public static void draw() {
 		Player drawer = players.get(currentPlayer);
 		Card drawnCard = deck.topCard();
 		drawer.hand.add(drawnCard);
@@ -210,7 +206,7 @@ public class Main{
 			//Does Nothing
 		}
 	}
-	public void threeOfAKindSteal() {
+	public static void threeOfAKindSteal() {
 		Player stealer = players.get(currentPlayer);
 		Player victim = askForVictim();
 		System.out.println("Player " + victim +" has:");
@@ -219,12 +215,19 @@ public class Main{
 		}
 		System.out.println("Which card would you like? (Say a number listed)");
 		String ui = input.nextLine();
-		int num = Integer.parseInt(ui);
-		stealer.hand.add(victim.hand.get(num));
-		System.out.println("You stole card " + victim.hand.get(num) + " from player " + victim);
-		victim.hand.remove(num);
+		try {
+			int num = Integer.parseInt(ui);
+			stealer.hand.add(victim.hand.get(num));
+			System.out.println("You stole card " + victim.hand.get(num) + " from player " + victim);
+			victim.hand.remove(num);
+
+		}
+		catch(NumberFormatException e) {
+			System.out.println("Invalid imput");
+			threeOfAKindSteal();
+		}
 	}
-	public Card getDrawnCard() {
+	public static Card getDrawnCard() {
 		Player drawer = players.get(currentPlayer);
 		int drawnCardIndex = 0;
 		for (int i = 0; i<drawer.hand.size(); i++) { //Gets the last card in the player's hand, which is the card they last drew
@@ -232,13 +235,13 @@ public class Main{
 		}
 		return drawer.hand.get(drawnCardIndex);
 	}
-	public void endTurnNoDraw() { //Ends turn but places back card player would have drawn normally in the endTurn method. Possibly needs to be added in the 0 location in the deck
+	public static void endTurnNoDraw() { //Ends turn but places back card player would have drawn normally in the endTurn method. Possibly needs to be added in the 0 location in the deck
 		Player skipper = players.get(currentPlayer);
 		skipper.endTurn();
 		deck.deckList.add(0,getDrawnCard());  
 		skipper.hand.remove(getDrawnCard());
 	}
-	public void twoOfAKindSteal() {
+	public static void twoOfAKindSteal() {
 		Player targeter = players.get(currentPlayer);
 		Player victim = askForVictim();
 		ArrayList<Card> tempHand = new ArrayList<Card>();

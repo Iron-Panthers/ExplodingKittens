@@ -22,7 +22,9 @@ public class Player {
 		while (turns > 0) {
 			System.out.println("What would you like to do, "+playerName+"? Type usecard to use a card, showhand to see your hand, and endturn to draw and end your turn.");
 			if(input.nextLine().equalsIgnoreCase("usecard")) {
-				choseCard();
+				if (choseCard().type == Card.convertToCardType("skip")){
+					Main.skip();
+				}
 			}
 			if(input.nextLine().equalsIgnoreCase("showhand")) {
 				showHand();
