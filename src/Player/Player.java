@@ -44,21 +44,21 @@ public class Player {
 	}
 	public Card choseCard() {
 		System.out.println("What card would you like to chose?");
-		Card chosenCard = new Card(Card.convertToCardType(input.nextLine()));
 		try {
-			if (isCardInHand(chosenCard)) {
-				return chosenCard;
-			}
-			else {
-				return null;
-			}
+			Card chosenCard = new Card(Card.convertToCardType(input.nextLine()));
+			return chosenCard;
 		} catch (IllegalArgumentException CardNoExist) {
 			System.out.println("Card No Exist!");
 			CardNoExist.printStackTrace();
 			return null;
 		}
-	}
-	
+//		if (isCardInHand(chosenCard)) {
+//			return chosenCard;
+//		}			
+//		else {
+//			return null;
+//		}		
+	}	
 //	public void playCard(Card cardToPlay) {
 //		switch(cardToPlay.type) {
 //			case attack:
