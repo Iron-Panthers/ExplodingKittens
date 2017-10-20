@@ -52,7 +52,7 @@ public class Main{
 				int nextPlayer = (i+1) % players.size();
 				currentPlayer = i;
 				players.get(i).turns=1;
-				while (players.get(i).turns > 0) {
+				while (players.get(i).turns > 0) { //It also does this in player
 					players.get(i).turn();
 					if (attack) {
 						players.get(i).endTurn();
