@@ -41,7 +41,7 @@ public class Main{
 			//String playerName = "player"+i; //Does not work, cannot make a string used as the player constructer.
 			Player player = new Player(temp);
 			players.add(player);
-			for(i = 0; i < 7; i ++) {
+			for(int x = 0; x < 7; x ++) {
 				player.hand.add(deck.topCard());
 			}
 		}
