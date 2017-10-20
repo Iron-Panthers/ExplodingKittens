@@ -8,12 +8,12 @@ import card.Card;
 
 public class Player {
 	
-	public String playerName;
+	public int playerName;
 	public Scanner input = new Scanner(System.in);
 	public int turns;
 	public ArrayList<Card> hand;
 	
-	public Player(String name) {
+	public Player(int name) {
 		hand = new ArrayList<Card>();
 		playerName = name;
 	}
