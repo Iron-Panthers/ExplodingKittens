@@ -182,9 +182,11 @@ public class Main{
 			System.out.println(i+1 + ": " + victim.hand.get(i));
 		}
 		System.out.println("Which card would you like? (Say a number listed)");
-		//add card to stealer's hand
-		//remove card from victim's hand
-		//not finished
+		String ui = input.nextLine();
+		int num = Integer.parseInt(ui);
+		stealer.hand.add(victim.hand.get(num));
+		System.out.println("You stole card " + victim.hand.get(num) + " from player " + victim);
+		victim.hand.remove(num);
 	}
 	public Card getDrawnCard(Player drawer) {
 		int drawnCardIndex = 0;
