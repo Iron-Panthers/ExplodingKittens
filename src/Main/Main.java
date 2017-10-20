@@ -36,12 +36,12 @@ public class Main{
 		nonDescripts.add(deck.rainbowRalphingCat);
 		nonDescripts.add(deck.tacoCat);
 		//Adds players to the arrayList players
-		for (int i = 0; i < numPlayers; i++) {
+		for (int i = 1; i < numPlayers; i++) {
 			//Make variable temp? Set it to player+num
 			//String playerName = "player"+i; //Does not work, cannot make a string used as the player constructer.
 			Player player = new Player(i);
 			players.add(player);
-			for(int x = 0; x < 7; x ++) {
+			for(int x = 0; x < 5; x ++) {
 				player.hand.add(deck.topCard());
 			}
 		}
@@ -221,10 +221,17 @@ public class Main{
 		}
 		System.out.println("Which card would you like? (Say a number listed)");
 		String ui = input.nextLine();
-		int num = Integer.parseInt(ui);
-		stealer.hand.add(victim.hand.get(num));
-		System.out.println("You stole card " + victim.hand.get(num) + " from player " + victim);
-		victim.hand.remove(num);
+		try {
+			int num = Integer.parseInt(ui);
+			stealer.hand.add(victim.hand.get(num));
+			System.out.println("You stole card " + victim.hand.get(num) + " from player " + victim);
+			victim.hand.remove(num);
+
+		}
+		catch(NumberFormatException e) {
+			System.out.println("Invalid imput");
+			threeOfAKindSteal();
+		}
 	}
 	public static Card getDrawnCard() {
 		Player drawer = players.get(currentPlayer);
