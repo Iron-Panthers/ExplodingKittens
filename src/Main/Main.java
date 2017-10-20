@@ -35,7 +35,7 @@ public class Main{
 		nonDescripts.add(deck.rainbowRalphingCat);
 		nonDescripts.add(deck.tacoCat);
 		//Adds players to the arrayList players
-		for (int i = 0; i < numPlayers; i++) {
+		for (int i = 1; i < numPlayers; i++) {
 			String temp = "player"+i;
 			//Make variable temp? Set it to player+num
 			//String playerName = "player"+i; //Does not work, cannot make a string used as the player constructer.
@@ -77,7 +77,7 @@ public class Main{
 		* The while loop exits when playersAlive <= 1.
 		* If playersAlive == 1, then players.size() == 1.
 		*/
-		System.out.println(players.get(0) + " won!");
+		System.out.println(players.get(0).playerName + " won!");
 	}
 	public Player askForVictim() {
 		System.out.println("Who would you like to target?");
