@@ -221,10 +221,17 @@ public class Main{
 		}
 		System.out.println("Which card would you like? (Say a number listed)");
 		String ui = input.nextLine();
-		int num = Integer.parseInt(ui);
-		stealer.hand.add(victim.hand.get(num));
-		System.out.println("You stole card " + victim.hand.get(num) + " from player " + victim);
-		victim.hand.remove(num);
+		try {
+			int num = Integer.parseInt(ui);
+			stealer.hand.add(victim.hand.get(num));
+			System.out.println("You stole card " + victim.hand.get(num) + " from player " + victim);
+			victim.hand.remove(num);
+
+		}
+		catch(NumberFormatException e) {
+			System.out.println("Invalid imput");
+			threeOfAKindSteal();
+		}
 	}
 	public Card getDrawnCard() {
 		Player drawer = players.get(currentPlayer);
