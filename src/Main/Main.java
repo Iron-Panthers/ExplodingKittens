@@ -212,6 +212,17 @@ public class Main{
 		}
 	}
 	public static void threeOfAKindSteal() {
+		
+		/**
+		 * 
+		 * Hey guys. This code does something other than that is in the rules. It is how I played at home.
+		 * 
+		 * It shows the victim's deck to the stealer and asks the stealer to pick one card of their choise.
+		 * 
+		 * If you keep it I will be happy but if you change/remove it, I will understand.
+		 * 
+		 */
+		
 		Player stealer = players.get(currentPlayer);
 		Player victim = askForVictim();
 		System.out.println("Player " + victim +" has:");
