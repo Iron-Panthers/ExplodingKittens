@@ -41,6 +41,9 @@ public class Main{
 			//String playerName = "player"+i; //Does not work, cannot make a string used as the player constructer.
 			Player player = new Player(i);
 			players.add(player);
+			for(int x = 0; x < 7; x ++) {
+				player.hand.add(deck.topCard());
+			}
 		}
 		//Game loop
 		while (players.size() > 1) {
@@ -75,7 +78,7 @@ public class Main{
 		* The while loop exits when playersAlive <= 1.
 		* If playersAlive == 1, then players.size() == 1.
 		*/
-		System.out.println(players.get(0) + " won!");
+		System.out.println(players.get(0).playerName + " won!");
 	}
 	public Player askForVictim() {
 		System.out.println("Who would you like to target?");
@@ -214,9 +217,14 @@ public class Main{
 		Player victim = askForVictim();
 		System.out.println("Player " + victim +" has:");
 		for (int i = 0; i<victim.hand.size(); i++) { //prints out the cards in the player's hand
-			System.out.println(victim.hand.get(i));
+			System.out.println(i+1 + ": " + victim.hand.get(i));
 		}
-		//not finished
+		System.out.println("Which card would you like? (Say a number listed)");
+		String ui = input.nextLine();
+		int num = Integer.parseInt(ui);
+		stealer.hand.add(victim.hand.get(num));
+		System.out.println("You stole card " + victim.hand.get(num) + " from player " + victim);
+		victim.hand.remove(num);
 	}
 	public Card getDrawnCard() {
 		Player drawer = players.get(currentPlayer);
