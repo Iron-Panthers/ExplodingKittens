@@ -70,7 +70,15 @@ public class Main{
 		*/
 		System.out.println(players.get(0) + " won!");
 	}
-	
+	public Player askForVictim() {
+		System.out.println("Who would you like to target?");
+		System.out.println("Would you like to target: ");
+		for (int i = 0; i<players.size(); i++) {
+			System.out.println(players.get(i).playerName);
+		}
+		//Have input set to which player they target, 
+		return victim;
+	}
 	public void favor(Player targeter, Player victim) {
 		System.out.println("What card would you like to give? Type the card name to give or \"nope\" to counter the favor.");
 		boolean choosing = true;
