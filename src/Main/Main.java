@@ -2,30 +2,39 @@ package Main;
 //Main.attack;
 //Main.attack();
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;
 
 import Deck.Deck;
 import Player.Player;
 import card.Card;
-import card.CardType;
 
 public class Main{
 	public static boolean attack;
 	static int numPlayers = 4;
 	static int explodingKittenNum = numPlayers-1;
-	static int playersAlive = numPlayers;
 	static int lastPlayerAlive;
 	static ArrayList<Player> players;
+	static ArrayList<Card> nonDescripts;
 
 	//Constructors
 	public static Deck deck;
-	static Scanner input;
+	public static Scanner input;
+	public static Random randomCard;
 	
 	public static void main(String[] args) {
 		attack = false;
 		input = new Scanner(System.in);
 		deck = new Deck(explodingKittenNum);
+		randomCard = new Random();
 		players = new ArrayList<Player>();
+		nonDescripts = new ArrayList<Card>();
+		nonDescripts.add(deck.catterMelon);
+		nonDescripts.add(deck.beardCat);
+		nonDescripts.add(deck.hairyPotatoCat);
+		nonDescripts.add(deck.rainbowRalphingCat);
+		nonDescripts.add(deck.tacoCat);
+		//Adds players to the arrayList players
 		for (int i = 0; i < numPlayers; i++) {
 			String temp = "player"+i;
 			//Make variable temp? Set it to player+num
@@ -33,29 +42,26 @@ public class Main{
 			Player player = new Player(temp);
 			players.add(player);
 		}
-		while (playersAlive > 1) {
-			for (int i = 0; i % players.size() < players.size(); i = (i + 1) % players.size()) {
-				/**
-				 * int nextPlayer = i++; 
-				 * This will update i; we don't want the update to occur here.
-				 */
-				int nextPlayer = (i + 1) % players.size();
-				/**
-				if(nextPlayer> numPlayers) {
-					nextPlayer = 0;
+		//Game loop
+		while (players.size() > 1) {
+			for (int i = 0; i % players.size() < players.size(); i=(i+1)%players.size()) {
+				if (players.size()==1) {
+					break;
 				}
-				if (i> numPlayers) {
-					i = 0;
-				}
-				 * This block of code is unnecessary. 
-				 */
-				while (players.get(i%players.size()).turns > 0) {
-					players.get(i%players.size()).turn();
+				int nextPlayer = (i+1) % players.size();
+				players.get(i).turns=1;
+				while (players.get(i).turns > 0) {
+					players.get(i).turn();
 					if (attack) {
-						players.get(i%players.size()).endTurn();
-						players.get(nextPlayer).turns += 2; 
+						players.get(i).endTurn();
+						players.get(nextPlayer).turns += 2;
+						/**
+						 * Main.attack = false;
+						 * no need to do Main. if calling from main
+						 */ 
 						attack = false;
 					}
+					players.get(i).turns --;
 				}
 			}
 		}
@@ -70,20 +76,28 @@ public class Main{
 		*/
 		System.out.println(players.get(0) + " won!");
 	}
-	
+	public Player askForVictim() {
+		System.out.println("Who would you like to target?");
+		System.out.println("Would you like to target: ");
+		for (int i = 0; i<players.size(); i++) {
+			System.out.println(players.get(i).playerName);
+		}
+		//Have input set to which player they target, 
+		return victim;
+	}
 	public void favor(Player targeter, Player victim) {
 		System.out.println("What card would you like to give? Type the card name to give or nope to counter the favor.");
 		boolean choosing = true;
 		while(choosing) {	
-			CardType chosenCard = Card.convertToCardType(input.nextLine());
-			if (input.nextLine().equalsIgnoreCase("nope") && victim.hand.contains(chosenCard)) {
+			Card chosenCard = new Card(Card.convertToCardType(input.nextLine()));
+			if (input.nextLine().equalsIgnoreCase("nope") && victim.hand.contains(chosenCard)) { //Removes card, discards card if nope
 				System.out.println("Favor countered");
-				victim.hand.remove(chosenCard);
+				victim.hand.remove(chosenCard);   
 				deck.discard(chosenCard);
 				targeter.hand.remove(deck.favor);
 				deck.discard(deck.favor);
 				choosing = false;
-			} else if (victim.hand.contains(chosenCard)) {
+			} else if (victim.hand.contains(chosenCard)) { //Removes cards, discards card if given
 				System.out.println("Giving "+chosenCard+" .");
 				victim.hand.remove(chosenCard);
 				targeter.hand.add(chosenCard);
@@ -105,9 +119,6 @@ public class Main{
 	public void attack() {
 		attack = true;
 		//Ends turn, next player must take two turns
-	}
-	public void nope(Player noper, Player victim) { //Targets a card that targets the noper
-		
 	}
 	public void defuse(Player defuser) { //Works for any card, not just exploding kittens
 		Card drawnCard;
@@ -175,7 +186,6 @@ public class Main{
 		//remove card from victim's hand
 		//not finished
 	}
-	
 	public Card getDrawnCard(Player drawer) {
 		int drawnCardIndex = 0;
 		for (int i = 0; i<drawer.hand.size(); i++) { //Gets the last card in the player's hand, which is the card they last drew
@@ -188,7 +198,55 @@ public class Main{
 		deck.deckList.add(0,getDrawnCard(skipper));  
 		skipper.hand.remove(getDrawnCard(skipper));
 	}
-	public void pair(Player player, Card nonDescript) {
-		
+	public void twoOfAKindSteal(Player targeter,Player victim, Card nonDescript) {
+		ArrayList<Card> tempHand = new ArrayList<Card>();
+		tempHand = targeter.hand;
+		//Checks if hand has two of the nonDescripts
+		if (nonDescripts.contains(nonDescript)) {
+			if (tempHand.contains(nonDescript)) {
+				tempHand.remove(nonDescript);
+				if (tempHand.contains(nonDescript)) {
+					tempHand.remove(nonDescript);
+					System.out.println("You have both cards");
+					targeter.hand.remove(nonDescript);
+					targeter.hand.remove(nonDescript);
+					deck.discard(nonDescript);
+					deck.discard(nonDescript);
+					System.out.println(victim.playerName+", would you like to nope? Say 'yes' to nope, 'no' to not nope");
+					String isNoping = input.nextLine();
+					boolean choosingNope = true;
+					while (choosingNope) {
+						if (isNoping.equalsIgnoreCase("yes")) {
+							if (victim.hand.contains(deck.nope)) {
+								victim.hand.remove(deck.nope);
+								deck.discard(deck.nope);
+								System.out.println("Two of a kind has been countered.");
+								choosingNope = false;
+							}
+							
+						}
+						if (isNoping.equalsIgnoreCase("no")) {
+							int randCard = randomCard.nextInt(victim.hand.size());
+							Card givenCard = victim.hand.get(randCard);
+							victim.hand.remove(givenCard);
+							targeter.hand.add(givenCard);
+							choosingNope = false;
+						}
+						else {
+							System.out.println("Please choose again.");
+						}
+					}
+				}
+				else {
+					System.out.println("You do not have those two cards");
+				}
+			}
+			else {
+				System.out.println("You do not have those two cards.");
+			}
+		}
+		else {
+			System.out.println("You must choose two non descripts");
+		}
 	}
 }

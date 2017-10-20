@@ -34,7 +34,6 @@ public class Player {
 	}
 	public void endTurn() {
 		hand.add(Main.deck.topCard());
-		turns--;
 	}
 	public void showHand() {
 		for (int i = 0; i < hand.size(); i++) {
@@ -42,20 +41,16 @@ public class Player {
 		}
 	}
 	public Card choseCard() {
-		boolean hasCard = false;
-		while(!hasCard) {
-			System.out.println("What card would you like to chose?");
-			Card chosenCard = Main.card.convertToCardType(input.nextLine());
-			if (isCardInHand(chosenCard)) {
-				System.out.println("Playing " + chosenCard + " .");
-				hand.remove(chosenCard);
-				Main.deck.discard(chosenCard);
-				hasCard = true;
-			} else {
-				System.out.println("You do not have "+chosenCard+" in your hand.");
-			}
+		System.out.println("What card would you like to chose?");
+		Card chosenCard = new Card(Card.convertToCardType(input.nextLine()));
+		if (isCardInHand(chosenCard)) {
+			return chosenCard;
+		}
+		else {
+			return null;
 		}
 	}
+	
 //	public void playCard(Card cardToPlay) {
 //		switch(cardToPlay.type) {
 //			case attack:
