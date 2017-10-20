@@ -182,9 +182,14 @@ public class Main{
 	public void threeOfAKindSteal(Player stealer, Player victim) {
 		System.out.println("Player " + victim +" has:");
 		for (int i = 0; i<victim.hand.size(); i++) { //prints out the cards in the player's hand
-			System.out.println(victim.hand.get(i));
+			System.out.println(i+1 + ": " + victim.hand.get(i));
 		}
-		//not finished
+		System.out.println("Which card would you like? (Say a number listed)");
+		String ui = input.nextLine();
+		int num = Integer.parseInt(ui);
+		stealer.hand.add(victim.hand.get(num));
+		System.out.println("You stole card " + victim.hand.get(num) + " from player " + victim);
+		victim.hand.remove(num);
 	}
 	public Card getDrawnCard(Player drawer) {
 		int drawnCardIndex = 0;
