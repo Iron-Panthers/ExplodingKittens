@@ -28,7 +28,7 @@ public class Player {
 					}
 				}
 				catch (NullPointerException e) {
-					
+					System.out.println(e.getMessage());
 				}
 			}
 			if(input.nextLine().equalsIgnoreCase("showhand")) {
