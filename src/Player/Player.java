@@ -22,8 +22,13 @@ public class Player {
 		while (turns > 0) {
 			System.out.println("What would you like to do, "+playerName+"? Type usecard to use a card, showhand to see your hand, and endturn to draw and end your turn.");
 			if(input.nextLine().equalsIgnoreCase("usecard")) {
-				if (choseCard().type == Card.convertToCardType("skip")){
-					Main.skip();
+				try {
+					if (chooseCard().type == Card.convertToCardType("skip")){
+						Main.skip();
+					}
+				}
+				catch (NullPointerException e) {
+					
 				}
 			}
 			if(input.nextLine().equalsIgnoreCase("showhand")) {
@@ -42,16 +47,15 @@ public class Player {
 			System.out.println(hand.get(i));
 		}
 	}
-	public Card choseCard() {
+	public Card chooseCard() {
 		System.out.println("What card would you like to chose?");
 		try {
 			Card chosenCard = new Card(Card.convertToCardType(input.nextLine()));
 			return chosenCard;
 		} catch (IllegalArgumentException CardNoExist) {
 			System.out.println("Card No Exist!");
-			CardNoExist.printStackTrace();
 			return null;
-		}
+		} 
 //		if (isCardInHand(chosenCard)) {
 //			return chosenCard;
 //		}			
