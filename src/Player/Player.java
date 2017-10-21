@@ -53,9 +53,10 @@ public class Player {
 			Card chosenCard = new Card(Card.convertToCardType(input.nextLine()));
 			return chosenCard;
 		} catch (IllegalArgumentException CardNoExist) {
-			System.out.println("Card No Exist!");
-			return null;
+			System.out.println("The card does not exist. Please try again.");
+			chooseCard();
 		} 
+		return null;
 //		if (isCardInHand(chosenCard)) {
 //			return chosenCard;
 //		}			
