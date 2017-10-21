@@ -23,14 +23,6 @@ public class Player {
 		while(isChoosing) {
 			System.out.println("What would you like to do, "+playerName+"? Type usecard to use a card, showhand to see your hand, and endturn to draw and end your turn.");
 			if(input.nextLine().equalsIgnoreCase("usecard")) {
-				//try {
-					//if (chooseCard().type == Card.convertToCardType("skip")){
-						//Main.skip();
-					//}
-				//}
-				//catch (NullPointerException e) {
-					
-				//}
 				Card chosenCard = chooseCard();
 				playCard(chosenCard);
 			}
@@ -58,20 +50,17 @@ public class Player {
 	}
 	public Card chooseCard() {
 		System.out.println("What card would you like to chose?");
-		try {
-			Card chosenCard = new Card(Card.convertToCardType(input.nextLine()));
-			return chosenCard;
-		} catch (IllegalArgumentException CardNoExist) {
-			System.out.println("The card does not exist. Please try again.");
-			chooseCard();
-		} 
+		boolean shilohLovesCalc = true;
+		while (shilohLovesCalc) {
+			try {
+				Card chosenCard = new Card(Card.convertToCardType(input.nextLine()));
+				return chosenCard;
+			} 
+			catch (IllegalArgumentException CardNoExist) {
+				System.out.println("The card does not exist. Please try again.");
+			}
+		}
 		return null;
-//		if (isCardInHand(chosenCard)) {
-//			return chosenCard;
-//		}			
-//		else {
-//			return null;
-//		}		
 	}	
 	public void playCard(Card cardToPlay) {
 		switch(cardToPlay.type) {
@@ -117,21 +106,23 @@ public class Player {
 	public void nonDescriptOptions() {
 		boolean isChoosing = true;
 		System.out.println("Would you like to do a two or three of a kind steal? Enter '2' for 2 of a kind, '3' for three of a kind");
-		int pChoice = input.nextInt();
 		while (isChoosing) {
-			while (!input.hasNextInt()) {
-				System.out.println("Please only enter '2' or '3'");
+			try {
+				int pChoice = Integer.parseInt(input.nextLine());
+				if (pChoice==2) {
+					Main.twoOfAKindSteal();
+					isChoosing = false;
+				}
+				if (pChoice==3) {
+					Main.threeOfAKindSteal();
+					isChoosing = false;
+				}
+				else {
+					System.out.println("Please enter a valid number. 2 or 3.");
+				}
 			}
-			if (pChoice==2) {
-				Main.twoOfAKindSteal();
-				isChoosing = false;
-			}
-			if (pChoice==3) {
-				Main.threeOfAKindSteal();
-				isChoosing = false;
-			}
-			else {
-				System.out.println("Please enter a valid number. 2 or 3.");
+			catch (NumberFormatException e) {
+				System.out.println("Please enter an Arabic numeral.");
 			}
 		}
 	}
