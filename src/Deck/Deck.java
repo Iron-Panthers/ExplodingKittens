@@ -76,7 +76,7 @@ public class Deck {
 		fill(catterMelon,catterMelonNum);
 		
 		//Action Card Fills
-		fill(explodingKitten,explodingKittenNum);
+		//Does not fill with Exploding kitten to avoid confusion in game start
 		fill(seeTheFuture,seeTheFutureNum);
 		fill(shuffle,shuffleNum);
 		fill(defuse,defuseNum);
