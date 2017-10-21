@@ -16,6 +16,8 @@ public class Main{
 	public static ArrayList<Player> players;
 	static ArrayList<Card> nonDescripts;
 	public static int currentPlayer;
+	public static int nextPlayer;
+	public static int tempIterations;
 
 	//Constructors
 	public static Deck deck;
@@ -44,23 +46,21 @@ public class Main{
 				player.hand.add(deck.topCard());
 			}
 		}
+		//After players draw their cards, it puts exploding kittens into the deck
+		deck.fill(deck.explodingKitten,explodingKittenNum);
+		deck.shuffle();
 		//Game loop
 		while (players.size() > 1) {
 			for (int i = 0; i % players.size() < players.size(); i=(i + 1) % players.size()) {
 				if (players.size() == 1) {
 					break;
 				}
-				int nextPlayer = (i+1) % players.size();
+				tempIterations=i;
+				nextPlayer = (i+1) % players.size();
 				currentPlayer = i;
 				players.get(i).turns=1;
-				while (players.get(i).turns > 0) { //It also does this in player
+				while (players.get(i).turns > 0) {
 					players.get(i).turn();
-					if (attack) {
-						players.get(i).endTurn();
-						players.get(nextPlayer).turns += 2;
-						attack = false; /** From Shiloh: It may be easier to just write "break;" */
-					}
-					players.get(i).turns --;
 				}
 			}
 		}
