@@ -58,13 +58,13 @@ public class Main{
 					if (attack) {
 						players.get(i).endTurn();
 						players.get(nextPlayer).turns += 2;
-						attack = false;
+						attack = false; /** From Shiloh: It may be easier to just write "break;" */
 					}
 					players.get(i).turns --;
 				}
 			}
 		}
-		/**
+		/*
 		if(players.size()==1) {
 			System.out.println(players.get(0)+" Won!!!");
 		}
@@ -88,14 +88,20 @@ public class Main{
 		while (isChoosing) {
 			System.out.println("Please enter the integer for the player name.");
 			while (!input.hasNextInt()) {
-				System.out.println("Please only enter an integer.");
+				/** 
+				 * You need to include a line that actually lets the user input something. 
+				 * I'll let you figure out where that line of code goes.
+				 * Also, consider what happens if the user inputs something like "blah blah blah 5"?
+				 * --Shiloh
+				 */
+				System.out.println("Please only enter an integer."); 
 			}
 			int player = input.nextInt();
 			//For loop that checks if any of the players in the array have the name of int
 			for (int i = 0; i<players.size(); i++) {
 				if (players.get(i).playerName==player) {
 					playerLocation = i; //Gets the player location
-					isChoosing = false;
+					isChoosing = false; 
 				}
 			}
 			if (playerLocation==10) {
@@ -151,6 +157,12 @@ public class Main{
 			int deckSizeMinusOne = deck.deckList.size()-1;
 			System.out.println("You can place the card anywhere in the deck from the top, 0, to "+deckSizeMinusOne);
 			while(!input.hasNextInt()) {
+				/** 
+				 * You need to include a line that actually lets the user input something. 
+				 * I'll let you figure out where that line of code goes.
+				 * Also, consider what happens if the user inputs something like "blah blah blah 5"?
+				 * --Shiloh
+				 */
 				System.out.println("Please enter an integer from 0 to"+deckSizeMinusOne);
 			}
 			int deckLocation = input.nextInt();
