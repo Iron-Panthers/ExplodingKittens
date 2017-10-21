@@ -19,28 +19,37 @@ public class Player {
 	}
 	
 	public void turn() {
-		while (turns > 0) {
+		boolean isChoosing = true;
+		while(isChoosing) {
 			System.out.println("What would you like to do, "+playerName+"? Type usecard to use a card, showhand to see your hand, and endturn to draw and end your turn.");
 			if(input.nextLine().equalsIgnoreCase("usecard")) {
-				try {
-					if (chooseCard().type == Card.convertToCardType("skip")){
-						Main.skip();
-					}
-				}
-				catch (NullPointerException e) {
+				//try {
+					//if (chooseCard().type == Card.convertToCardType("skip")){
+						//Main.skip();
+					//}
+				//}
+				//catch (NullPointerException e) {
 					
-				}
+				//}
+				Card chosenCard = chooseCard();
+				playCard(chosenCard);
 			}
 			if(input.nextLine().equalsIgnoreCase("showhand")) {
 				showHand();
 			}
 			if(input.nextLine().equalsIgnoreCase("endturn")) {
 				endTurn();
+				isChoosing = false;
+			}
+			else {
+				System.out.println("Please choose a valid choice.");
 			}
 		}
+			
 	}
 	public void endTurn() {
 		hand.add(Main.deck.topCard());
+		Main.players.get(Main.tempIterations).turns--;
 	}
 	public void showHand() {
 		for (int i = 0; i < hand.size(); i++) {

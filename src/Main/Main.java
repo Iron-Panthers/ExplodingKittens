@@ -17,6 +17,7 @@ public class Main{
 	static ArrayList<Card> nonDescripts;
 	public static int currentPlayer;
 	public static int nextPlayer;
+	public static int tempIterations;
 
 	//Constructors
 	public static Deck deck;
@@ -54,10 +55,13 @@ public class Main{
 				if (players.size() == 1) {
 					break;
 				}
+				tempIterations=i;
 				nextPlayer = (i+1) % players.size();
 				currentPlayer = i;
 				players.get(i).turns=1;
-				players.get(i).turn(); //No need for while loop, turn does all of those things.
+				while (players.get(i).turns > 0) {
+					players.get(i).turn();
+				}
 			}
 		}
 		/**
