@@ -50,7 +50,7 @@ public class Player {
 		}
 	}
 	public Card chooseCard() {
-		System.out.println("What card would you like to chose?");
+		System.out.println("What card would you like to choose?");
 		boolean shilohLovesCalc = true;
 		while (shilohLovesCalc) {
 			try {
@@ -108,7 +108,7 @@ public class Player {
 	}
 	public void nonDescriptOptions() {
 		boolean isChoosing = true;
-		System.out.println("Would you like to do a two or three of a kind steal? Enter '2' for 2 of a kind, '3' for three of a kind");
+		System.out.println("Would you like to do a two or three of a kind steal? Enter '2' for 2 of a kind, '3' for three of a kind.");
 		while (isChoosing) {
 			try {
 				int pChoice = Integer.parseInt(input.nextLine());

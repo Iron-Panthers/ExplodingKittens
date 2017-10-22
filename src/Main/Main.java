@@ -39,7 +39,7 @@ public class Main{
 		//Adds players to the arrayList players
 		for (int i = 1; i < numPlayers; i++) {
 			//Make variable temp? Set it to player+num
-			//String playerName = "player"+i; //Does not work, cannot make a string used as the player constructer.
+			//String playerName = "player"+i; //Does not work, cannot make a string used as the player constructor.
 			Player player = new Player(i);
 			players.add(player);
 			for(int x = 0; x < 5; x ++) {
@@ -143,7 +143,7 @@ public class Main{
 			int deckSizeMinusOne = deck.deckList.size()-1;
 			System.out.println("You can place the card anywhere in the deck from the top, 0, to "+deckSizeMinusOne);
 			boolean shilohLovesCalc = true;
-			int deckLocation = 0; //intializes deckLocation
+			int deckLocation = 0; //initializes deckLocation
 			while (shilohLovesCalc) {
 				try {
 					deckLocation = Integer.parseInt(input.nextLine());
@@ -152,7 +152,7 @@ public class Main{
 					}
 				}
 				catch (NumberFormatException e) {
-					System.out.println("Please enter an integer from 0 to "+ deckSizeMinusOne + ".");
+					System.out.println("Please enter an integer from 0 to " + deckSizeMinusOne + ".");
 				}
 			}
 			defuser.hand.remove(drawnCard); //Removes the defused card from hand
@@ -168,13 +168,13 @@ public class Main{
 	}
 	public static void explode() {
 		Player exploder = players.get(currentPlayer);
-		System.out.println("You have drawn an exploding kitten. Type 'defuse' to defuse, type 'ok' to die");
+		System.out.println("You have drawn an exploding kitten. Type 'defuse' to defuse; type 'ok' to die.");
 		String usrInput = input.nextLine();
 		if (usrInput.equalsIgnoreCase("defuse")) {
 			defuse();
 		}
 		else {
-			System.out.println("You die");
+			System.out.println("You die.");
 			players.remove(exploder);
 		}
 	}
@@ -224,7 +224,7 @@ public class Main{
 		Player victim = askForVictim();
 		System.out.println("Player " + victim +" has:");
 		for (int i = 0; i<victim.hand.size(); i++) { //prints out the cards in the player's hand
-			System.out.println(i+1 + ": " + victim.hand.get(i));
+			System.out.println((i+1) + ": " + victim.hand.get(i));
 		}
 		System.out.println("Which card would you like? (Say a number listed)");
 		String ui = input.nextLine();
