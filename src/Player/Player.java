@@ -20,21 +20,22 @@ public class Player {
 	
 	public void turn() {
 		boolean isChoosing = true;
+		System.out.println("What would you like to do, "+playerName+"? Type \"usecard\" to use a card, \"showhand\" to see your hand, and \"endturn\" to draw and end your turn.");
 		while(isChoosing) {
-			System.out.println("What would you like to do, "+playerName+"? Type usecard to use a card, showhand to see your hand, and endturn to draw and end your turn.");
-			if(input.nextLine().equalsIgnoreCase("usecard")) {
+			String userInput = input.nextLine();
+			if(userInput.equalsIgnoreCase("usecard")) {
 				Card chosenCard = chooseCard();
 				playCard(chosenCard);
 			}
-			if(input.nextLine().equalsIgnoreCase("showhand")) {
+			else if (userInput.equalsIgnoreCase("showhand")) {
 				showHand();
 			}
-			if(input.nextLine().equalsIgnoreCase("endturn")) {
+			else if (userInput.equalsIgnoreCase("endturn")) {
 				endTurn();
 				isChoosing = false;
 			}
 			else {
-				System.out.println("Please choose a valid choice.");
+				System.out.println("Please type one of the following options:\nusecard\nshowhand\nendturn");
 			}
 		}
 			
@@ -53,7 +54,8 @@ public class Player {
 		boolean shilohLovesCalc = true;
 		while (shilohLovesCalc) {
 			try {
-				Card chosenCard = new Card(Card.convertToCardType(input.nextLine()));
+				String cardInput = input.nextLine();
+				Card chosenCard = new Card(Card.convertToCardType(cardInput));
 				return chosenCard;
 			} 
 			catch (IllegalArgumentException CardNoExist) {
@@ -69,6 +71,9 @@ public class Player {
 				Main.players.get(Main.nextPlayer).turns += 2;
 				Main.attack = false;
 				Main.players.get(Main.currentPlayer).turns --;
+			/*case DEFUSE:
+				Main.defuse();
+				break;*/
 			case SKIP:
 				Main.skip();
 				break;
@@ -97,7 +102,8 @@ public class Player {
 				nonDescriptOptions();
 				break;
 			default:
-				System.out.println("That is not a valid card choice");
+				System.out.println("That is not a valid card choice.");
+				break;
 		}
 	}
 	public boolean isCardInHand(Card chosenCard) {
