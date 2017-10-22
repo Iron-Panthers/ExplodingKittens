@@ -142,16 +142,19 @@ public class Main{
 			System.out.println("Where would you like to place the card");
 			int deckSizeMinusOne = deck.deckList.size()-1;
 			System.out.println("You can place the card anywhere in the deck from the top, 0, to "+deckSizeMinusOne);
-			while(!input.hasNextInt()) {
-				/** 
-				 * You need to include a line that actually lets the user input something. 
-				 * I'll let you figure out where that line of code goes.
-				 * Also, consider what happens if the user inputs something like "blah blah blah 5"?
-				 * --Shiloh
-				 */
-				System.out.println("Please enter an integer from 0 to"+deckSizeMinusOne);
+			boolean shilohLovesCalc = true;
+			int deckLocation = 0; //intializes deckLocation
+			while (shilohLovesCalc) {
+				try {
+					deckLocation = Integer.parseInt(input.nextLine());
+					if (deckLocation >= 0 && deckLocation < deck.deckList.size()) {
+						break;
+					}
+				}
+				catch (NumberFormatException e) {
+					System.out.println("Please enter an integer from 0 to "+ deckSizeMinusOne + ".");
+				}
 			}
-			int deckLocation = input.nextInt();
 			defuser.hand.remove(drawnCard); //Removes the defused card from hand
 			deck.deckList.add(deckLocation, drawnCard); //Puts the defused card back into the deck
 			defuser.hand.remove(deck.defuse); //Discards defuse from hand, places it in discard pile.

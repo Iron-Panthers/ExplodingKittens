@@ -22,7 +22,7 @@ public class Player {
 		boolean isChoosing = true;
 		System.out.println("What would you like to do, "+playerName+"? Type \"usecard\" to use a card, \"showhand\" to see your hand, and \"endturn\" to draw and end your turn.");
 		while(isChoosing) {
-			String userInput = input.nextLine();
+			String userInput = input.nextLine(); 
 			if(userInput.equalsIgnoreCase("usecard")) {
 				Card chosenCard = chooseCard();
 				playCard(chosenCard);
@@ -71,9 +71,6 @@ public class Player {
 				Main.players.get(Main.nextPlayer).turns += 2;
 				Main.attack = false;
 				Main.players.get(Main.currentPlayer).turns --;
-			/*case DEFUSE:
-				Main.defuse();
-				break;*/
 			case SKIP:
 				Main.skip();
 				break;
