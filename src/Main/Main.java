@@ -62,16 +62,7 @@ public class Main{
 				}
 			}
 		}
-		/**
-		if(players.size()==1) {
-			System.out.println(players.get(0)+" Won!!!");
-		}
-		* We don't need to write this if statement.
-		* This statement isn't reached until the while loop is done.
-		* The while loop exits when playersAlive <= 1.
-		* If playersAlive == 1, then players.size() == 1.
-		*/
-		System.out.println(players.get(0).playerName + " won!");
+		System.out.println(players.get(0).playerName + " won!"); //executes after while loop exits
 	}
 	public static Player askForVictim() {
 		System.out.println("Who would you like to target?");
@@ -81,23 +72,24 @@ public class Main{
 			System.out.println(players.get(i).playerName);
 		}
 		boolean isChoosing = true;
-		//Have input set to which player they target,
 		int playerLocation = 10; //Sets location of player input player in the array to where their chosen player is.
+		System.out.println("Please enter the integer for the player name.");
 		while (isChoosing) {
-			System.out.println("Please enter the integer for the player name.");
-			while (!input.hasNextInt()) {
-				System.out.println("Please only enter an integer.");
+			try {
+				int player = Integer.parseInt(input.nextLine());
+				//For loop that checks if any of the players in the array have the name of int
+				for (int i = 0; i<players.size(); i++) {
+					if (players.get(i).playerName==player) {
+						playerLocation = i; //Gets the player location
+						isChoosing = false; 
+					} //end if
+				} //end for
+				if (playerLocation==10) {
+					System.out.println("That is not a valid player. Please try again.");
+				} //end if
 			}
-			int player = input.nextInt();
-			//For loop that checks if any of the players in the array have the name of int
-			for (int i = 0; i<players.size(); i++) {
-				if (players.get(i).playerName==player) {
-					playerLocation = i; //Gets the player location
-					isChoosing = false;
-				}
-			}
-			if (playerLocation==10) {
-				System.out.println("That is not a valid player");
+			catch (NumberFormatException e) {
+				System.out.println("Invalid input. Please enter an Arabic numeral.");
 			}
 		}
 		Player victim = players.get(playerLocation);
@@ -148,10 +140,19 @@ public class Main{
 			System.out.println("Where would you like to place the card");
 			int deckSizeMinusOne = deck.deckList.size()-1;
 			System.out.println("You can place the card anywhere in the deck from the top, 0, to "+deckSizeMinusOne);
-			while(!input.hasNextInt()) {
-				System.out.println("Please enter an integer from 0 to"+deckSizeMinusOne);
+			boolean shilohLovesCalc = true;
+			int deckLocation = 0; //intializes deckLocation
+			while (shilohLovesCalc) {
+				try {
+					deckLocation = Integer.parseInt(input.nextLine());
+					if (deckLocation >= 0 && deckLocation < deck.deckList.size()) {
+						break;
+					}
+				}
+				catch (NumberFormatException e) {
+					System.out.println("Please enter an integer from 0 to "+ deckSizeMinusOne + ".");
+				}
 			}
-			int deckLocation = input.nextInt();
 			defuser.hand.remove(drawnCard); //Removes the defused card from hand
 			deck.deckList.add(deckLocation, drawnCard); //Puts the defused card back into the deck
 			defuser.hand.remove(deck.defuse); //Discards defuse from hand, places it in discard pile.

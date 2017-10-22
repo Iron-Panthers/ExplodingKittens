@@ -8,7 +8,10 @@ public class Card {
 	}
 	
 	public static CardType convertToCardType(String str) {
-		// ex: NOPe
+		/**
+		 * converts String to CardType
+		 * ex: "rAiNbOw_RaLpHiNg CaT" to RAINBOW_RALPHING_CAT
+		 */
 		str = str.replaceAll("\\s+", "_");
 		str = str.replaceAll("-", "_");
 		for (int i = 0; i < CardType.values().length; i++) {
@@ -18,33 +21,4 @@ public class Card {
 		}
 		return null;
 	}
-	/**
-	  boolean turnOver;
-	
-	public void playCard(int cardNumber) {
-		
-		if (type == CardType.SKIP) {
-			skip();
-		}
-		if (type == CardType.ATTACK) {
-			attack();
-		}
-		
-	}
-	
-	public void execute() {
-		if (turnOver==true) {
-			//method for ending turn in player
-		}
-	}
-	
-	public void attack() {
-		turnOver = true;
-	}
-
-	public void skip() {
-		turnOver = true;
-	}**/
 }
-
-// Card bomb = new Card(CardType.EXPLODING_KITTEN);
