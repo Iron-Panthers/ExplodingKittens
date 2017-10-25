@@ -5,7 +5,6 @@ import java.util.Scanner;
 
 import Main.Main;
 import card.Card;
-import card.CardType;
 
 public class Player {
 	
