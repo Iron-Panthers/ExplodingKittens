@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 import Main.Main;
 import card.Card;
+import card.CardType;
 
 public class Player {
 	
@@ -46,7 +47,7 @@ public class Player {
 	}
 	public void showHand() {
 		for (int i = 0; i < hand.size(); i++) {
-			System.out.println(hand.get(i));
+			System.out.println(hand.get(i).toString());
 		}
 	}
 	public Card chooseCard() {
