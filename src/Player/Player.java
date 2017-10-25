@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 import Main.Main;
 import card.Card;
+import card.CardType;
 
 public class Player {
 	
@@ -51,22 +52,18 @@ public class Player {
 	}
 	public Card chooseCard() {
 		System.out.println("What card would you like to chose?");
-		boolean shilohLovesCalc = true;
+		boolean hasCard = true;
 		Card cardToReturn;
-		while (shilohLovesCalc) {
-			try {
-				String cardInput = input.nextLine();
-				CardType cardType = Card.convertToCardType(cardInput);
-				for (int i = 0;i<hand.size();i++) {
-					if (hand.get(i).type.equals(cardType)) {
-						cardToReturn = hand.get(i);
-						return cardToReturn;
-					}
+		while (hasCard) {
+			String cardInput = input.nextLine();
+			CardType cardType = Card.convertToCardType(cardInput);
+			for (int i = 0;i<hand.size()-1;i++) {
+				if (hand.get(i).type.equals(cardType)) {
+					cardToReturn = hand.get(i);
+					return cardToReturn;
 				}
-			} 
-			catch (IllegalArgumentException CardNoExist) {
-				System.out.println("The card does not exist. Please try again.");
 			}
+			System.out.println("The card does not exist. Please try again.");
 		}
 		return null;
 	}	
