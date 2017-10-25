@@ -61,14 +61,6 @@ public class Player {
 			} else {
 				System.out.println("The card does not exist. Please try again.");
 			}
-//			try {
-//				String cardInput = input.nextLine();
-//				Card chosenCard = new Card(Card.convertToCardType(cardInput));
-//				return chosenCard;
-//			} 
-//			catch (IllegalArgumentException CardNoExist) {
-//				System.out.println("The card does not exist. Please try again.");
-//			}
 		}
 		return null;
 	}	
