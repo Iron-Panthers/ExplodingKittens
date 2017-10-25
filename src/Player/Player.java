@@ -5,7 +5,6 @@ import java.util.Scanner;
 
 import Main.Main;
 import card.Card;
-import card.CardType;
 
 public class Player {
 	
@@ -52,16 +51,24 @@ public class Player {
 	}
 	public Card chooseCard() {
 		System.out.println("What card would you like to chose?");
-		boolean shilohLovesCalc = true;
-		while (shilohLovesCalc) {
-			try {
-				String cardInput = input.nextLine();
-				Card chosenCard = new Card(Card.convertToCardType(cardInput));
+		boolean  cardChosen = true;
+		while (cardChosen) {
+			String cardInput = input.nextLine();
+			Card chosenCard = new Card(Card.convertToCardType(cardInput));
+			if (hand.contains(chosenCard)) {
+				System.out.println("Playing "+chosenCard+".");
 				return chosenCard;
-			} 
-			catch (IllegalArgumentException CardNoExist) {
+			} else {
 				System.out.println("The card does not exist. Please try again.");
 			}
+//			try {
+//				String cardInput = input.nextLine();
+//				Card chosenCard = new Card(Card.convertToCardType(cardInput));
+//				return chosenCard;
+//			} 
+//			catch (IllegalArgumentException CardNoExist) {
+//				System.out.println("The card does not exist. Please try again.");
+//			}
 		}
 		return null;
 	}	
