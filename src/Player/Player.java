@@ -71,6 +71,7 @@ public class Player {
 				Main.players.get(Main.nextPlayer).turns += 2;
 				Main.attack = false;
 				Main.players.get(Main.currentPlayer).turns --;
+				break;
 			case SKIP:
 				Main.skip();
 				break;
