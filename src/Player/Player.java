@@ -52,16 +52,18 @@ public class Player {
 	}
 	public Card chooseCard() {
 		System.out.println("What card would you like to chose?");
-		boolean shilohLovesCalc = true;
-		while (shilohLovesCalc) {
-			try {
-				String cardInput = input.nextLine();
-				Card chosenCard = new Card(Card.convertToCardType(cardInput));
-				return chosenCard;
-			} 
-			catch (IllegalArgumentException CardNoExist) {
-				System.out.println("The card does not exist. Please try again.");
+		boolean hasCard = true;
+		Card cardToReturn;
+		while (hasCard) {
+			String cardInput = input.nextLine();
+			CardType cardType = Card.convertToCardType(cardInput);
+			for (int i = 0;i<hand.size()-1;i++) {
+				if (hand.get(i).type.equals(cardType)) {
+					cardToReturn = hand.get(i);
+					return cardToReturn;
+				}
 			}
+			System.out.println("The card does not exist. Please try again.");
 		}
 		return null;
 	}	
@@ -72,6 +74,7 @@ public class Player {
 				Main.players.get(Main.nextPlayer).turns += 2;
 				Main.attack = false;
 				Main.players.get(Main.currentPlayer).turns --;
+				break;
 			case SKIP:
 				Main.skip();
 				break;
