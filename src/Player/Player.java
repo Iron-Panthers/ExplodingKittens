@@ -121,9 +121,6 @@ public class Player {
 					Main.threeOfAKindSteal();
 					isChoosing = false;
 				}
-				else {
-					System.out.println("Please enter a valid number. 2 or 3.");
-				}
 			}
 			catch (NumberFormatException e) {
 				System.out.println("Please enter an Arabic numeral.");

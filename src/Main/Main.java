@@ -36,6 +36,13 @@ public class Main{
 		nonDescripts.add(deck.hairyPotatoCat);
 		nonDescripts.add(deck.rainbowRalphingCat);
 		nonDescripts.add(deck.tacoCat);
+		boolean truth = true;
+		System.out.print("Welcome to Exploding Kittens. ");
+		System.out.println("How many people are playing?");
+		while (!input.hasNextInt()) {
+			System.out.println("please input an integer");
+		}
+		numPlayers = input.nextInt();
 		//Adds players to the arrayList players
 		for (int i = 1; i <= numPlayers; i++) {
 			Player player = new Player(i);
