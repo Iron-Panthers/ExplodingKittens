@@ -53,11 +53,17 @@ public class Player {
 	public Card chooseCard() {
 		System.out.println("What card would you like to chose?");
 		boolean shilohLovesCalc = true;
+		Card cardToReturn;
 		while (shilohLovesCalc) {
 			try {
 				String cardInput = input.nextLine();
-				Card chosenCard = new Card(Card.convertToCardType(cardInput));
-				return chosenCard;
+				CardType cardType = Card.convertToCardType(cardInput);
+				for (int i = 0;i<hand.size();i++) {
+					if (hand.get(i).type.equals(cardType)) {
+						cardToReturn = hand.get(i);
+						return cardToReturn;
+					}
+				}
 			} 
 			catch (IllegalArgumentException CardNoExist) {
 				System.out.println("The card does not exist. Please try again.");
