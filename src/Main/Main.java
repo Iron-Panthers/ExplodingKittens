@@ -51,7 +51,9 @@ public class Main{
 				isWrongCard = false;
 			}
 			catch (InputMismatchException e) {
+				input.next();
 				System.out.println("please enter an integer");
+				continue;
 			}
 		}
 		//Adds players to the arrayList players
