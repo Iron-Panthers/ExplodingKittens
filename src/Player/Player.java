@@ -60,7 +60,8 @@ public class Player {
 				CardType cardType = Card.convertToCardType(cardInput);
 				for (int i = 0;i<hand.size();i++) {
 					if (hand.get(i).type.equals(cardType)) {
-						cardToReturn = hand.get(i);
+						cardToReturn = hand.remove(i);
+						Main.deck.discard(cardToReturn);
 						return cardToReturn;
 					}
 				}
@@ -75,6 +76,7 @@ public class Player {
 		switch(cardToPlay.type) {
 			case ATTACK:
 				Main.players.get(Main.nextPlayer).turns += 2;
+				//Main.players.get(Main.currentPlayer).hand.remove(Main.deck.attack);
 				Main.players.get(Main.currentPlayer).endTurn();
 				Main.attack = false;
 				break;

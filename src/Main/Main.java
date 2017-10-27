@@ -69,6 +69,9 @@ public class Main{
 				while (players.get(i).turns > 0) {
 					players.get(i).turn();
 				}
+				if (getDrawnCard().type.equals(CardType.EXPLODING_KITTEN)) {
+					explode();
+				}
 			}
 		}
 		System.out.println(players.get(0).playerName + " won!"); //executes after while loop exits
@@ -132,13 +135,14 @@ public class Main{
 	}
 	public static void shuffle() {
 		deck.shuffle();
-		players.get(currentPlayer).hand.remove(deck.shuffle);
+		//players.get(currentPlayer).hand.remove(deck.shuffle);
 		System.out.println("You have succesfully randomly shuffled the deck");
 	}
 	public static void skip() {
+		//players.get(currentPlayer).hand.remove(deck.skip);
 		endTurnNoDraw();
 	}
-	public static void attack() {
+	public static void attack() { //Not used
 		attack = true;
 		//Ends turn, next player must take two turns
 	}
@@ -165,8 +169,8 @@ public class Main{
 			}
 			defuser.hand.remove(drawnCard); //Removes the defused card from hand
 			deck.deckList.add(deckLocation, drawnCard); //Puts the defused card back into the deck
-			defuser.hand.remove(deck.defuse); //Discards defuse from hand, places it in discard pile.
-			deck.discard(deck.defuse);
+			//defuser.hand.remove(deck.defuse); //Discards defuse from hand, places it in discard pile.
+			//deck.discard(deck.defuse);
 			System.out.println("You have defused.");
 			endTurnNoDraw();
 		}
