@@ -7,6 +7,7 @@ import java.util.Scanner;
 import Deck.Deck;
 import Player.Player;
 import card.Card;
+import card.CardType;
 
 public class Main{
 	public static boolean attack;
@@ -36,7 +37,6 @@ public class Main{
 		nonDescripts.add(deck.hairyPotatoCat);
 		nonDescripts.add(deck.rainbowRalphingCat);
 		nonDescripts.add(deck.tacoCat);
-		boolean truth = true;
 		System.out.print("Welcome to Exploding Kittens. ");
 		System.out.println("How many people are playing?");
 		while (!input.hasNextInt()) {
@@ -47,9 +47,11 @@ public class Main{
 		for (int i = 1; i <= numPlayers; i++) {
 			Player player = new Player(i);
 			players.add(player);
-			for(int x = 0; x < 5; x ++) {
+			for(int x = 0; x < 4; x ++) {
 				player.hand.add(deck.topCard());
 			}
+			Card defuse = new Card(CardType.DEFUSE);
+			player.hand.add(defuse);
 		}
 		//After players draw their cards, it puts exploding kittens into the deck
 		deck.fill(deck.explodingKitten,explodingKittenNum);
