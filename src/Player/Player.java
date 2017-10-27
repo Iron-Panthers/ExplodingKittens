@@ -74,10 +74,9 @@ public class Player {
 	public void playCard(Card cardToPlay) {
 		switch(cardToPlay.type) {
 			case ATTACK:
-				Main.players.get(Main.currentPlayer).endTurn();
 				Main.players.get(Main.nextPlayer).turns += 2;
+				Main.players.get(Main.currentPlayer).endTurn();
 				Main.attack = false;
-				Main.players.get(Main.currentPlayer).turns --;
 				break;
 			case SKIP:
 				Main.skip();
