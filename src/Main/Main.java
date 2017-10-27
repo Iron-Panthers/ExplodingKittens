@@ -1,6 +1,7 @@
 package Main;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -39,10 +40,16 @@ public class Main{
 		nonDescripts.add(deck.tacoCat);
 		System.out.print("Welcome to Exploding Kittens. ");
 		System.out.println("How many people are playing?");
-		while (!input.hasNextInt()) {
-			System.out.println("please input an integer");
+		boolean isWrongCard = true;
+		while (isWrongCard) {
+			try {
+				numPlayers = input.nextInt();
+				isWrongCard = false;
+			}
+			catch (InputMismatchException e) {
+				System.out.println("please enter an integer");
+			}
 		}
-		numPlayers = input.nextInt();
 		//Adds players to the arrayList players
 		for (int i = 1; i <= numPlayers; i++) {
 			Player player = new Player(i);

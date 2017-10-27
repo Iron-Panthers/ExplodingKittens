@@ -28,6 +28,7 @@ public class Player {
 			System.out.println("Type \"usecard\" to use a card, \"showhand\" to see your hand, and \"endturn\" to draw and end your turn.");
 			String userInput = input.nextLine(); 
 			if(userInput.equalsIgnoreCase("usecard")) {
+				showHand();
 				while(stillPlayingCards) {
 					wrongCard = false;
 					System.out.println("What card would you like to use?");
