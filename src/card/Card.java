@@ -21,4 +21,7 @@ public class Card {
 		}
 		return null;
 	}
+	public String toString() {
+		return type.toString();
+	}
 }

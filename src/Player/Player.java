@@ -1,10 +1,12 @@
 package Player;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 import Main.Main;
 import card.Card;
+import card.CardType;
 
 public class Player {
 	
@@ -17,25 +19,34 @@ public class Player {
 		hand = new ArrayList<Card>();
 		playerName = name;
 	}
-	
+	boolean wrongCard = false;
+	boolean stillPlayingCards = true;
 	public void turn() {
 		boolean isChoosing = true;
-		System.out.println("What would you like to do, "+playerName+"? Type \"usecard\" to use a card, \"showhand\" to see your hand, and \"endturn\" to draw and end your turn.");
+		System.out.println("What would you like to do, player " + playerName + "?");
 		while(isChoosing) {
+			System.out.println("Type \"usecard\" to use a card, \"showhand\" to see your hand, and \"endturn\" to draw and end your turn.");
 			String userInput = input.nextLine(); 
 			if(userInput.equalsIgnoreCase("usecard")) {
-				Card chosenCard = chooseCard();
-				playCard(chosenCard);
+				while(stillPlayingCards) {
+					wrongCard = false;
+					System.out.println("What card would you like to use?");
+					Card chosenCard = chooseCard();
+					playCard(chosenCard);
+					if (wrongCard) {
+						System.out.println("please choose a valid card. type nocard if you would not like to play a card.");
+						if (input.hasNext("nocard")) {
+							stillPlayingCards = false;
+						}
+					}
+				}
 			}
-			else if (userInput.equalsIgnoreCase("showhand")) {
+			if (userInput.equalsIgnoreCase("showhand")) {
 				showHand();
 			}
 			else if (userInput.equalsIgnoreCase("endturn")) {
 				endTurn();
 				isChoosing = false;
-			}
-			else {
-				System.out.println("Please type one of the following options:\nusecard\nshowhand\nendturn");
 			}
 		}
 			
@@ -46,23 +57,26 @@ public class Player {
 	}
 	public void showHand() {
 		for (int i = 0; i < hand.size(); i++) {
-			System.out.println(hand.get(i));
+			System.out.println(hand.get(i).toString());
 		}
 	}
 	public Card chooseCard() {
-		System.out.println("What card would you like to choose?");
-		boolean shilohLovesCalc = true;
-		while (shilohLovesCalc) {
+		Card cardToReturn;
+		while (true) {
 			try {
 				String cardInput = input.nextLine();
-				Card chosenCard = new Card(Card.convertToCardType(cardInput));
-				return chosenCard;
-			} 
-			catch (IllegalArgumentException CardNoExist) {
-				System.out.println("The card does not exist. Please try again.");
+				CardType cardType = Card.convertToCardType(cardInput);
+				for (int i = 0;i<hand.size()-1;i++) {
+					if (hand.get(i).type.equals(cardType)) {
+						cardToReturn = hand.get(i);
+						return cardToReturn;
+					}
+				}
+			}
+			catch(IllegalArgumentException e) {
+				System.out.println("please enter a valid card type");
 			}
 		}
-		return null;
 	}	
 	public void playCard(Card cardToPlay) {
 		switch(cardToPlay.type) {
@@ -71,36 +85,46 @@ public class Player {
 				Main.players.get(Main.nextPlayer).turns += 2;
 				Main.attack = false;
 				Main.players.get(Main.currentPlayer).turns --;
+				stillPlayingCards = false;
+				break;
 			case SKIP:
 				Main.skip();
+				stillPlayingCards = false;
 				break;
 			case SEE_THE_FUTURE:
 				Main.seeTheFuture();
+				stillPlayingCards = false;
 				break;
 			case SHUFFLE:
 				Main.shuffle();
+				stillPlayingCards = false;
 				break;
 			case FAVOR:
 				Main.favor();
+				stillPlayingCards = false;
 				break;
 			case RAINBOW_RALPHING_CAT:
 				nonDescriptOptions();
+				stillPlayingCards = false;
 				break;
 			case CATTERMELON:
 				nonDescriptOptions();
+				stillPlayingCards = false;
 				break;
 			case TACOCAT:
 				nonDescriptOptions();
+				stillPlayingCards = false;
 				break;
 			case HAIRY_POTATO_CAT:
 				nonDescriptOptions();
+				stillPlayingCards = false;
 				break;
 			case BEARD_CAT:
 				nonDescriptOptions();
+				stillPlayingCards = false;
 				break;
 			default:
-				System.out.println("That is not a valid card choice.");
-				break;
+				wrongCard = true;
 		}
 	}
 	public boolean isCardInHand(Card chosenCard) {
@@ -108,7 +132,7 @@ public class Player {
 	}
 	public void nonDescriptOptions() {
 		boolean isChoosing = true;
-		System.out.println("Would you like to do a two or three of a kind steal? Enter '2' for 2 of a kind, '3' for three of a kind.");
+		System.out.println("Welcome" + playerName + "Would you like to do a two or three of a kind steal? Enter '2' for 2 of a kind, '3' for three of a kind");
 		while (isChoosing) {
 			try {
 				int pChoice = Integer.parseInt(input.nextLine());
@@ -119,9 +143,6 @@ public class Player {
 				if (pChoice==3) {
 					Main.threeOfAKindSteal();
 					isChoosing = false;
-				}
-				else {
-					System.out.println("Please enter a valid number. 2 or 3.");
 				}
 			}
 			catch (NumberFormatException e) {
