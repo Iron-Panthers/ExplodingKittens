@@ -49,7 +49,6 @@ public class Main{
 					continue;
 				} 
 				isWrongCard = false;
-
 			}
 			catch (InputMismatchException e) {
 				System.out.println("please enter an integer");
