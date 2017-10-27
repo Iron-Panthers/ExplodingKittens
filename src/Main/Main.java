@@ -51,7 +51,7 @@ public class Main{
 				isWrongCard = false;
 			}
 			catch (InputMismatchException e) {
-				input.next();
+				input.nextLine();
 				System.out.println("please enter an integer");
 				continue;
 			}
