@@ -44,7 +44,12 @@ public class Main{
 		while (isWrongCard) {
 			try {
 				numPlayers = input.nextInt();
+				if (numPlayers < 2 || numPlayers > 4) {
+					System.out.println("please enter an integer from 2-4");
+					continue;
+				} 
 				isWrongCard = false;
+
 			}
 			catch (InputMismatchException e) {
 				System.out.println("please enter an integer");
