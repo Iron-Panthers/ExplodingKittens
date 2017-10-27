@@ -258,8 +258,9 @@ public class Main{
 	public static void endTurnNoDraw() { //Ends turn but places back card player would have drawn normally in the endTurn method. Possibly needs to be added in the 0 location in the deck
 		Player skipper = players.get(currentPlayer);
 		skipper.endTurn();
-		deck.deckList.add(0,getDrawnCard());  
-		skipper.hand.remove(getDrawnCard());
+		Card tempDrawnCard = getDrawnCard();
+		deck.deckList.add(0,tempDrawnCard);  
+		skipper.hand.remove(tempDrawnCard);
 	}
 	public static void twoOfAKindSteal() {
 		Player targeter = players.get(currentPlayer);
