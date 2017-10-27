@@ -20,21 +20,24 @@ public class Player {
 		playerName = name;
 	}
 	boolean wrongCard = false;
+	boolean stillPlayingCards = true;
 	public void turn() {
 		boolean isChoosing = true;
 		System.out.println("What would you like to do, player " + playerName + "?");
 		while(isChoosing) {
 			System.out.println("Type \"usecard\" to use a card, \"showhand\" to see your hand, and \"endturn\" to draw and end your turn.");
 			String userInput = input.nextLine(); 
-			while(userInput.equalsIgnoreCase("usecard")) {
-				wrongCard = false;
-				System.out.println("What card would you like to use?");
-				Card chosenCard = chooseCard();
-				playCard(chosenCard);
-				if (wrongCard) {
-					System.out.println("please choose a valid card. type nocard if you would not like to play a card.");
-					if (input.hasNext("nocard")) {
-						userInput = "nocard";
+			if(userInput.equalsIgnoreCase("usecard")) {
+				while(stillPlayingCards) {
+					wrongCard = false;
+					System.out.println("What card would you like to use?");
+					Card chosenCard = chooseCard();
+					playCard(chosenCard);
+					if (wrongCard) {
+						System.out.println("please choose a valid card. type nocard if you would not like to play a card.");
+						if (input.hasNext("nocard")) {
+							stillPlayingCards = false;
+						}
 					}
 				}
 			}
@@ -82,37 +85,46 @@ public class Player {
 				Main.players.get(Main.nextPlayer).turns += 2;
 				Main.attack = false;
 				Main.players.get(Main.currentPlayer).turns --;
+				stillPlayingCards = false;
 				break;
 			case SKIP:
 				Main.skip();
+				stillPlayingCards = false;
 				break;
 			case SEE_THE_FUTURE:
 				Main.seeTheFuture();
+				stillPlayingCards = false;
 				break;
 			case SHUFFLE:
 				Main.shuffle();
+				stillPlayingCards = false;
 				break;
 			case FAVOR:
 				Main.favor();
+				stillPlayingCards = false;
 				break;
 			case RAINBOW_RALPHING_CAT:
 				nonDescriptOptions();
+				stillPlayingCards = false;
 				break;
 			case CATTERMELON:
 				nonDescriptOptions();
+				stillPlayingCards = false;
 				break;
 			case TACOCAT:
 				nonDescriptOptions();
+				stillPlayingCards = false;
 				break;
 			case HAIRY_POTATO_CAT:
 				nonDescriptOptions();
+				stillPlayingCards = false;
 				break;
 			case BEARD_CAT:
 				nonDescriptOptions();
+				stillPlayingCards = false;
 				break;
 			default:
 				wrongCard = true;
-				break;
 		}
 	}
 	public boolean isCardInHand(Card chosenCard) {
