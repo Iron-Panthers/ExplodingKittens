@@ -139,6 +139,7 @@ public class Main{
 	}
 	public static void shuffle() {
 		deck.shuffle();
+		players.get(currentPlayer).hand.remove(deck.shuffle);
 		System.out.println("You have succesfully randomly shuffled the deck");
 	}
 	public static void skip() {
@@ -264,9 +265,7 @@ public class Main{
 	}
 	public static void endTurnNoDraw() { //Ends turn but places back card player would have drawn normally in the endTurn method. Possibly needs to be added in the 0 location in the deck
 		Player skipper = players.get(currentPlayer);
-		skipper.endTurn();
-		deck.deckList.add(0,getDrawnCard());  
-		skipper.hand.remove(getDrawnCard());
+		skipper.turns--;
 	}
 	public static void twoOfAKindSteal() {
 		Player targeter = players.get(currentPlayer);
