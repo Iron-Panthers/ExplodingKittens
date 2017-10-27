@@ -132,6 +132,7 @@ public class Main{
 	}
 	public static void shuffle() {
 		deck.shuffle();
+		players.get(currentPlayer).hand.remove(deck.shuffle);
 		System.out.println("You have succesfully randomly shuffled the deck");
 	}
 	public static void skip() {
