@@ -1,6 +1,7 @@
 package Main;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -39,10 +40,22 @@ public class Main{
 		nonDescripts.add(deck.tacoCat);
 		System.out.print("Welcome to Exploding Kittens. ");
 		System.out.println("How many people are playing?");
-		while (!input.hasNextInt()) {
-			System.out.println("please input an integer");
+		boolean isWrongCard = true;
+		while (isWrongCard) {
+			try {
+				numPlayers = input.nextInt();
+				if (numPlayers < 2 || numPlayers > 4) {
+					System.out.println("please enter an integer from 2-4");
+					continue;
+				} 
+				isWrongCard = false;
+			}
+			catch (InputMismatchException e) {
+				input.nextLine();
+				System.out.println("please enter an integer");
+				continue;
+			}
 		}
-		numPlayers = input.nextInt();
 		//Adds players to the arrayList players
 		for (int i = 1; i < numPlayers; i++) {
 			//Make variable temp? Set it to player+num
@@ -70,6 +83,9 @@ public class Main{
 				players.get(i).turns=1;
 				while (players.get(i).turns > 0) {
 					players.get(i).turn();
+				}
+				if (getDrawnCard().type.equals(CardType.EXPLODING_KITTEN)) {
+					explode();
 				}
 			}
 		}
@@ -134,12 +150,14 @@ public class Main{
 	}
 	public static void shuffle() {
 		deck.shuffle();
+		//players.get(currentPlayer).hand.remove(deck.shuffle);
 		System.out.println("You have succesfully randomly shuffled the deck");
 	}
 	public static void skip() {
+		//players.get(currentPlayer).hand.remove(deck.skip);
 		endTurnNoDraw();
 	}
-	public static void attack() {
+	public static void attack() { //Not used
 		attack = true;
 		//Ends turn, next player must take two turns
 	}
@@ -166,8 +184,8 @@ public class Main{
 			}
 			defuser.hand.remove(drawnCard); //Removes the defused card from hand
 			deck.deckList.add(deckLocation, drawnCard); //Puts the defused card back into the deck
-			defuser.hand.remove(deck.defuse); //Discards defuse from hand, places it in discard pile.
-			deck.discard(deck.defuse);
+			//defuser.hand.remove(deck.defuse); //Discards defuse from hand, places it in discard pile.
+			//deck.discard(deck.defuse);
 			System.out.println("You have defused.");
 			endTurnNoDraw();
 		}
@@ -259,9 +277,7 @@ public class Main{
 	}
 	public static void endTurnNoDraw() { //Ends turn but places back card player would have drawn normally in the endTurn method. Possibly needs to be added in the 0 location in the deck
 		Player skipper = players.get(currentPlayer);
-		skipper.endTurn();
-		deck.deckList.add(0,getDrawnCard());  
-		skipper.hand.remove(getDrawnCard());
+		skipper.turns--;
 	}
 	public static void twoOfAKindSteal() {
 		Player targeter = players.get(currentPlayer);
