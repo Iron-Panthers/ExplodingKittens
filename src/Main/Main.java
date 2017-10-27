@@ -123,6 +123,7 @@ public class Main{
 	public static void favor() {
 		Player targeter = players.get(currentPlayer);
 		Player victim = askForVictim();
+		victim.showHand();
 		System.out.println("What card would you like to give? Type the card name to give or nope to counter the favor.");
 		boolean choosing = true;
 		while(choosing) {	
