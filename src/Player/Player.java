@@ -128,11 +128,11 @@ public class Player {
 		while (isChoosing) {
 			try {
 				int pChoice = Integer.parseInt(input.nextLine());
-				if (pChoice==2) {
+				if (pChoice == 2) {
 					Main.twoOfAKindSteal();
 					isChoosing = false;
 				}
-				if (pChoice==3) {
+				if (pChoice == 3) {
 					Main.threeOfAKindSteal();
 					isChoosing = false;
 				}
