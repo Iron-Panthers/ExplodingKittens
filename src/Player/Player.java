@@ -18,19 +18,29 @@ public class Player {
 		hand = new ArrayList<Card>();
 		playerName = name;
 	}
-	boolean wrongCard = false;
+	boolean wrongCard = true;
+	boolean noCard = false;
 	public void turn() {
 		boolean isChoosing = true;
 		System.out.println("What would you like to do, "+playerName+"? Type \"usecard\" to use a card, \"showhand\" to see your hand, and \"endturn\" to draw and end your turn.");
 		while(isChoosing) {
 			String userInput = input.nextLine(); 
-			while(userInput.equalsIgnoreCase("usecard")) {
-				Card chosenCard = chooseCard();
-				if (chosenCard == null) {
-						System.out.println("please enter a valid card");
-						continue;
-					}		
-				playCard(chosenCard);
+			if(userInput.equalsIgnoreCase("usecard")) {
+				while(wrongCard) {
+					Card chosenCard = chooseCard();
+					if (chosenCard == null) {
+						if (noCard) {
+							break;
+						}
+						else{
+							System.out.println("please enter a valid card");
+						}
+					}
+					if (!(chosenCard == null)) {
+						playCard(chosenCard);
+						wrongCard = false;
+					}
+				}
 			}
 			if (userInput.equalsIgnoreCase("showhand")) {
 				showHand();
@@ -55,12 +65,22 @@ public class Player {
 		}
 	}
 	public Card chooseCard() {
-		System.out.println("What card would you like to use?");
+		System.out.println("What card would you like to use? Type nocard to not play a card.");
 		boolean shilohLovesCalc = true;
 		Card cardToReturn;
+		String cardInput;
 		while (shilohLovesCalc) {
+			while (true) {
+				try {
+					cardInput = input.nextLine();
+					break;
+				}
+				catch(Exception e){
+					System.out.println("please enter either a valid card, or nocard.");
+				}
+			}
+			
 			try {
-				String cardInput = input.nextLine();
 				CardType cardType = Card.convertToCardType(cardInput);
 				if (cardType == CardType.DEFUSE) {
 					return null;
@@ -74,7 +94,11 @@ public class Player {
 				}
 			} 
 			catch (IllegalArgumentException CardNoExist) {
-				System.out.println("The card does not exist. Please try again.");
+				if (cardInput.equalsIgnoreCase("nocard")) {
+					noCard = true;
+					return null;
+				}
+				System.out.println("The card does not exist. Please try again, or enter nocard to not play a card.");
 			}
 		}
 		return null;
@@ -115,7 +139,6 @@ public class Player {
 				nonDescriptOptions();
 				break;
 			default:
-				wrongCard = true;
 				break;
 		}
 	}
