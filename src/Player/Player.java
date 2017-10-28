@@ -18,17 +18,21 @@ public class Player {
 		hand = new ArrayList<Card>();
 		playerName = name;
 	}
-	
+	boolean wrongCard = false;
 	public void turn() {
 		boolean isChoosing = true;
 		System.out.println("What would you like to do, "+playerName+"? Type \"usecard\" to use a card, \"showhand\" to see your hand, and \"endturn\" to draw and end your turn.");
 		while(isChoosing) {
 			String userInput = input.nextLine(); 
-			if(userInput.equalsIgnoreCase("usecard")) {
+			while(userInput.equalsIgnoreCase("usecard")) {
 				Card chosenCard = chooseCard();
+				if (chosenCard == null) {
+						System.out.println("please enter a valid card");
+						continue;
+					}		
 				playCard(chosenCard);
 			}
-			else if (userInput.equalsIgnoreCase("showhand")) {
+			if (userInput.equalsIgnoreCase("showhand")) {
 				showHand();
 			}
 			else if (userInput.equalsIgnoreCase("endturn")) {
@@ -51,13 +55,16 @@ public class Player {
 		}
 	}
 	public Card chooseCard() {
-		System.out.println("What card would you like to chose?");
+		System.out.println("What card would you like to use?");
 		boolean shilohLovesCalc = true;
 		Card cardToReturn;
 		while (shilohLovesCalc) {
 			try {
 				String cardInput = input.nextLine();
 				CardType cardType = Card.convertToCardType(cardInput);
+				if (cardType == CardType.DEFUSE) {
+					return null;
+				}
 				for (int i = 0;i<hand.size();i++) {
 					if (hand.get(i).type.equals(cardType)) {
 						cardToReturn = hand.remove(i);
@@ -108,7 +115,7 @@ public class Player {
 				nonDescriptOptions();
 				break;
 			default:
-				System.out.println("That is not a valid card choice.");
+				wrongCard = true;
 				break;
 		}
 	}
