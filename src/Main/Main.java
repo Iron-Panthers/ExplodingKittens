@@ -215,12 +215,9 @@ public class Main{
 		}
 	}
 	public static void seeTheFuture() {
-		Player cardViewer = players.get(currentPlayer);
 		ArrayList<Card> tempView = new ArrayList<Card>();
+		//Amount of cards to show
 		int tempViewReturn = 3;
-		//Discards card
-		deck.discard(deck.seeTheFuture);
-		cardViewer.hand.remove(deck.seeTheFuture);
 		//Shows cards
 		for (int i = 0; i<3; i++) {
 			tempView.add(deck.topCard());
@@ -229,7 +226,12 @@ public class Main{
 		//Puts cards back
 		while(tempView.size()>0) {
 			tempViewReturn--;
-			deck.deckList.add(0,tempView.get(tempViewReturn));
+			if (tempViewReturn>0) {
+				deck.deckList.add(0,tempView.get(tempViewReturn));
+			}
+			else {
+				break;
+			}
 		}
 		System.out.println("See the future is now over");
 	}
@@ -278,11 +280,7 @@ public class Main{
 	}
 	public static Card getDrawnCard() {
 		Player drawer = players.get(currentPlayer);
-		int drawnCardIndex = 0;
-		for (int i = 0; i<drawer.hand.size(); i++) { //Gets the last card in the player's hand, which is the card they last drew
-			drawnCardIndex++;
-		}
-		return drawer.hand.get(drawnCardIndex);
+		return drawer.hand.get(drawer.hand.size()-1);
 	}
 	public static void endTurnNoDraw() { //Ends turn but places back card player would have drawn normally in the endTurn method. Possibly needs to be added in the 0 location in the deck
 		Player skipper = players.get(currentPlayer);
