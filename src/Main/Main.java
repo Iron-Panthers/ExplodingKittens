@@ -355,7 +355,7 @@ public class Main{
 			}
 		}
 		if (amtOfNonDescripts>=2) {
-			for (int i = 0;i<2-1;i++) {
+			for (int i = 0;i<2;i++) {
 				if (stealer.hand.get(i).type.equals(chosenNonDescript)) {
 					deck.discard(stealer.hand.remove(i));
 					//Discards two of the nonDescripts
@@ -363,7 +363,7 @@ public class Main{
 			}
 			//Now player targets someone, chooses 
 			Player victim = askForVictim();
-			System.out.println("Player " + victim +" has:");
+			System.out.println("Player " + victim.playerName +" has:");
 			for (int i = 0; i<victim.hand.size(); i++) { //prints out the cards in the player's hand
 				System.out.println(i + ": " + victim.hand.get(i));
 			}

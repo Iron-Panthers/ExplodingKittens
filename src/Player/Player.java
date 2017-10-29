@@ -180,14 +180,22 @@ public class Player {
 						//Gives back unused card if not successful
 						hand.add(chosenCard);
 					}
+					else {
+						System.out.println("Finished Two of A Kind Steal");
+					}
 					isChoosing = false;
+					break;
 				}
 				if (pChoice == 3) {
 					if(!Main.threeOfAKindSteal(chosenNonDescript)) {
 						//Gives back unused card if not successful
 						hand.add(chosenCard);
 					}
+					else {
+						System.out.println("Finished Three of A Kind Steal");
+					}
 					isChoosing = false;
+					break;
 				}
 				else {
 					System.out.println("Please enter a valid number. 2 or 3.");
