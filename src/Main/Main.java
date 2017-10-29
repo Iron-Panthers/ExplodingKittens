@@ -201,15 +201,46 @@ public class Main{
 		System.out.println("You have succesfully randomly shuffled the deck");
 	}
 	public static void attack() { 
-		players.get(nextPlayer).turns += 1;
-		//System.out.println(players.get(nextPlayer).turns);
-		hasSkipped = true;
-		players.get(currentPlayer).endTurnNoDraw();
-		//attack = false;
+		if (!askForNope()) {
+			players.get(nextPlayer).turns += 1;
+			//System.out.println(players.get(nextPlayer).turns);
+			hasSkipped = true;
+			players.get(currentPlayer).endTurnNoDraw();
+			//attack = false;
+		}
+	}
+	public static boolean askForNope() { //Only for skip and attack, which always target the next player
+		boolean isChoosing = true;
+		System.out.println("Player "+players.get(nextPlayer).playerName+", would you like to nope? 'yes' to nope or 'no' to not nope.");
+		while (isChoosing) {
+			String isNoping = input.nextLine(); 
+			if (isNoping.equalsIgnoreCase("yes")) {
+				//Check if they have a nope
+				for (int i = 0; i<players.get(nextPlayer).hand.size()-1;i++) {
+					if (players.get(nextPlayer).hand.get(i).type.equals(CardType.NOPE)) {
+						System.out.println("Card has been countered");
+						//Discards nope
+						deck.discard(players.get(nextPlayer).hand.remove(i));
+						return true;
+					}
+				}
+				break;
+			}
+			if (isNoping.equalsIgnoreCase("no")) {
+				break;
+			}
+			else {
+				System.out.println("Please type 'yes' or 'no'");
+			}
+		}
+		return false;
 	}
 	public static void skip() {
-		hasSkipped=true;
-		players.get(currentPlayer).endTurnNoDraw();
+		if (!askForNope()) {
+			//Skips
+			hasSkipped=true;
+			players.get(currentPlayer).endTurnNoDraw();
+		}
 	}
 	public static void defuse(boolean isExploding) { //Works for any card, not just exploding kittens
 		Player defuser = players.get(currentPlayer);
@@ -276,7 +307,7 @@ public class Main{
 		for (int i = 0; i<tempViewReturn; i++) {
 			tempView.add(0,deck.topCard());
 		}
-		System.out.println("Top/tSecond from top/tThird from top");
+		System.out.println("Top\tSecond from top\tThird from top");
 		System.out.println(tempView);
 		//Puts cards back
 		while(tempView.size()>0) {
