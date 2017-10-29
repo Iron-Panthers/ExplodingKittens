@@ -18,18 +18,36 @@ public class Player {
 		hand = new ArrayList<Card>();
 		playerName = name;
 	}
-	
+	boolean wrongCard = true;
+	boolean noCard = false;
 	public void turn() {
 		boolean isChoosing = true;
-		System.out.println("What would you like to do, "+playerName+"? Type \"usecard\" to use a card, \"showhand\" to see your hand, and \"endturn\" to draw and end your turn.");
+		System.out.println("What would you like to do, player "+playerName+"? Type \"usecard\" to use a card, \"showhand\" to see your hand, and \"endturn\" to draw and end your turn.");
 		while(isChoosing) {
+			wrongCard=true;
 			String userInput = input.nextLine(); 
 			if(userInput.equalsIgnoreCase("usecard")) {
-				Card chosenCard = chooseCard();
-				playCard(chosenCard);
+				while(wrongCard) {
+					noCard = false;
+					Card chosenCard = chooseCard();
+					if (chosenCard == null) {
+						if (noCard) {
+							break;
+						}
+						else{
+							System.out.println("please enter a valid card");
+						}
+					}
+					if (!(chosenCard == null)) {
+						playCard(chosenCard);
+						wrongCard = false;
+					}
+				}
+				System.out.println("Please type one of the following options:\nusecard\nshowhand\nendturn");
 			}
-			else if (userInput.equalsIgnoreCase("showhand")) {
+			if (userInput.equalsIgnoreCase("showhand")) {
 				showHand();
+				System.out.println("Please type one of the following options:\nusecard\nshowhand\nendturn");
 			}
 			else if (userInput.equalsIgnoreCase("endturn")) {
 				endTurn();
@@ -43,7 +61,7 @@ public class Player {
 	}
 	public void endTurn() {
 		hand.add(Main.deck.topCard());
-		Main.players.get(Main.tempIterations).turns--;
+		Main.players.get(Main.currentPlayer).turns--;
 	}
 	public void showHand() {
 		for (int i = 0; i < hand.size(); i++) {
@@ -51,13 +69,26 @@ public class Player {
 		}
 	}
 	public Card chooseCard() {
-		System.out.println("What card would you like to chose?");
+		System.out.println("What card would you like to use? Type nocard to not play a card.");
 		boolean shilohLovesCalc = true;
 		Card cardToReturn;
+		String cardInput;
 		while (shilohLovesCalc) {
+			while (true) {
+				try {
+					cardInput = input.nextLine();
+					break;
+				}
+				catch(Exception e){
+					System.out.println("please enter either a valid card, or nocard.");
+				}
+			}
+			
 			try {
-				String cardInput = input.nextLine();
 				CardType cardType = Card.convertToCardType(cardInput);
+				if (cardType == CardType.DEFUSE) {
+					return null;
+				}
 				for (int i = 0;i<hand.size();i++) {
 					if (hand.get(i).type.equals(cardType)) {
 						cardToReturn = hand.remove(i);
@@ -67,7 +98,11 @@ public class Player {
 				}
 			} 
 			catch (IllegalArgumentException CardNoExist) {
-				System.out.println("The card does not exist. Please try again.");
+				if (cardInput.equalsIgnoreCase("nocard")) {
+					noCard = true;
+					return null;
+				}
+				System.out.println("The card does not exist. Please try again, or enter nocard to not play a card.");
 			}
 		}
 		return null;
@@ -108,7 +143,6 @@ public class Player {
 				nonDescriptOptions();
 				break;
 			default:
-				System.out.println("That is not a valid card choice.");
 				break;
 		}
 	}
@@ -121,11 +155,11 @@ public class Player {
 		while (isChoosing) {
 			try {
 				int pChoice = Integer.parseInt(input.nextLine());
-				if (pChoice==2) {
+				if (pChoice == 2) {
 					Main.twoOfAKindSteal();
 					isChoosing = false;
 				}
-				if (pChoice==3) {
+				if (pChoice == 3) {
 					Main.threeOfAKindSteal();
 					isChoosing = false;
 				}
