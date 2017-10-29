@@ -292,50 +292,59 @@ public class Main{
 		//Asks player for nonDescript
 		boolean isChoosing = true;
 		while (isChoosing) {
-			System.out.println("What Non-Descript would you like to play?");
-			String playerInput = input.nextLine();
-			CardType chosenType = Card.convertToCardType(playerInput);
-			if (chosenType.equals(CardType.ATTACK)||chosenType.equals(CardType.DEFUSE)||chosenType.equals(CardType.FAVOR)||chosenType.equals(CardType.NOPE)||chosenType.equals(CardType.SEE_THE_FUTURE)||chosenType.equals(CardType.SHUFFLE)||chosenType.equals(CardType.SKIP)) {
-				System.out.println("Please enter a non-descript.");
-			}
-			else {
-				
-				//Checks if hand has two of the nonDescripts
-				for (int i = 0; i<players.get(currentPlayer).hand.size();i++) {
-					//If contains nonDescript:
-					if (players.get(currentPlayer).hand.get(i).type.equals(chosenType)){
-						deck.discard(players.get(currentPlayer).hand.get(i));
-						players.get(currentPlayer).hand.remove(i);
-						//Ask for nope
-						System.out.println("Player "+victim.playerName+", would you like to nope? Say 'yes' to nope, 'no' to not nope");
-						boolean choosingNope = true;
-						while (choosingNope) {
-							String isNoping = input.nextLine();
-							if (isNoping.equalsIgnoreCase("yes")) {
-								if (victim.hand.contains(deck.nope)) {
-									victim.hand.remove(deck.nope);
-									deck.discard(deck.nope);
-									System.out.println("Two of a kind has been countered.");
-									isChoosing = false;
+			try {
+				System.out.println("What Non-Descript would you like to play? Say nocard to exit.");
+				String playerInput = input.nextLine();
+				CardType chosenType = Card.convertToCardType(playerInput);
+				if (chosenType.equals(CardType.ATTACK)||chosenType.equals(CardType.DEFUSE)||chosenType.equals(CardType.FAVOR)||chosenType.equals(CardType.NOPE)||chosenType.equals(CardType.SEE_THE_FUTURE)||chosenType.equals(CardType.SHUFFLE)||chosenType.equals(CardType.SKIP)) {
+					System.out.println("Please enter a non-descript.");
+				}
+				if (playerInput.equalsIgnoreCase("nocard")) {
+					System.out.println("Two of a kind steal has been cancelled");
+					isChoosing = false;
+				}
+				else {
+					
+					//Checks if hand has two of the nonDescripts
+					for (int i = 0; i<players.get(currentPlayer).hand.size();i++) {
+						//If contains nonDescript:
+						if (players.get(currentPlayer).hand.get(i).type.equals(chosenType)){
+							deck.discard(players.get(currentPlayer).hand.get(i));
+							players.get(currentPlayer).hand.remove(i);
+							//Ask for nope
+							System.out.println("Player "+victim.playerName+", would you like to nope? Say 'yes' to nope, 'no' to not nope");
+							boolean choosingNope = true;
+							while (choosingNope) {
+								String isNoping = input.nextLine();
+								if (isNoping.equalsIgnoreCase("yes")) {
+									if (victim.hand.contains(deck.nope)) {
+										victim.hand.remove(deck.nope);
+										deck.discard(deck.nope);
+										System.out.println("Two of a kind has been countered.");
+										isChoosing = false;
+										choosingNope = false;
+									}					
+								}
+								//Resolves
+								if (isNoping.equalsIgnoreCase("no")) {
+									int randCard = randomCard.nextInt(victim.hand.size());
+									Card givenCard = victim.hand.get(randCard);
+									victim.hand.remove(givenCard);
+									targeter.hand.add(givenCard);
 									choosingNope = false;
-								}					
-							}
-							//Resolves
-							if (isNoping.equalsIgnoreCase("no")) {
-								int randCard = randomCard.nextInt(victim.hand.size());
-								Card givenCard = victim.hand.get(randCard);
-								victim.hand.remove(givenCard);
-								targeter.hand.add(givenCard);
-								choosingNope = false;
-								isChoosing = false;
-							}
-							else {
-								System.out.println("Please choose again. Yes or No.");
+									isChoosing = false;
+								}
+								else {
+									System.out.println("Please choose again. Yes or No.");
+								}
 							}
 						}
 					}
+					System.out.println("You do not have those non-descripts");
 				}
-				System.out.println("You do not have those non-descripts");
+			}
+			catch(IllegalArgumentException e) {
+				System.out.println("That is not a valid type");
 			}
 		}
 	}
