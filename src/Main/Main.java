@@ -290,8 +290,9 @@ public class Main{
 			//Does Nothing
 		}
 	}
-	public static void threeOfAKindSteal() {
-		
+	public static void threeOfAKindSteal(CardType type) {
+		CardType chosenNonDescript = type;
+		boolean isChoosing = true;
 		/**
 		 * 
 		 * Hey guys. This code does something other than that is in the rules. It is how I played at home.
@@ -303,23 +304,47 @@ public class Main{
 		 */
 		
 		Player stealer = players.get(currentPlayer);
-		Player victim = askForVictim();
-		System.out.println("Player " + victim +" has:");
-		for (int i = 0; i<victim.hand.size(); i++) { //prints out the cards in the player's hand
-			System.out.println(i+1 + ": " + victim.hand.get(i));
+		//Temporarily makes hand to check if player has two, and if it does, remove those two from hand
+		ArrayList<Card> temp = stealer.hand;
+		int amtOfNonDescripts = 0;
+		//checks if player has two remaining nondescripts of that type
+		for (int i = 0;i<temp.size()-1;i++) {
+			if (temp.get(i).type.equals(chosenNonDescript)) {
+				temp.remove(i);
+				amtOfNonDescripts++;
+			}
 		}
-		System.out.println("Which card would you like? (Say a number listed)");
-		String ui = input.nextLine();
-		try {
-			int num = Integer.parseInt(ui);
-			stealer.hand.add(victim.hand.get(num));
-			System.out.println("You stole card " + victim.hand.get(num).type + " from player " + victim);
-			victim.hand.remove(num);
-
+		if (amtOfNonDescripts>=2) {
+			for (int i = 0;i<2-1;i++) {
+				if (stealer.hand.get(i).type.equals(chosenNonDescript)) {
+					deck.discard(stealer.hand.remove(i));
+					//Discards two of the nonDescripts
+				}
+			}
+			//Now player targets someone, chooses 
+			Player victim = askForVictim();
+			System.out.println("Player " + victim +" has:");
+			for (int i = 0; i<victim.hand.size(); i++) { //prints out the cards in the player's hand
+				System.out.println(i + ": " + victim.hand.get(i));
+			}
+			while (isChoosing) {
+				System.out.println("Which card would you like? (Say a number listed)");
+				String ui = input.nextLine();
+				try {
+					int num = Integer.parseInt(ui);
+					stealer.hand.add(victim.hand.get(num));
+					System.out.println("You stole card " + victim.hand.get(num).type + " from player " + victim);
+					deck.discard(victim.hand.remove(num));
+					isChoosing = false;
+				}
+				catch(NumberFormatException e) {
+					System.out.println("Invalid imput");
+				}
+			}
+			
 		}
-		catch(NumberFormatException e) {
-			System.out.println("Invalid imput");
-			threeOfAKindSteal();
+		else {
+			System.out.println("You do not have two remaining nonDescripts.");
 		}
 	}
 	public static Card getDrawnCard() {
@@ -330,65 +355,50 @@ public class Main{
 		Player skipper = players.get(currentPlayer);
 		skipper.turns--;
 	}
-	public static void twoOfAKindSteal() {
+	public static void twoOfAKindSteal(CardType type) {
+		CardType chosenNonDescript = type;
 		Player targeter = players.get(currentPlayer);
 		Player victim = askForVictim();
 		//Asks player for nonDescript
 		boolean isChoosing = true;
 		while (isChoosing) {
-			try {
-				System.out.println("What Non-Descript would you like to play? Say nocard to exit.");
-				String playerInput = input.nextLine();
-				CardType chosenType = Card.convertToCardType(playerInput);
-				if (chosenType.equals(CardType.ATTACK)||chosenType.equals(CardType.DEFUSE)||chosenType.equals(CardType.FAVOR)||chosenType.equals(CardType.NOPE)||chosenType.equals(CardType.SEE_THE_FUTURE)||chosenType.equals(CardType.SHUFFLE)||chosenType.equals(CardType.SKIP)) {
-					System.out.println("Please enter a non-descript.");
-				}
-				if (playerInput.equalsIgnoreCase("nocard")) {
-					System.out.println("Two of a kind steal has been cancelled");
-					isChoosing = false;
-				}
-				else {
-					
-					//Checks if hand has two of the nonDescripts
-					for (int i = 0; i<players.get(currentPlayer).hand.size();i++) {
-						//If contains nonDescript:
-						if (players.get(currentPlayer).hand.get(i).type.equals(chosenType)){
-							deck.discard(players.get(currentPlayer).hand.get(i));
-							players.get(currentPlayer).hand.remove(i);
-							//Ask for nope
-							System.out.println("Player "+victim.playerName+", would you like to nope? Say 'yes' to nope, 'no' to not nope");
-							boolean choosingNope = true;
-							while (choosingNope) {
-								String isNoping = input.nextLine();
-								if (isNoping.equalsIgnoreCase("yes")) {
-									if (victim.hand.contains(deck.nope)) {
-										victim.hand.remove(deck.nope);
-										deck.discard(deck.nope);
-										System.out.println("Two of a kind has been countered.");
-										isChoosing = false;
-										choosingNope = false;
-									}					
-								}
-								//Resolves
-								if (isNoping.equalsIgnoreCase("no")) {
-									int randCard = randomCard.nextInt(victim.hand.size());
-									Card givenCard = victim.hand.get(randCard);
-									victim.hand.remove(givenCard);
-									targeter.hand.add(givenCard);
-									choosingNope = false;
-									isChoosing = false;
-								}
-								else {
-									System.out.println("Please choose again. Yes or No.");
-								}
-							}
+			//Checks if hand has two of the nonDescripts
+			for (int i = 0; i<players.get(currentPlayer).hand.size();i++) {
+				//If contains nonDescript:
+				if (players.get(currentPlayer).hand.get(i).type.equals(chosenNonDescript)){
+					deck.discard(players.get(currentPlayer).hand.get(i));
+					players.get(currentPlayer).hand.remove(i);
+					//Ask for nope
+					System.out.println("Player "+victim.playerName+", would you like to nope? Say 'yes' to nope, 'no' to not nope");
+					boolean choosingNope = true;
+					while (choosingNope) {
+						String isNoping = input.nextLine();
+						if (isNoping.equalsIgnoreCase("yes")) {
+							if (victim.hand.contains(deck.nope)) {
+								victim.hand.remove(deck.nope);
+								deck.discard(deck.nope);
+								System.out.println("Two of a kind has been countered.");
+								isChoosing = false;
+								choosingNope = false;
+							}					
+						}
+						//Resolves
+						if (isNoping.equalsIgnoreCase("no")) {
+							int randCard = randomCard.nextInt(victim.hand.size());
+							Card givenCard = victim.hand.get(randCard);
+							victim.hand.remove(givenCard);
+							targeter.hand.add(givenCard);
+							choosingNope = false;
+							isChoosing = false;
+						}
+						else {
+							System.out.println("Please choose again. Yes or No.");
 						}
 					}
-					System.out.println("You do not have those non-descripts");
 				}
-			}
-			catch(IllegalArgumentException e) {
-				System.out.println("That is not a valid type");
+				else {
+					System.out.println("You do not have two of those Non-Descripts");
+				}
 			}
 		}
 	}

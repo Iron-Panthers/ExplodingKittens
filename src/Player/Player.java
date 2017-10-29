@@ -128,19 +128,19 @@ public class Player {
 				Main.favor();
 				break;
 			case RAINBOW_RALPHING_CAT:
-				nonDescriptOptions();
+				nonDescriptOptions(CardType.RAINBOW_RALPHING_CAT);
 				break;
 			case CATTERMELON:
-				nonDescriptOptions();
+				nonDescriptOptions(CardType.CATTERMELON);
 				break;
 			case TACOCAT:
-				nonDescriptOptions();
+				nonDescriptOptions(CardType.TACOCAT);
 				break;
 			case HAIRY_POTATO_CAT:
-				nonDescriptOptions();
+				nonDescriptOptions(CardType.HAIRY_POTATO_CAT);
 				break;
 			case BEARD_CAT:
-				nonDescriptOptions();
+				nonDescriptOptions(CardType.BEARD_CAT);
 				break;
 			default:
 				break;
@@ -149,18 +149,19 @@ public class Player {
 	public boolean isCardInHand(Card chosenCard) {
 		return hand.contains(chosenCard);
 	}
-	public void nonDescriptOptions() {
+	public void nonDescriptOptions(CardType type) {
+		CardType chosenNonDescript = type;
 		boolean isChoosing = true;
 		System.out.println("Would you like to do a two or three of a kind steal? Enter '2' for 2 of a kind, '3' for three of a kind");
 		while (isChoosing) {
 			try {
 				int pChoice = Integer.parseInt(input.nextLine());
 				if (pChoice == 2) {
-					Main.twoOfAKindSteal();
+					Main.twoOfAKindSteal(chosenNonDescript);
 					isChoosing = false;
 				}
 				if (pChoice == 3) {
-					Main.threeOfAKindSteal();
+					Main.threeOfAKindSteal(chosenNonDescript);
 					isChoosing = false;
 				}
 				else {
