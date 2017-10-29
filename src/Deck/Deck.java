@@ -22,7 +22,7 @@ public class Deck {
 	int explodingKittenNum;
 	int seeTheFutureNum = 4;
 	int shuffleNum = 4;
-	int defuseNum = 6;
+	public static int defuseNum = 6;
 	int attackNum = 4;
 	int skipNum = 4;
 	int favorNum = 4;

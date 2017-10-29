@@ -63,6 +63,8 @@ public class Main{
 				player.hand.add(deck.topCard());
 			}
 			player.hand.add(deck.defuse);
+			//Removes a defuse from the deck for each player
+			deck.deckList.remove(deck.defuse);
 		}
 		//After players draw their cards, it puts exploding kittens into the deck
 		deck.fill(deck.explodingKitten,explodingKittenNum);
