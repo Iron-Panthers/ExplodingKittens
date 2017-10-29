@@ -112,7 +112,9 @@ public class Main{
 		System.out.println("Would you like to target: ");
 		//Cycles through array and prints
 		for (int i = 0; i<players.size(); i++) {
-			System.out.println(players.get(i).playerName);
+			if (!(players.get(i).playerName==(players.get(currentPlayer).playerName))) {
+				System.out.println(players.get(i).playerName);
+			}
 		}
 		boolean isChoosing = true;
 		int playerLocation = 10; //Sets location of player input player in the array to where their chosen player is.
@@ -121,15 +123,21 @@ public class Main{
 			try {
 				int player = Integer.parseInt(input.nextLine());
 				//For loop that checks if any of the players in the array have the name of int
-				for (int i = 0; i<players.size(); i++) {
-					if (players.get(i).playerName==player) {
-						playerLocation = i; //Gets the player location
-						isChoosing = false; 
+				//Only chooses players other than targeter
+				if (!(players.get(player).playerName==players.get(currentPlayer).playerName)){
+					for (int i = 0; i<players.size(); i++) {
+						if (players.get(i).playerName==player) {
+							playerLocation = i; //Gets the player location
+							isChoosing = false; 
+						} //end if
+					} //end for
+					if (playerLocation==10) {
+						System.out.println("That is not a valid player. Please try again.");
 					} //end if
-				} //end for
-				if (playerLocation==10) {
-					System.out.println("That is not a valid player. Please try again.");
-				} //end if
+				}
+				else {
+					System.out.println("You cannot target yourself");
+				}
 			}
 			catch (NumberFormatException e) {
 				System.out.println("Invalid input. Please enter an Arabic numeral.");
