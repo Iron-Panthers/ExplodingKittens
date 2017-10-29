@@ -124,16 +124,19 @@ public class Main{
 				int player = Integer.parseInt(input.nextLine());
 				//For loop that checks if any of the players in the array have the name of int
 				//Only chooses players other than targeter
-				if (!(players.get(player).playerName==players.get(currentPlayer).playerName)){
-					for (int i = 0; i<players.size(); i++) {
-						if (players.get(i).playerName==player) {
-							playerLocation = i; //Gets the player location
-							isChoosing = false; 
-						} //end if
-					} //end for
-					if (playerLocation==10) {
-						System.out.println("That is not a valid player. Please try again.");
+				for (int i = 0; i<players.size(); i++) {
+					if (players.get(i).playerName==player) {
+						playerLocation = i; //Gets the player location
+						isChoosing = false; 
 					} //end if
+				}
+				 //end for
+				if (playerLocation==10) {
+					System.out.println("That is not a valid player. Please try again.");
+				} 
+				//Checks if player is trying to target themselves
+				if (!(players.get(playerLocation).playerName==players.get(currentPlayer).playerName)){
+					return players.get(playerLocation);
 				}
 				else {
 					System.out.println("You cannot target yourself");
@@ -143,8 +146,7 @@ public class Main{
 				System.out.println("Invalid input. Please enter an Arabic numeral.");
 			}
 		}
-		Player victim = players.get(playerLocation);
-		return victim;
+		return null;
 	}
 	public static void favor() {
 		Player targeter = players.get(currentPlayer);
