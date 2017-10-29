@@ -11,7 +11,7 @@ import card.Card;
 import card.CardType;
 
 public class Main{
-	public static boolean attack;
+	//public static boolean attack;
 	static int numPlayers = 4;
 	static int explodingKittenNum = numPlayers-1;
 	static int lastPlayerAlive;
@@ -19,6 +19,7 @@ public class Main{
 	static ArrayList<Card> nonDescripts;
 	public static int currentPlayer;
 	public static int nextPlayer;
+	public static boolean hasSkipped;
 
 	//Constructors
 	public static Deck deck;
@@ -26,7 +27,7 @@ public class Main{
 	public static Random randomCard;
 	
 	public static void main(String[] args) {
-		attack = false;
+		//attack = false;
 		input = new Scanner(System.in);
 		deck = new Deck(explodingKittenNum);
 		randomCard = new Random();
@@ -61,6 +62,7 @@ public class Main{
 			//String playerName = "player"+i; //Does not work, cannot make a string used as the player constructor.
 			Player player = new Player(i);
 			players.add(player);
+			player.turns = 0;
 			for(int x = 0; x < 4; x ++) {
 				player.hand.add(deck.topCard());
 			}
@@ -81,29 +83,32 @@ public class Main{
 				}
 				nextPlayer = (i+1) % players.size();
 				currentPlayer = i;
-				players.get(i).turns=1;
+				players.get(i).turns+=1;
 				while (players.get(i).turns > 0) {
+					hasSkipped=false;
 					players.get(i).turn();
-				}
-				if (getDrawnCard().type.equals(CardType.EXPLODING_KITTEN)) {
-					explode();
-				}
-				else {
-					System.out.println("You have drawn "+getDrawnCard().type);
-					System.out.println("Would you like to defuse? Enter yes to defuse, or no to not defuse.");
-					boolean isChoosing = true;
-					while (isChoosing) {
-						String defuseChoice = input.nextLine();
-						if (defuseChoice.equalsIgnoreCase("yes")) {
-							defuse(false);
-							isChoosing = false;
-						}
-						if (defuseChoice.equalsIgnoreCase("no")) {
-							System.out.println("Not defusing. Moving to next player.");
-							isChoosing = false;
+					if (!hasSkipped) {
+						if (getDrawnCard().type.equals(CardType.EXPLODING_KITTEN)) {
+							explode();
 						}
 						else {
-							System.out.println("That is not a valid choice.");
+							System.out.println("You have drawn "+getDrawnCard().type);
+							System.out.println("Would you like to defuse? Enter yes to defuse, or no to not defuse.");
+							boolean isChoosing = true;
+							while (isChoosing) {
+								String defuseChoice = input.nextLine();
+								if (defuseChoice.equalsIgnoreCase("yes")) {
+									defuse(false);
+									isChoosing = false;
+								}
+								if (defuseChoice.equalsIgnoreCase("no")) {
+									System.out.println("Not defusing. Moving to next player.");
+									isChoosing = false;
+								}
+								else {
+									System.out.println("That is not a valid choice.");
+								}
+							}
 						}
 					}
 				}
@@ -195,13 +200,16 @@ public class Main{
 		//players.get(currentPlayer).hand.remove(deck.shuffle);
 		System.out.println("You have succesfully randomly shuffled the deck");
 	}
-	public static void skip() {
-		//players.get(currentPlayer).hand.remove(deck.skip);
-		endTurnNoDraw();
+	public static void attack() { 
+		players.get(nextPlayer).turns += 1;
+		//System.out.println(players.get(nextPlayer).turns);
+		hasSkipped = true;
+		players.get(currentPlayer).endTurnNoDraw();
+		//attack = false;
 	}
-	public static void attack() { //Not used
-		attack = true;
-		//Ends turn, next player must take two turns
+	public static void skip() {
+		hasSkipped=true;
+		players.get(currentPlayer).endTurnNoDraw();
 	}
 	public static void defuse(boolean isExploding) { //Works for any card, not just exploding kittens
 		Player defuser = players.get(currentPlayer);
@@ -236,11 +244,11 @@ public class Main{
 					System.out.println("Please enter an integer from 0 to " + deckSizeMinusOne + ".");
 				}
 			}
-			deck.deckList.add(deckLocation, drawnCard); //Puts the defused card back into the deck
-			//defuser.hand.remove(deck.defuse); //Discards defuse from hand, places it in discard pile.
-			//deck.discard(deck.defuse);
+			//Puts the defused card back into the deck
+			deck.deckList.add(deckLocation, drawnCard); 
+			defuser.hand.remove(drawnCard);
 			System.out.println("You have defused.");
-			endTurnNoDraw();
+			defuser.endTurnNoDraw();
 		}
 		else if(isExploding){
 			System.out.println("You do not have a defuse in hand.");
@@ -265,14 +273,15 @@ public class Main{
 		//Amount of cards to show
 		int tempViewReturn = 3;
 		//Shows cards
-		for (int i = 0; i<3; i++) {
-			tempView.add(deck.topCard());
-			System.out.println(tempView.get(i));
+		for (int i = 0; i<tempViewReturn; i++) {
+			tempView.add(0,deck.topCard());
 		}
+		System.out.println("Top/tSecond from top/tThird from top");
+		System.out.println(tempView);
 		//Puts cards back
 		while(tempView.size()>0) {
 			tempViewReturn--;
-			if (tempViewReturn>0) {
+			if (tempViewReturn>=0) {
 				deck.deckList.add(0,tempView.get(tempViewReturn));
 			}
 			else {
@@ -292,7 +301,7 @@ public class Main{
 			//Does Nothing
 		}
 	}
-	public static void threeOfAKindSteal(CardType type) {
+	public static boolean threeOfAKindSteal(CardType type) {
 		CardType chosenNonDescript = type;
 		boolean isChoosing = true;
 		/**
@@ -337,7 +346,7 @@ public class Main{
 					stealer.hand.add(victim.hand.get(num));
 					System.out.println("You stole card " + victim.hand.get(num).type + " from player " + victim);
 					deck.discard(victim.hand.remove(num));
-					isChoosing = false;
+					return true;
 				}
 				catch(NumberFormatException e) {
 					System.out.println("Invalid imput");
@@ -348,16 +357,13 @@ public class Main{
 		else {
 			System.out.println("You do not have two remaining nonDescripts.");
 		}
+		return false;
 	}
 	public static Card getDrawnCard() {
 		Player drawer = players.get(currentPlayer);
 		return drawer.hand.get(drawer.hand.size()-1);
 	}
-	public static void endTurnNoDraw() { //Ends turn but places back card player would have drawn normally in the endTurn method. Possibly needs to be added in the 0 location in the deck
-		Player skipper = players.get(currentPlayer);
-		skipper.turns--;
-	}
-	public static void twoOfAKindSteal(CardType type) {
+	public static boolean twoOfAKindSteal(CardType type) {
 		CardType chosenNonDescript = type;
 		Player targeter = players.get(currentPlayer);
 		Player victim = askForVictim();
@@ -368,8 +374,7 @@ public class Main{
 			for (int i = 0; i<players.get(currentPlayer).hand.size();i++) {
 				//If contains nonDescript:
 				if (players.get(currentPlayer).hand.get(i).type.equals(chosenNonDescript)){
-					deck.discard(players.get(currentPlayer).hand.get(i));
-					players.get(currentPlayer).hand.remove(i);
+					deck.discard(players.get(currentPlayer).hand.remove(i));
 					//Ask for nope
 					System.out.println("Player "+victim.playerName+", would you like to nope? Say 'yes' to nope, 'no' to not nope");
 					boolean choosingNope = true;
@@ -381,7 +386,7 @@ public class Main{
 								deck.discard(deck.nope);
 								System.out.println("Two of a kind has been countered.");
 								isChoosing = false;
-								choosingNope = false;
+								return true;								
 							}					
 						}
 						//Resolves
@@ -390,18 +395,16 @@ public class Main{
 							Card givenCard = victim.hand.get(randCard);
 							victim.hand.remove(givenCard);
 							targeter.hand.add(givenCard);
-							choosingNope = false;
 							isChoosing = false;
+							return true;
 						}
 						else {
 							System.out.println("Please choose again. Yes or No.");
 						}
 					}
 				}
-				else {
-					System.out.println("You do not have two of those Non-Descripts");
-				}
 			}
 		}
+		return false;
 	}
 }

@@ -20,10 +20,11 @@ public class Player {
 	}
 	boolean wrongCard = true;
 	boolean noCard = false;
+	boolean mainIsChoosing = true;
 	public void turn() {
-		boolean isChoosing = true;
+		mainIsChoosing = true;
 		System.out.println("What would you like to do, player "+playerName+"? Type \"usecard\" to use a card, \"showhand\" to see your hand, and \"endturn\" to draw and end your turn.");
-		while(isChoosing) {
+		while(mainIsChoosing) {
 			wrongCard=true;
 			String userInput = input.nextLine(); 
 			if(userInput.equalsIgnoreCase("usecard")) {
@@ -51,7 +52,6 @@ public class Player {
 			}
 			else if (userInput.equalsIgnoreCase("endturn")) {
 				endTurn();
-				isChoosing = false;
 			}
 			else {
 				System.out.println("Please type one of the following options:\nusecard\nshowhand\nendturn");
@@ -59,9 +59,14 @@ public class Player {
 		}
 			
 	}
+	public void endTurnNoDraw() {
+		turns--;
+		mainIsChoosing = false;
+	}
 	public void endTurn() {
 		hand.add(Main.deck.topCard());
-		Main.players.get(Main.currentPlayer).turns--;
+		turns--;
+		mainIsChoosing = false;
 	}
 	public void showHand() {
 		for (int i = 0; i < hand.size(); i++) {
@@ -110,10 +115,7 @@ public class Player {
 	public void playCard(Card cardToPlay) {
 		switch(cardToPlay.type) {
 			case ATTACK:
-				Main.players.get(Main.nextPlayer).turns += 2;
-				//Main.players.get(Main.currentPlayer).hand.remove(Main.deck.attack);
-				Main.players.get(Main.currentPlayer).endTurn();
-				Main.attack = false;
+				Main.attack();
 				break;
 			case SKIP:
 				Main.skip();
@@ -152,16 +154,39 @@ public class Player {
 	public void nonDescriptOptions(CardType type) {
 		CardType chosenNonDescript = type;
 		boolean isChoosing = true;
+		//Stores nonDescript in case it is not valid to play
+		Card chosenCard=null;
+		switch(chosenNonDescript) {
+			case RAINBOW_RALPHING_CAT:
+				chosenCard=Main.deck.rainbowRalphingCat;
+				break;
+			case CATTERMELON:
+				chosenCard=Main.deck.catterMelon;
+			case TACOCAT:
+				chosenCard=Main.deck.tacoCat;
+			case HAIRY_POTATO_CAT:
+				chosenCard=Main.deck.hairyPotatoCat;
+			case BEARD_CAT:
+				chosenCard=Main.deck.beardCat;
+			default:
+				break;
+		}
 		System.out.println("Would you like to do a two or three of a kind steal? Enter '2' for 2 of a kind, '3' for three of a kind");
 		while (isChoosing) {
 			try {
 				int pChoice = Integer.parseInt(input.nextLine());
 				if (pChoice == 2) {
-					Main.twoOfAKindSteal(chosenNonDescript);
+					if(!Main.twoOfAKindSteal(chosenNonDescript)) {
+						//Gives back unused card if not successful
+						hand.add(chosenCard);
+					}
 					isChoosing = false;
 				}
 				if (pChoice == 3) {
-					Main.threeOfAKindSteal(chosenNonDescript);
+					if(!Main.threeOfAKindSteal(chosenNonDescript)) {
+						//Gives back unused card if not successful
+						hand.add(chosenCard);
+					}
 					isChoosing = false;
 				}
 				else {
