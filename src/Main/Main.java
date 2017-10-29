@@ -84,6 +84,25 @@ public class Main{
 				if (getDrawnCard().type.equals(CardType.EXPLODING_KITTEN)) {
 					explode();
 				}
+				else {
+					System.out.println("You have drawn "+getDrawnCard().type);
+					System.out.println("Would you like to defuse? Enter yes to defuse, or no to not defuse.");
+					boolean isChoosing = true;
+					while (isChoosing) {
+						String defuseChoice = input.nextLine();
+						if (defuseChoice.equalsIgnoreCase("yes")) {
+							defuse(false);
+							isChoosing = false;
+						}
+						if (defuseChoice.equalsIgnoreCase("no")) {
+							System.out.println("Not defusing. Moving to next player.");
+							isChoosing = false;
+						}
+						else {
+							System.out.println("That is not a valid choice.");
+						}
+					}
+				}
 			}
 		}
 		System.out.println(players.get(0).playerName + " won!"); //executes after while loop exits
@@ -170,11 +189,20 @@ public class Main{
 		attack = true;
 		//Ends turn, next player must take two turns
 	}
-	public static void defuse() { //Works for any card, not just exploding kittens
+	public static void defuse(boolean isExploding) { //Works for any card, not just exploding kittens
 		Player defuser = players.get(currentPlayer);
-		Card drawnCard;
-		drawnCard = getDrawnCard();
-		if (defuser.hand.contains(deck.defuse)) { //Checks if player has defuse, then it defuses the card and puts it back in the deck anywhere the player chooses
+		Card drawnCard=getDrawnCard();
+		boolean hasDefuse = false;
+		//Checks for defuse
+		for (int i = 0;i<defuser.hand.size()-1;i++) {
+			if (defuser.hand.get(i).type.equals(CardType.DEFUSE)) {
+				hasDefuse = true;
+				Card usedDefuse = defuser.hand.remove(i);
+				deck.discard(usedDefuse);
+				continue;
+			}
+		}
+		if (hasDefuse) { //Checks if player has defuse, then it defuses the card and puts it back in the deck anywhere the player chooses
 			System.out.println("Where would you like to place the card");
 			int deckSizeMinusOne = deck.deckList.size()-1;
 			System.out.println("You can place the card anywhere in the deck from the top, 0, to "+deckSizeMinusOne);
@@ -186,33 +214,37 @@ public class Main{
 					if (deckLocation >= 0 && deckLocation < deck.deckList.size()) {
 						break;
 					}
+					else {
+						System.out.println("Please enter an integer from 0 to "+ deckSizeMinusOne + ".");
+					}
 				}
 				catch (NumberFormatException e) {
 					System.out.println("Please enter an integer from 0 to "+ deckSizeMinusOne + ".");
 				}
 			}
-			defuser.hand.remove(drawnCard); //Removes the defused card from hand
 			deck.deckList.add(deckLocation, drawnCard); //Puts the defused card back into the deck
 			//defuser.hand.remove(deck.defuse); //Discards defuse from hand, places it in discard pile.
 			//deck.discard(deck.defuse);
 			System.out.println("You have defused.");
 			endTurnNoDraw();
 		}
+		else if(isExploding){
+			System.out.println("You do not have a defuse in hand.");
+			System.out.println("You die");
+			//discards hand
+			for(int i = 0; i<defuser.hand.size()-1;i++) {
+				deck.discard(defuser.hand.get(i));
+				defuser.hand.remove(i);
+			}
+			players.remove(defuser);
+		}
 		else {
 			System.out.println("You do not have a defuse in hand.");
 		}
 	}
 	public static void explode() {
-		Player exploder = players.get(currentPlayer);
-		System.out.println("You have drawn an exploding kitten. Type 'defuse' to defuse, type 'ok' to die");
-		String usrInput = input.nextLine();
-		if (usrInput.equalsIgnoreCase("defuse")) {
-			defuse();
-		}
-		else {
-			System.out.println("You die");
-			players.remove(exploder);
-		}
+		System.out.println("You have drawn an exploding kitten.");
+		defuse(true);
 	}
 	public static void seeTheFuture() {
 		ArrayList<Card> tempView = new ArrayList<Card>();
@@ -269,7 +301,7 @@ public class Main{
 		try {
 			int num = Integer.parseInt(ui);
 			stealer.hand.add(victim.hand.get(num));
-			System.out.println("You stole card " + victim.hand.get(num) + " from player " + victim);
+			System.out.println("You stole card " + victim.hand.get(num).type + " from player " + victim);
 			victim.hand.remove(num);
 
 		}
