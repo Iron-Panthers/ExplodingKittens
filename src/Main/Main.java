@@ -125,24 +125,35 @@ public class Main{
 		victim.showHand();
 		System.out.println("What card would you like to give? Type the card name to give or nope to counter the favor.");
 		boolean choosing = true;
+		boolean victimHasCard = false;
+		int victimCardLocation=100;
 		while(choosing) {	
-			Card chosenCard = new Card(Card.convertToCardType(input.nextLine()));
-			if (input.nextLine().equalsIgnoreCase("nope") && victim.hand.contains(chosenCard)) { //Removes card, discards card if nope
-				System.out.println("Favor countered");
-				victim.hand.remove(chosenCard);   
-				deck.discard(chosenCard);
-				targeter.hand.remove(deck.favor);
-				deck.discard(deck.favor);
-				choosing = false;
-			} else if (victim.hand.contains(chosenCard)) { //Removes cards, discards card if given
-				System.out.println("Giving "+chosenCard+" .");
-				victim.hand.remove(chosenCard);
-				targeter.hand.add(chosenCard);
-				targeter.hand.remove(deck.favor);
-				deck.discard(deck.favor);
-				choosing = false;
-			} else {
-				System.out.println("You do not have "+chosenCard+" in your hand.");
+			CardType chosenType = Card.convertToCardType(input.nextLine());
+			for (int i = 0; i<victim.hand.size();i++) {
+				if (victim.hand.get(i).type.equals(chosenType)) {
+					victimCardLocation=i;
+					victimHasCard=true;
+				}
+			}
+			if(!(victimCardLocation==100)){
+				if (chosenType.equals(CardType.NOPE) && victimHasCard) { //Removes card, discards card if nope
+					System.out.println("Favor countered");
+					Card discardedCard = victim.hand.get(victimCardLocation);
+					victim.hand.remove(victimCardLocation);   
+					deck.discard(discardedCard);
+					choosing = false;
+				} else if (victimHasCard) { //Removes cards, discards card if given
+					System.out.println("Giving "+victim.hand.get(victimCardLocation).type+" .");
+					Card givenCard = victim.hand.get(victimCardLocation);
+					victim.hand.remove(victimCardLocation); 
+					targeter.hand.add(givenCard);
+					choosing = false;
+				} else {
+					System.out.println("You do not have that card in your hand.");
+				}
+			}
+			else {
+				System.out.println("You do not have that card in your hand");
 			}
 		}
 	}
