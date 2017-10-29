@@ -44,8 +44,8 @@ public class Main{
 		while (isWrongCard) {
 			try {
 				numPlayers = input.nextInt();
-				if (numPlayers < 2 || numPlayers > 4) {
-					System.out.println("please enter an integer from 2-4");
+				if (numPlayers < 2 || numPlayers > 5) {
+					System.out.println("please enter an integer from 2-5");
 					continue;
 				} 
 				isWrongCard = false;
@@ -58,7 +58,7 @@ public class Main{
 		}
 		explodingKittenNum = numPlayers-1;
 		//Adds players to the arrayList players
-		for (int i = 1; i < numPlayers; i++) {
+		for (int i = 1; i <= numPlayers; i++) {
 			//Make variable temp? Set it to player+num
 			//String playerName = "player"+i; //Does not work, cannot make a string used as the player constructor.
 			Player player = new Player(i);
