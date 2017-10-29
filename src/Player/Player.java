@@ -24,6 +24,7 @@ public class Player {
 		boolean isChoosing = true;
 		System.out.println("What would you like to do, player "+playerName+"? Type \"usecard\" to use a card, \"showhand\" to see your hand, and \"endturn\" to draw and end your turn.");
 		while(isChoosing) {
+			wrongCard=true;
 			String userInput = input.nextLine(); 
 			if(userInput.equalsIgnoreCase("usecard")) {
 				while(wrongCard) {
