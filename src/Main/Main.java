@@ -19,7 +19,6 @@ public class Main{
 	static ArrayList<Card> nonDescripts;
 	public static int currentPlayer;
 	public static int nextPlayer;
-	public static int tempIterations;
 
 	//Constructors
 	public static Deck deck;
@@ -63,19 +62,19 @@ public class Main{
 			for(int x = 0; x < 4; x ++) {
 				player.hand.add(deck.topCard());
 			}
-			Card defuse = new Card(CardType.DEFUSE);
-			player.hand.add(defuse);
+			player.hand.add(deck.defuse);
 		}
 		//After players draw their cards, it puts exploding kittens into the deck
 		deck.fill(deck.explodingKitten,explodingKittenNum);
 		deck.shuffle();
 		//Game loop
 		while (players.size() > 1) {
+			//for each player, turn
 			for (int i = 0; i % players.size() < players.size(); i=(i + 1) % players.size()) {
+				//Checks if someone has won
 				if (players.size() == 1) {
 					break;
 				}
-				tempIterations=i;
 				nextPlayer = (i+1) % players.size();
 				currentPlayer = i;
 				players.get(i).turns=1;
@@ -281,38 +280,36 @@ public class Main{
 	public static void twoOfAKindSteal() {
 		Player targeter = players.get(currentPlayer);
 		Player victim = askForVictim();
-		ArrayList<Card> tempHand = new ArrayList<Card>();
-		tempHand = targeter.hand;
 		//Asks player for nonDescript
 		boolean isChoosing = true;
 		while (isChoosing) {
 			System.out.println("What Non-Descript would you like to play?");
-			Card nonDescript = new Card(Card.convertToCardType(input.nextLine()));
-			//Checks if hand has two of the nonDescripts
-			if (nonDescripts.contains(nonDescript)) {
-				if (tempHand.contains(nonDescript)) {
-					tempHand.remove(nonDescript);
-					//Has both cards
-					if (tempHand.contains(nonDescript)) {
-						tempHand.remove(nonDescript);
-						System.out.println("You have both cards");
-						targeter.hand.remove(nonDescript);
-						targeter.hand.remove(nonDescript);
-						deck.discard(nonDescript);
-						deck.discard(nonDescript);
-						System.out.println(victim.playerName+", would you like to nope? Say 'yes' to nope, 'no' to not nope");
-						String isNoping = input.nextLine();
+			String playerInput = input.nextLine();
+			CardType chosenType = Card.convertToCardType(playerInput);
+			if (chosenType.equals(CardType.ATTACK)||chosenType.equals(CardType.DEFUSE)||chosenType.equals(CardType.FAVOR)||chosenType.equals(CardType.NOPE)||chosenType.equals(CardType.SEE_THE_FUTURE)||chosenType.equals(CardType.SHUFFLE)||chosenType.equals(CardType.SKIP)) {
+				System.out.println("Please enter a non-descript.");
+			}
+			else {
+				
+				//Checks if hand has two of the nonDescripts
+				for (int i = 0; i<players.get(currentPlayer).hand.size();i++) {
+					//If contains nonDescript:
+					if (players.get(currentPlayer).hand.get(i).type.equals(chosenType)){
+						deck.discard(players.get(currentPlayer).hand.get(i));
+						players.get(currentPlayer).hand.remove(i);
+						//Ask for nope
+						System.out.println("Player "+victim.playerName+", would you like to nope? Say 'yes' to nope, 'no' to not nope");
 						boolean choosingNope = true;
 						while (choosingNope) {
+							String isNoping = input.nextLine();
 							if (isNoping.equalsIgnoreCase("yes")) {
 								if (victim.hand.contains(deck.nope)) {
 									victim.hand.remove(deck.nope);
 									deck.discard(deck.nope);
 									System.out.println("Two of a kind has been countered.");
-									choosingNope = false;
 									isChoosing = false;
-								}
-								
+									choosingNope = false;
+								}					
 							}
 							//Resolves
 							if (isNoping.equalsIgnoreCase("no")) {
@@ -324,20 +321,12 @@ public class Main{
 								isChoosing = false;
 							}
 							else {
-								System.out.println("Please choose again.");
+								System.out.println("Please choose again. Yes or No.");
 							}
 						}
 					}
-					else {
-						System.out.println("You do not have those two cards");
-					}
 				}
-				else {
-					System.out.println("You do not have those two cards.");
-				}
-			}
-			else {
-				System.out.println("You must choose two non descripts");
+				System.out.println("You do not have those non-descripts");
 			}
 		}
 	}

@@ -60,7 +60,7 @@ public class Player {
 	}
 	public void endTurn() {
 		hand.add(Main.deck.topCard());
-		Main.players.get(Main.tempIterations).turns--;
+		Main.players.get(Main.currentPlayer).turns--;
 	}
 	public void showHand() {
 		for (int i = 0; i < hand.size(); i++) {
