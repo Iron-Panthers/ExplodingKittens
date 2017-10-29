@@ -13,7 +13,7 @@ import card.CardType;
 public class Main{
 	//public static boolean attack;
 	static int numPlayers = 4;
-	static int explodingKittenNum = numPlayers-1;
+	static int explodingKittenNum;
 	static int lastPlayerAlive;
 	public static ArrayList<Player> players;
 	static ArrayList<Card> nonDescripts;
@@ -56,6 +56,7 @@ public class Main{
 				continue;
 			}
 		}
+		explodingKittenNum = numPlayers-1;
 		//Adds players to the arrayList players
 		for (int i = 1; i <= numPlayers; i++) {
 			Player player = new Player(i);
@@ -128,23 +129,24 @@ public class Main{
 		System.out.println("Please enter the integer for the player name.");
 		while (isChoosing) {
 			try {
+				System.out.println("Please enter the integer for the player name.");
 				int player = Integer.parseInt(input.nextLine());
 				//For loop that checks if any of the players in the array have the name of int
 				//Only chooses players other than targeter
-				for (int i = 0; i<players.size(); i++) {
+				for (int i = 0; i<players.size(); i++) {//Gets the player location
+					//Checks if player name is the same as the number inputed
 					if (players.get(i).playerName==player) {
-						playerLocation = i; //Gets the player location
-						isChoosing = false; 
+						playerLocation = i;
+						//Checks if player is trying to target themselves
+						if (!(players.get(playerLocation).playerName==players.get(currentPlayer).playerName)){
+							return players.get(playerLocation);
+						}
 					} //end if
 				}
 				 //end for
 				if (playerLocation==10) {
 					System.out.println("That is not a valid player. Please try again.");
 				} 
-				//Checks if player is trying to target themselves
-				if (!(players.get(playerLocation).playerName==players.get(currentPlayer).playerName)){
-					return players.get(playerLocation);
-				}
 				else {
 					System.out.println("You cannot target yourself");
 				}
@@ -159,11 +161,15 @@ public class Main{
 		Player targeter = players.get(currentPlayer);
 		Player victim = askForVictim();
 		victim.showHand();
-		System.out.println("What card would you like to give? Type the card name to give or nope to counter the favor.");
+		System.out.println("What card would you like to give, player "+victim.playerName+"? Type the card name to give or nope to counter the favor.");
 		boolean choosing = true;
 		boolean victimHasCard = false;
 		int victimCardLocation=100;
 		while(choosing) {	
+			if (victim.hand.size()==0) {
+				System.out.println("Player "+victim.playerName+" does not have any cards left");
+				break;
+			}
 			CardType chosenType = Card.convertToCardType(input.nextLine());
 			for (int i = 0; i<victim.hand.size();i++) {
 				if (victim.hand.get(i).type.equals(chosenType)) {
@@ -368,6 +374,11 @@ public class Main{
 				System.out.println(i + ": " + victim.hand.get(i));
 			}
 			while (isChoosing) {
+				if (victim.hand.size()==0) {
+					System.out.println("Player "+victim.playerName+" does not have any cards left");
+					isChoosing = false;
+					break;
+				}
 				System.out.println("Which card would you like? (Say a number listed)");
 				String ui = input.nextLine();
 				try {
@@ -420,6 +431,10 @@ public class Main{
 						}
 						//Resolves
 						if (isNoping.equalsIgnoreCase("no")) {
+							if (victim.hand.size()==0) {
+								System.out.println("Player "+victim.playerName+" does not have any cards left");
+								return false;
+							}
 							int randCard = randomCard.nextInt(victim.hand.size());
 							Card givenCard = victim.hand.get(randCard);
 							victim.hand.remove(givenCard);
