@@ -212,7 +212,7 @@ public class Main{
 			players.get(nextPlayer).turns += 1;
 			//System.out.println(players.get(nextPlayer).turns);
 			hasSkipped = true;
-			System.out.println("Attack successful, skipping Player "+players.get(nextPlayer).playerName+".");
+			System.out.println("Attack successful, skipping Player "+players.get(currentPlayer).playerName+".");
 			players.get(currentPlayer).endTurnNoDraw();
 			//attack = false;
 		}
