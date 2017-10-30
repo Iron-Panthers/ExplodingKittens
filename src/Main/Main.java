@@ -297,6 +297,7 @@ public class Main{
 		else if(isExploding){
 			System.out.println("You do not have a defuse in hand.");
 			System.out.println("You die");
+			defuser.turns = 0;
 			//discards hand
 			for(int i = 0; i<defuser.hand.size()-1;i++) {
 				deck.discard(defuser.hand.get(i));
