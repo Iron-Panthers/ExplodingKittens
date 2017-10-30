@@ -82,7 +82,7 @@ public class Main{
 				}
 				nextPlayer = (i+1) % players.size();
 				currentPlayer = i;
-				players.get(i).turns+=1;
+				players.get(currentPlayer).turns+=1;
 				while (players.get(i).turns > 0) {
 					hasSkipped=false;
 					players.get(i).turn();
@@ -111,7 +111,7 @@ public class Main{
 				}
 			}
 		}
-		System.out.println(players.get(0).playerName + " won!"); //executes after while loop exits
+		System.out.println("Player"+ players.get(0).playerName + " won!"); //executes after while loop exits
 	}
 	public static Player askForVictim() {
 		System.out.println("Who would you like to target?");
@@ -209,7 +209,8 @@ public class Main{
 	}
 	public static void attack() { 
 		if (!askForNope()) {
-			players.get(nextPlayer).turns += 2;
+			//Adds extra turn
+			players.get(nextPlayer).turns += 1;
 			//System.out.println(players.get(nextPlayer).turns);
 			hasSkipped = true;
 			System.out.println("Attack successful, skipping Player "+players.get(currentPlayer).playerName+".");
