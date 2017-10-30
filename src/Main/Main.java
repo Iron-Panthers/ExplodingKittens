@@ -165,36 +165,42 @@ public class Main{
 		boolean victimHasCard = false;
 		int victimCardLocation=100;
 		while(choosing) {	
-			if (victim.hand.size()==0) {
-				System.out.println("Player "+victim.playerName+" does not have any cards left");
-				break;
-			}
-			CardType chosenType = Card.convertToCardType(input.nextLine());
-			for (int i = 0; i<victim.hand.size();i++) {
-				if (victim.hand.get(i).type.equals(chosenType)) {
-					victimCardLocation=i;
-					victimHasCard=true;
+			try {
+				if (victim.hand.size()==0) {
+					System.out.println("Player "+victim.playerName+" does not have any cards left");
+					break;
+				}
+				//Chooses card, checks if victim has this card
+				CardType chosenType = Card.convertToCardType(input.nextLine());
+				for (int i = 0; i<victim.hand.size();i++) {
+					if (victim.hand.get(i).type.equals(chosenType)) {
+						victimCardLocation=i;
+						victimHasCard=true;
+					}
+				}
+				if(!(victimCardLocation==100)){
+					if (chosenType.equals(CardType.NOPE) && victimHasCard) { //Removes card, discards card if nope
+						System.out.println("Favor countered");
+						Card discardedCard = victim.hand.get(victimCardLocation);
+						victim.hand.remove(victimCardLocation);   
+						deck.discard(discardedCard);
+						choosing = false;
+					} else if (victimHasCard) { //Removes cards, discards card if given
+						System.out.println("Giving "+victim.hand.get(victimCardLocation).type+" .");
+						Card givenCard = victim.hand.get(victimCardLocation);
+						victim.hand.remove(victimCardLocation); 
+						targeter.hand.add(givenCard);
+						choosing = false;
+					} else {
+						System.out.println("You do not have that card in your hand.");
+					}
+				}
+				else {
+					System.out.println("You do not have that card in your hand");
 				}
 			}
-			if(!(victimCardLocation==100)){
-				if (chosenType.equals(CardType.NOPE) && victimHasCard) { //Removes card, discards card if nope
-					System.out.println("Favor countered");
-					Card discardedCard = victim.hand.get(victimCardLocation);
-					victim.hand.remove(victimCardLocation);   
-					deck.discard(discardedCard);
-					choosing = false;
-				} else if (victimHasCard) { //Removes cards, discards card if given
-					System.out.println("Giving "+victim.hand.get(victimCardLocation).type+" .");
-					Card givenCard = victim.hand.get(victimCardLocation);
-					victim.hand.remove(victimCardLocation); 
-					targeter.hand.add(givenCard);
-					choosing = false;
-				} else {
-					System.out.println("You do not have that card in your hand.");
-				}
-			}
-			else {
-				System.out.println("You do not have that card in your hand");
+			catch (IllegalArgumentException e) {
+				System.out.println("Don't break our code. Please try again.");
 			}
 		}
 	}
@@ -208,6 +214,7 @@ public class Main{
 			players.get(nextPlayer).turns += 1;
 			//System.out.println(players.get(nextPlayer).turns);
 			hasSkipped = true;
+			System.out.println("Attack successful");
 			players.get(currentPlayer).endTurnNoDraw();
 			//attack = false;
 		}
@@ -231,6 +238,7 @@ public class Main{
 					break;
 				}
 				if (isNoping.equalsIgnoreCase("no")) {
+					System.out.println("Player "+players.get(currentPlayer).playerName+", your card has resolved.");
 					break;
 				}
 				else {
