@@ -303,6 +303,11 @@ public class Main{
 				defuser.hand.remove(i);
 			}
 			players.remove(defuser);
+			if (players.size()==1) {
+				System.out.println("Player "+players.get(0)+"won!");
+				input.next();
+				System.exit(0);
+			}
 		}
 		else {
 			System.out.println("You do not have a defuse in hand.");
