@@ -212,7 +212,7 @@ public class Main{
 			players.get(nextPlayer).turns += 1;
 			//System.out.println(players.get(nextPlayer).turns);
 			hasSkipped = true;
-			System.out.println("Attack successful");
+			System.out.println("Attack successful, skipping Player "+players.get(nextPlayer).playerName+".");
 			players.get(currentPlayer).endTurnNoDraw();
 			//attack = false;
 		}
@@ -250,6 +250,7 @@ public class Main{
 		if (!askForNope()) {
 			//Skips
 			hasSkipped=true;
+			System.out.println("Successfully skipped own turn.");
 			players.get(currentPlayer).endTurnNoDraw();
 		}
 	}
