@@ -213,27 +213,29 @@ public class Main{
 		}
 	}
 	public static boolean askForNope() { //Only for skip and attack, which always target the next player
+		if (players.get(nextPlayer).hand.contains(deck.nope)) {
 		boolean isChoosing = true;
-		System.out.println("Player "+players.get(nextPlayer).playerName+", would you like to nope? 'yes' to nope or 'no' to not nope.");
-		while (isChoosing) {
-			String isNoping = input.nextLine(); 
-			if (isNoping.equalsIgnoreCase("yes")) {
-				//Check if they have a nope
-				for (int i = 0; i<players.get(nextPlayer).hand.size()-1;i++) {
-					if (players.get(nextPlayer).hand.get(i).type.equals(CardType.NOPE)) {
-						System.out.println("Card has been countered");
-						//Discards nope
-						deck.discard(players.get(nextPlayer).hand.remove(i));
-						return true;
+			System.out.println("Player "+players.get(nextPlayer).playerName+", would you like to nope? 'yes' to nope or 'no' to not nope.");
+			while (isChoosing) {
+				String isNoping = input.nextLine(); 
+				if (isNoping.equalsIgnoreCase("yes")) {
+					//Check if they have a nope
+					for (int i = 0; i<players.get(nextPlayer).hand.size()-1;i++) {
+						if (players.get(nextPlayer).hand.get(i).type.equals(CardType.NOPE)) {
+							System.out.println("Card has been countered");
+							//Discards nope
+							deck.discard(players.get(nextPlayer).hand.remove(i));
+							return true;
+						}
 					}
+					break;
 				}
-				break;
-			}
-			if (isNoping.equalsIgnoreCase("no")) {
-				break;
-			}
-			else {
-				System.out.println("Please type 'yes' or 'no'");
+				if (isNoping.equalsIgnoreCase("no")) {
+					break;
+				}
+				else {
+					System.out.println("Please type 'yes' or 'no'");
+				}
 			}
 		}
 		return false;
