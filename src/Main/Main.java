@@ -99,12 +99,10 @@ public class Main{
 								if (defuseChoice.equalsIgnoreCase("yes")) {
 									defuse(false);
 									isChoosing = false;
-								}
-								if (defuseChoice.equalsIgnoreCase("no")) {
+								} else if (defuseChoice.equalsIgnoreCase("no")) {
 									System.out.println("Not defusing. Moving to next player.");
 									isChoosing = false;
-								}
-								else {
+								} else {
 									System.out.println("That is not a valid choice.");
 								}
 							}
