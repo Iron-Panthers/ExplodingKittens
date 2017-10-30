@@ -1,9 +1,8 @@
 package Main;
 
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 import Deck.Deck;
 import Player.Player;
@@ -43,15 +42,14 @@ public class Main{
 		boolean isWrongCard = true;
 		while (isWrongCard) {
 			try {
-				numPlayers = input.nextInt();
+				numPlayers = Integer.parseInt(input.nextLine());
 				if (numPlayers < 2 || numPlayers > 5) {
 					System.out.println("please enter an integer from 2-5");
 					continue;
 				} 
 				isWrongCard = false;
 			}
-			catch (InputMismatchException e) {
-				input.nextLine();
+			catch (NumberFormatException e) {
 				System.out.println("please enter an integer");
 				continue;
 			}
@@ -128,7 +126,6 @@ public class Main{
 		}
 		boolean isChoosing = true;
 		int playerLocation = 10; //Sets location of player input player in the array to where their chosen player is.
-		System.out.println("Please enter the integer for the player name.");
 		while (isChoosing) {
 			try {
 				System.out.println("Please enter the integer for the player name.");
