@@ -28,15 +28,9 @@ public class Main{
 	public static void main(String[] args) {
 		//attack = false;
 		input = new Scanner(System.in);
-		deck = new Deck(explodingKittenNum);
 		randomCard = new Random();
 		players = new ArrayList<Player>();
 		nonDescripts = new ArrayList<Card>();
-		nonDescripts.add(deck.catterMelon);
-		nonDescripts.add(deck.beardCat);
-		nonDescripts.add(deck.hairyPotatoCat);
-		nonDescripts.add(deck.rainbowRalphingCat);
-		nonDescripts.add(deck.tacoCat);
 		System.out.print("Welcome to Exploding Kittens. ");
 		System.out.println("How many people are playing?");
 		boolean isWrongCard = true;
@@ -54,7 +48,13 @@ public class Main{
 				continue;
 			}
 		}
-		explodingKittenNum = numPlayers-1;
+		explodingKittenNum = numPlayers-1;  
+		deck = new Deck(explodingKittenNum);
+		nonDescripts.add(deck.catterMelon);
+		nonDescripts.add(deck.beardCat);
+		nonDescripts.add(deck.hairyPotatoCat);
+		nonDescripts.add(deck.rainbowRalphingCat);
+		nonDescripts.add(deck.tacoCat);
 		//Adds players to the arrayList players
 		for (int i = 1; i <= numPlayers; i++) {
 			//Make variable temp? Set it to player+num
@@ -271,6 +271,9 @@ public class Main{
 		if (hasDefuse) { //Checks if player has defuse, then it defuses the card and puts it back in the deck anywhere the player chooses
 			System.out.println("Where would you like to place the card");
 			int deckSizeMinusOne = deck.deckList.size()-1;
+			if (deck.deckList.size()==0) { //If there is only one card left, the exploding kitten, the only possible location is zero.
+				deckSizeMinusOne = 0;
+			}
 			System.out.println("You can place the card anywhere in the deck from the top, 0, to "+deckSizeMinusOne);
 			boolean shilohLovesCalc = true;
 			int deckLocation = 0; //initializes deckLocation
@@ -305,7 +308,7 @@ public class Main{
 			}
 			players.remove(defuser);
 			if (players.size()==1) {
-				System.out.println("Player "+players.get(0)+"won!");
+				System.out.println("Player "+players.get(0).playerName+"won!");
 				input.next();
 				System.exit(0);
 			}
