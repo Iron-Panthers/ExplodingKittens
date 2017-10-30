@@ -46,7 +46,7 @@ public class Player {
 				}
 				System.out.println("Please type one of the following options:\nusecard\nshowhand\nendturn");
 			}
-			if (userInput.equalsIgnoreCase("showhand")) {
+			else if (userInput.equalsIgnoreCase("showhand")) {
 				showHand();
 				System.out.println("Please type one of the following options:\nusecard\nshowhand\nendturn");
 			}
