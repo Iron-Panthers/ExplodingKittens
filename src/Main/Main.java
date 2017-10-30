@@ -209,7 +209,7 @@ public class Main{
 	}
 	public static void attack() { 
 		if (!askForNope()) {
-			players.get(nextPlayer).turns += 1;
+			players.get(nextPlayer).turns += 2;
 			//System.out.println(players.get(nextPlayer).turns);
 			hasSkipped = true;
 			System.out.println("Attack successful, skipping Player "+players.get(nextPlayer).playerName+".");
@@ -294,7 +294,7 @@ public class Main{
 			defuser.endTurnNoDraw();
 		}
 		else if(isExploding){
-			System.out.println("You do not have a defuse in hand.");
+			System.out.println("Player "+players.get(currentPlayer).playerName+" does not have a defuse in hand.");
 			System.out.println("You die");
 			defuser.turns = 0;
 			//discards hand
