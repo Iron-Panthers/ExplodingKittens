@@ -111,7 +111,7 @@ public class Main{
 				}
 			}
 		}
-		System.out.println("Player"+ players.get(0).playerName + " won!"); //executes after while loop exits
+		System.out.println("Player "+ players.get(0).playerName + " won!"); //executes after while loop exits
 	}
 	public static Player askForVictim() {
 		System.out.println("Who would you like to target?");
