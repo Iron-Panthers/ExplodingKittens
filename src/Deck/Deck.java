@@ -3,9 +3,8 @@ package Deck;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import javax.smartcardio.Card;
-
-import card.*;
+import card.Card;
+import card.CardType;
 
 public class Deck {
 	public ArrayList<Card> deckList;
@@ -23,47 +22,47 @@ public class Deck {
 	int explodingKittenNum;
 	int seeTheFutureNum = 4;
 	int shuffleNum = 4;
-	int defuseNum = 6;
+	public static int defuseNum = 6;
 	int attackNum = 4;
 	int skipNum = 4;
 	int favorNum = 4;
 	int nopeNum = 5;
 	
 	//Non-Descript Instance Variables
-	Card rainbowRalphingCat;
-	Card hairyPotatoCat;
-	Card beardCat;
-	Card tacoCat;
-	Card catterMelon;
+	public Card rainbowRalphingCat;
+	public Card hairyPotatoCat;
+	public Card beardCat;
+	public Card tacoCat;
+	public Card catterMelon;
 	
 	//Action Card Instance Variables
-	Card explodingKitten;
-	Card seeTheFuture;
-	Card shuffle;
-	Card defuse;
-	Card attack;
-	Card skip;
-	Card favor;
-	Card nope;
+	public Card explodingKitten;
+	public Card seeTheFuture;
+	public Card shuffle;
+	public Card defuse;
+	public Card attack;
+	public Card skip;
+	public Card favor;
+	public Card nope;
 	
 	public Deck (int explodingKittenNumber) {
 		//player = new Player(); Do this in main class
 		//Non-descript Constructs
-		rainbowRalphingCat = new Card(CardTypes.RAINBOWRALPHINGCAT);
-		hairyPotatoCat = new Card(CardTypes.HAIRYPOTATOCAT);
-		beardCat = new Card(CardTypes.BEARDCAT);
-		tacoCat = new Card(CardTypes.TACOCAT);
-		catterMelon = new Card(CardTypes.CATTERMELON);
+		rainbowRalphingCat = new Card(CardType.RAINBOW_RALPHING_CAT);
+		hairyPotatoCat = new Card(CardType.HAIRY_POTATO_CAT);
+		beardCat = new Card(CardType.BEARD_CAT);
+		tacoCat = new Card(CardType.TACOCAT);
+		catterMelon = new Card(CardType.CATTERMELON);
 		
 		//Action Card Constructs
-		explodingKitten = new Card(CardTypes.EXPLODINGKITTEN);
-		seeTheFuture = new Card(CardTypes.SEETHEFUTURE);
-		shuffle = new Card(CardTypes.SHUFFLE);
-		defuse = new Card(CardTypes.DEFUSE);
-		attack = new Card(CardTypes.ATTACK);
-		skip = new Card(CardTypes.SKIP);
-		favor = new Card(CardTypes.FAVOR);
-		nope = new Card(CardTypes.NOPE);
+		explodingKitten = new Card(CardType.EXPLODING_KITTEN);
+		seeTheFuture = new Card(CardType.SEE_THE_FUTURE);
+		shuffle = new Card(CardType.SHUFFLE);
+		defuse = new Card(CardType.DEFUSE);
+		attack = new Card(CardType.ATTACK);
+		skip = new Card(CardType.SKIP);
+		favor = new Card(CardType.FAVOR);
+		nope = new Card(CardType.NOPE);
 		
 		explodingKittenNum=explodingKittenNumber;
 		deckList = new ArrayList<Card>();
@@ -77,7 +76,7 @@ public class Deck {
 		fill(catterMelon,catterMelonNum);
 		
 		//Action Card Fills
-		fill(explodingKitten,explodingKittenNum);
+		//Does not fill with Exploding kitten to avoid confusion in game start
 		fill(seeTheFuture,seeTheFutureNum);
 		fill(shuffle,shuffleNum);
 		fill(defuse,defuseNum);
@@ -100,8 +99,8 @@ public class Deck {
 			deckList.add(type);
 		}
 	}
-	public void discard(CardTypes card) {
-		discardPile.add(card);
+	public void discard(Card type) {
+		discardPile.add(type);
 	}
 	public boolean checkDiscard(Card card) {
 		return discardPile.contains(card);

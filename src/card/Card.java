@@ -7,9 +7,13 @@ public class Card {
 		this.type = type;
 	}
 	
-	public static CardType convertToString(String str) {
-		// ex: NOPe
+	public static CardType convertToCardType(String str) {
+		/**
+		 * converts String to CardType
+		 * ex: "rAiNbOw_RaLpHiNg CaT" to RAINBOW_RALPHING_CAT
+		 */
 		str = str.replaceAll("\\s+", "_");
+		str = str.replaceAll("-", "_");
 		for (int i = 0; i < CardType.values().length; i++) {
 			if (CardType.valueOf(str.toUpperCase()) == CardType.values()[i]) {
 				return CardType.values()[i];
@@ -17,34 +21,7 @@ public class Card {
 		}
 		return null;
 	}
-
-	/**
-	  boolean turnOver;
-	
-	public void playCard(int cardNumber) {
-		
-		if (type == CardType.SKIP) {
-			skip();
-		}
-		if (type == CardType.ATTACK) {
-			attack();
-		}
-		
+	public String toString() {
+		return type.toString();
 	}
-	
-	public void execute() {
-		if (turnOver==true) {
-			//method for ending turn in player
-		}
-	}
-	
-	public void attack() {
-		turnOver = true;
-	}
-
-	public void skip() {
-		turnOver = true;
-	}**/
 }
-
-// Card bomb = new Card(CardType.EXPLODING_KITTEN);
